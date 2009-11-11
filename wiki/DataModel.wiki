@@ -1,0 +1,120 @@
+#summary datamodel
+
+= DATAMODEL =
+||programas||||||||
+||prg_id||long||PK, FK software||identificador unico del programa||
+||prg_nombre||varchar(32)||*||nombre del programa instalado||
+||prg_tab||varchar(32)||*||*||
+
+||software||||||||
+||sof_pc_id||long||PK, FK programas||Identificador del pc||
+||sof_prg_id||long||PK, FK pc||Identificador del programa||
+
+||monitores||||||||
+||mon_id||long||PK, FK dispositivos||Identificador unico del monitor||
+||mon_pulgadas||int||*||tamaño del monitor||
+||mon_pc_asociado||long||FK pc||Ordenador personal asociado al monitor||
+
+||otros_dispositivos||||||||
+||odisp_id||long||PK, FK dispositivos||Identificador||
+||odisp_nombre||varchar(32)||*||Nombre breve del dispositivo||
+||odisp_ip||long||FK ip||Dirección del dispositivo||
+||odisp_descripcion||varchar(64)||*||Descripcion del dispositivo||
+||odisp_ayuda||varchar(256)||*||*||
+
+||pc||||||||
+||pc_id||long||PK, FK dispositivos, monitores||Identificador del ordenador personal||
+||pc_nombre||varchar(32)||||Nombre del ordenador personal||
+||pc_usuario||varchar(32)||||Identificador del usuario del ordenador personal||
+||pc_ip||long||FK ip||Direccion ip del pc||
+||pc_sna||varchar(16)||||Direccion sna del pc||
+||pc_ram||int||||Cantidad de ram del pc||
+||pc_hd||int||||Cantidad de espacio de hd||
+||pc_lecto1||varchar(64)||||Descripcion del primer lector del pc||
+||pc_lecto2||varchar(64)||||Descripcion del segundo lector del pc||
+||pc_cpu||varchar(64)||||Pequeña descripcion de la cpu del pc||
+||pc_velocidad||int||||Velocidad de la cpu del pc||
+||pc_so||varchar(64)||||Nombre del sistema operativo del pc||
+||pc_red||varchar(32)||||Tipo de red del pc||
+||pc_formato||varchar(64)||||Tipo de formato del pc||
+||pc_observaciones||varchar(256)||||Observaciones generales sobre el pc||
+
+||impresoras||||
+||imp_id||PK, FK dispositivos||
+||imp_nombre||||
+||imp_tipo||||
+||imp_cola||||
+||imp_ip||FK ip||
+||imp_puerto||||
+||imp_spr||||
+
+||servidores_impresion||||
+||spr_id||PK, FK dispositivos||
+||spr_nombre||||
+||spr_ip||FK ip||
+||spr_red||||
+||spr_puertos||||
+||spr_prt1||||
+||spr_prt2||||
+
+||dispositivos||||
+||dis_id||PK, FK monitores, otros_dispositivos, pc, impresoras, servidores_impresion, partes||
+||dis_sn||||
+||dis_nombre||||
+||dis_marca||||
+||dis_modelo||||
+||dis_tipo||||
+||dis_centro||||
+||dis_sociedad||||
+||dis_departamento||FK departamentos||
+||dis_ubicacion||||
+||dis_fecha_compra||||
+||dis_fin_garantia||||
+||dis_proveedor||||
+||dis_mantenimiento||||
+||dis_observaciones||||
+
+||ip||||
+||ip_id||PK, FK otros_dispositivos, pc, impresoras, servidores_impresion||
+||ip_direccion||||
+||ip_assign||||
+||ip_rango||||
+||ip_byte1||||
+||ip_byte2||||
+||ip_byte3||||
+||ip_byte4||||
+||ip_mascara||||
+
+||partes||||
+||par_id||PK, FK diario_partes||
+||par_atu||||
+||par_fecha_parte||||
+||par_hora||||
+||par_numparte||||
+||par_dis_id||FK dispositivos||
+||par_dis_sn||||
+||par_dis_nombre||||
+||par_dis_marca||||
+||par_dis_modelo||||
+||par_dis_tipo||||
+||par_dis_centro||||
+||par_dis_departamento||||
+||par_dis_ubicacion||||
+||par_dis_fecha_compra||||
+||par_dis_fin_garantia||||
+||par_dis_proveedor||||
+||par_dis_mantenimiento||||
+||par_dis_observaciones||||
+
+||diario_partes||||
+||dpar_id||PK||
+||dpar_par_id||FK partes||
+||dpar_fecha||||
+||dpar_hora||||
+||dpar_accion||||
+
+||departamentos||||
+||dep_id||PK, FK dispositivos||
+||dep_nombre||||
+||dep_observaciones||||
+
