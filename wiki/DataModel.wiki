@@ -1,28 +1,28 @@
 #summary datamodel
 
 = DATAMODEL =
-||programas||||||||
+|| *programas||||||||
 ||prg_id||long||PK, FK software||identificador unico del programa||
 ||prg_nombre||varchar(32)||*||nombre del programa instalado||
 ||prg_tab||varchar(32)||*||*||
 
-||software||||||||
+|| *software||||||||
 ||sof_pc_id||long||PK, FK programas||Identificador del pc||
 ||sof_prg_id||long||PK, FK pc||Identificador del programa||
 
-||monitores||||||||
+|| *monitores||||||||
 ||mon_id||long||PK, FK dispositivos||Identificador unico del monitor||
 ||mon_pulgadas||int||*||tamaño del monitor||
 ||mon_pc_asociado||long||FK pc||Ordenador personal asociado al monitor||
 
-||otros_dispositivos||||||||
+|| *otros_dispositivos||||||||
 ||odisp_id||long||PK, FK dispositivos||Identificador||
 ||odisp_nombre||varchar(32)||*||Nombre breve del dispositivo||
 ||odisp_ip||long||FK ip||Dirección del dispositivo||
 ||odisp_descripcion||varchar(64)||*||Descripcion del dispositivo||
 ||odisp_ayuda||varchar(256)||*||*||
 
-||pc||||||||
+|| *pc||||||||
 ||pc_id||long||PK, FK dispositivos, monitores||Identificador del ordenador personal||
 ||pc_nombre||varchar(32)||*||Nombre del ordenador personal||
 ||pc_usuario||varchar(32)||*||Identificador del usuario del ordenador personal||
@@ -39,7 +39,7 @@
 ||pc_formato||varchar(64)||*||Tipo de formato del pc||
 ||pc_observaciones||varchar(256)||*||Observaciones generales sobre el pc||
 
-||impresoras||||||||
+|| *impresoras||||||||
 ||imp_id||long||PK, FK dispositivos||Identificador de la impresora||
 ||imp_nombre||varchar(32)||*||Nombre asignado a la impresora||
 ||imp_tipo||varchar(32)||*||laser, matricial, ...||
@@ -48,7 +48,7 @@
 ||imp_puerto||varchar(16)||*||Nombre del puerto||
 ||imp_spr||*||*||*||
 
-||servidores_impresion||||||||
+|| *servidores_impresion||||||||
 ||spr_id||long||PK, FK dispositivos||Identificador del servidor de impresion||
 ||spr_nombre||varchar(32)||*||Nombre descriptivo||
 ||spr_ip||long||FK ip||Direccion ip del servidor de impresion||
@@ -57,7 +57,7 @@
 ||spr_prt1||*||*||*||
 ||spr_prt2||*||*||*||
 
-||dispositivos||||||||
+|| *dispositivos||||||||
 ||dis_id||long||PK, FK monitores, otros_dispositivos, pc, impresoras, servidores_impresion, partes||Identificador||
 ||dis_sn||varchar(32)||*||Numero de serie el dispositivo||
 ||dis_nombre||varchar(32)||*||Nombre identificativo del dispositivo||
@@ -74,7 +74,7 @@
 ||dis_mantenimiento||varchar(1)||*||Mantenimiento S/N||
 ||dis_observaciones||varchar(256)||*||Comentarios generales||
 
-||ip||||||||
+|| *ip||||||||
 ||ip_id||long||PK, FK otros_dispositivos, pc, impresoras, servidores_impresion||Identificador||
 ||ip_direccion||varchar(16)||*||Direccion ip||
 ||ip_assign||varchar(1)||*||Direccion assignada S/N||
@@ -85,7 +85,7 @@
 ||ip_byte4||int||*||Cuarto byte||
 ||ip_mascara||varchar(16)||*||Mascara ip||
 
-||partes||||||||
+|| *partes||||||||
 ||par_id||long||PK, FK diario_partes||Identificador||
 ||par_atu||varchar(32)||*||Nombre del asistente||
 ||par_fecha||date||*||Fecha del parte||
@@ -106,17 +106,15 @@
 ||par_dis_mantenimiento||*||*||*||
 ||par_dis_observaciones||*||*||*||
 
-||diario_partes||||||||
+|| *diario_partes||||||||
 ||dpar_id||long||PK||Identificador||
 ||dpar_par_id||long||FK partes||Identificador del parte||
 ||dpar_fecha||date||*||Fecha||
 ||dpar_hora||time||*||Hora||
 ||dpar_accion||varchar(256)||*||Descripcion de la accion||
 
-||departamentos||||||||
+|| *departamentos||||||||
 ||dep_id||long||PK, FK dispositivos||Identificador||
 ||dep_nombre||varchar(32)||*||Nombre descriptivo||
 ||dep_observaciones||varchar(256)||*||Observaciones generales del departamento||
-
-
 
