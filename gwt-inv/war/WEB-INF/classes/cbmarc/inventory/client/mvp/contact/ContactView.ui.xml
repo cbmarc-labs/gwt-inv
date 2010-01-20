@@ -1,0 +1,19 @@
+<!-- MainView.ui.xml -->
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+    xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+  <ui:style>
+	.content {
+		min-width:740px;
+		width: 100%;
+		background-color: #eee;
+	}
+  </ui:style>
+  
+  <g:VerticalPanel styleName="{style.content}">
+  	<g:HTML>CONTACT</g:HTML>
+  	<g:SimplePanel ui:field="contentPanel" />
+  </g:VerticalPanel>
+
+</ui:UiBinder>
