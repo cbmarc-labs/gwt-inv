@@ -27,7 +27,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class MainPresenter implements Presenter {
 	
 	public interface Display {
-		Tree getMainMenu();
+		Tree getNavigation();
 		HasWidgets getContent();
 		Widget asWidget();
 	}
@@ -45,14 +45,14 @@ public class MainPresenter implements Presenter {
 	}
 	
 	public void bind() {
-		display.getMainMenu().addSelectionHandler(
+		display.getNavigation().addSelectionHandler(
 				new SelectionHandler<TreeItem>() {
 
 			@Override
 			public void onSelection(SelectionEvent<TreeItem> event) {
 				TreeItem item = event.getSelectedItem();
 				if (item == null) {
-					item = display.getMainMenu().getItem(0).getChild(0);
+					item = display.getNavigation().getItem(0).getChild(0);
 				}
 
 				Presenter presenter = itemPresenters.get(item);
@@ -72,7 +72,7 @@ public class MainPresenter implements Presenter {
 	}
 	
 	private void setupMainMenu() {
-		Tree tree = display.getMainMenu();
+		Tree tree = display.getNavigation();
 		
 		TreeItem catFirst = tree.addItem("First");
 		setupMainMenuOption(catFirst, 
@@ -80,9 +80,9 @@ public class MainPresenter implements Presenter {
 		setupMainMenuOption(catFirst, 
 			new DiaryPresenter(eventBus, new DiaryView()), "Diary");
 		
-		display.getMainMenu().getItem(0).setState(true);
-		display.getMainMenu().setSelectedItem(
-			display.getMainMenu().getItem(0).getChild(0));
+		display.getNavigation().getItem(0).setState(true);
+		display.getNavigation().setSelectedItem(
+			display.getNavigation().getItem(0).getChild(0));
 	}
 	
 	private void setupMainMenuOption(TreeItem parent, Presenter content,

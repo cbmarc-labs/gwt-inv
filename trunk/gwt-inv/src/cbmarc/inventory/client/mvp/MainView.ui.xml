@@ -4,33 +4,22 @@
     xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
   <ui:style>
-	.content {
-		min-width:740px;
-		width: 100%;
-		background-color: #eee;
-	}
-	
-	.izquierda {
-		width: 20em;
-		border: 1px solid #000;
-	}
-	
-	.derecha {
-		width: 100%;
-		border: 1px solid #000;
-	}
   </ui:style>
-  
-  <g:VerticalPanel ui:field="mainPanel" styleName="{style.content}">
-  	<g:HTML>HOLA MUNDO !!!</g:HTML>
-  	
-  	<g:HorizontalPanel>
-  		<g:SimplePanel styleName="{style.izquierda}">
-  			<g:Tree ui:field="mainMenu"></g:Tree>
-  		</g:SimplePanel>
-  		
-  		<g:SimplePanel ui:field="contentPanel" styleName="{style.derecha}" />
-  	</g:HorizontalPanel>
-  </g:VerticalPanel>
 
+  <g:HTMLPanel>
+    <div id="root">
+    	<div id="main">
+			<div id="header">GWT-INV Computer Inventory</div>
+			<div id="navigation">
+				<div>MENU PRINCIPAL</div>
+				<div><g:Tree ui:field="navigation" /></div>
+			</div>
+			<div id="content">
+				<div><g:HorizontalPanel ui:field="content" width="100%" /></div>
+			</div>
+			<div id="footer">Footer1</div>
+		</div>
+	</div>
+  </g:HTMLPanel>
+  
 </ui:UiBinder>

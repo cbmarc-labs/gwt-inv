@@ -5,15 +5,19 @@
 
   <ui:style>
 	.content {
-		min-width:740px;
 		width: 100%;
-		background-color: #eee;
+	}
+	
+	.section {
+		background: #eee;
+		margin: 5px 0;
+		padding: 5px;
 	}
   </ui:style>
   
-  <g:VerticalPanel styleName="{style.content}">
-  	<g:HTML>CONTACT</g:HTML>
+  <g:HTMLPanel styleName="{style.content}">
+  	<g:HTML styleName="{style.section}">GWT-INV :: CONTACT</g:HTML>
   	<g:SimplePanel ui:field="contentPanel" />
-  </g:VerticalPanel>
+  </g:HTMLPanel>
 
 </ui:UiBinder>

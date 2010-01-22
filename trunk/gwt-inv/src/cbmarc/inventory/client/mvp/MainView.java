@@ -21,9 +21,8 @@ public class MainView extends Composite implements MainPresenter.Display {
 	interface uiBinder extends UiBinder<Widget, MainView> {}
 	private static uiBinder uiBinder = GWT.create(uiBinder.class);
 	
-	@UiField Panel mainPanel;
-	@UiField Panel contentPanel;
-	@UiField Tree mainMenu;
+	@UiField Tree navigation;
+	@UiField Panel content;
 	
 	public MainView() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -35,11 +34,11 @@ public class MainView extends Composite implements MainPresenter.Display {
 
 	@Override
 	public HasWidgets getContent() {
-		return contentPanel;
+		return content;
 	}
 
 	@Override
-	public Tree getMainMenu() {
-		return mainMenu;
+	public Tree getNavigation() {
+		return navigation;
 	}
 }

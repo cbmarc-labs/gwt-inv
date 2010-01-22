@@ -5,14 +5,12 @@
 
   <ui:style>
 	.content {
-		min-width:740px;
 		width: 100%;
-		background-color: #eee;
 	}
   </ui:style>
   
-  <g:VerticalPanel styleName="{style.content}">
-  	<g:HTML>DIARY</g:HTML>
-  </g:VerticalPanel>
+	<g:HTMLPanel styleName="{style.content}">
+  		<g:HTML>DIARY</g:HTML>
+	</g:HTMLPanel>
 
 </ui:UiBinder>
