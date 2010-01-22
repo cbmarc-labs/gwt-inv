@@ -8,6 +8,7 @@ import java.util.List;
 
 import cbmarc.inventory.client.mvp.Presenter;
 import cbmarc.inventory.client.mvp.contact.event.AddContactEvent;
+import cbmarc.inventory.shared.entity.Contact;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -26,15 +27,20 @@ public class ListContactPresenter implements Presenter {
 	public interface Display {
 		HasClickHandlers getAddButton();
 		HasClickHandlers getDeleteButton();
+		HasClickHandlers getcontactsTable();
 
 		void setData(List<String> data);
 		List<Integer> getSelectedRows();
+		
+		int getClickedRow(ClickEvent event);
 
 		Widget asWidget();
 	}
 
 	private final HandlerManager eventBus;
 	private final Display display;
+	
+	private List<Contact> contacts;
 
 	/**
 	 * @param eventBus
@@ -75,6 +81,17 @@ public class ListContactPresenter implements Presenter {
 			}
 			
 		});
+		
+		display.getcontactsTable().addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				int selectedRow = display.getClickedRow(event);
+				
+				Window.alert("ROW => " + selectedRow);
+			}
+			
+		});
 	}
 	
 	/**
@@ -100,13 +117,20 @@ public class ListContactPresenter implements Presenter {
 	 */
 	private void fetchContactDetails() {
 		List<String> data = new ArrayList<String>();
-		data.add("ESTE ES UNO");
-		data.add("ESTE ES DOS");
-		data.add("ESTE ES TRES");
-		data.add("ESTE ES CUATRO");
-		data.add("ESTE ES CINCO");
-		data.add("ESTE ES SEIS");
-		data.add("ESTE ES SIETE");
+		
+		contacts.add(new Contact("9", "nueve", "b", "c"));
+		contacts.add(new Contact("8", "ocho", "b", "c"));
+		contacts.add(new Contact("7", "siete", "b", "c"));
+		contacts.add(new Contact("6", "seis", "b", "c"));
+		contacts.add(new Contact("5", "cinco", "b", "c"));
+		contacts.add(new Contact("4", "cuatro", "b", "c"));
+		contacts.add(new Contact("3", "tres", "b", "c"));
+		contacts.add(new Contact("2", "dos", "b", "c"));
+		contacts.add(new Contact("1", "uno", "b", "c"));
+		
+		for (int i = 0; i < contacts.size(); ++i) {
+			data.add("Este es " + contacts.get(i).getFirstName());
+		}
 
 		display.setData(data);
 	}

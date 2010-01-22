@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -73,6 +74,21 @@ public class ListContactView extends Composite
 		
 		return selectedRows;
 	}
+	
+	public int getClickedRow(ClickEvent event) {
+		int selectedRow = -1;
+		HTMLTable.Cell cell = contactsTable.getCellForEvent(event);
+	    
+		if (cell != null) {
+			// Suppress clicks if the user is actually selecting the check box
+
+			if (cell.getCellIndex() > 0) {
+				selectedRow = cell.getRowIndex();
+			}
+		}
+	    
+		return selectedRow;
+	}
 
 	/* (non-Javadoc)
 	 * @see cbmarc.inventory.client.mvp.contact.ListContactPresenter.Display#getAddButton()
@@ -88,6 +104,11 @@ public class ListContactView extends Composite
 	@Override
 	public HasClickHandlers getDeleteButton() {
 		return deleteButton;
+	}
+
+	@Override
+	public HasClickHandlers getcontactsTable() {
+		return contactsTable;
 	}
 	
 	/* (non-Javadoc)

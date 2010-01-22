@@ -24,7 +24,7 @@
   	<g:HorizontalPanel styleName="{style.toolbar}">
   		<g:Button ui:field="listButton" text="Lista" />
   	</g:HorizontalPanel>
-
+	
   	<g:DecoratedTabPanel ui:field="tabs" width="100%">
   		<g:Tab text='General'>
   			<g:VerticalPanel>
