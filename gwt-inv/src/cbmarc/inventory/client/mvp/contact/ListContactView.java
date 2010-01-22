@@ -3,7 +3,6 @@
  */
 package cbmarc.inventory.client.mvp.contact;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +16,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -29,11 +29,12 @@ public class ListContactView extends Composite
 	private static uiBinder uiBinder = GWT.create(uiBinder.class);
 	
 	@UiField Button addButton;
+	@UiField Button deleteButton;
 	@UiField FlexTable contactsTable;
 	
 	public ListContactView() {
 		initWidget(uiBinder.createAndBindUi(this));
-		
+
 		contactsTable.getColumnFormatter().setWidth(0, "15px");
 	}
 	
@@ -72,13 +73,6 @@ public class ListContactView extends Composite
 		
 		return selectedRows;
 	}
-	
-	/* (non-Javadoc)
-	 * @see cbmarc.inventory.client.mvp.contact.ListContactPresenter.Display#asWidget()
-	 */
-	public Widget asWidget() {
-		  return this;
-	}
 
 	/* (non-Javadoc)
 	 * @see cbmarc.inventory.client.mvp.contact.ListContactPresenter.Display#getAddButton()
@@ -86,5 +80,20 @@ public class ListContactView extends Composite
 	@Override
 	public HasClickHandlers getAddButton() {
 		return addButton;
+	}
+
+	/* (non-Javadoc)
+	 * @see cbmarc.inventory.client.mvp.contact.ListContactPresenter.Display#getDeleteButton()
+	 */
+	@Override
+	public HasClickHandlers getDeleteButton() {
+		return deleteButton;
+	}
+	
+	/* (non-Javadoc)
+	 * @see cbmarc.inventory.client.mvp.contact.ListContactPresenter.Display#asWidget()
+	 */
+	public Widget asWidget() {
+		  return this;
 	}
 }
