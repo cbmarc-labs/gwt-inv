@@ -11,7 +11,7 @@ import cbmarc.inventory.client.mvp.contact.event.EditContactCancelledEvent;
 import cbmarc.inventory.client.mvp.contact.event.EditContactCancelledEventHandler;
 
 import com.google.gwt.event.shared.HandlerManager;
-import com.google.gwt.user.client.ui.DecoratedTabPanel;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
