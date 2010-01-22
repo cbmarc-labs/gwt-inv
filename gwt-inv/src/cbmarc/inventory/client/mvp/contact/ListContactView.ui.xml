@@ -5,15 +5,30 @@
 
   <ui:style>
 	.content {
-		min-width:740px;
 		width: 100%;
-		background-color: #eee;
+	}
+	
+	.toolbar {
+		background: #d9e7f8;
+		width: 100%;
+		margin: 5px 0;
+		padding: 5px;
+	}
+	
+	.contactsTable {
+		width: 100%;
+		background: #eee;
+		text-align: left;
 	}
   </ui:style>
   
-  <g:VerticalPanel styleName="{style.content}">
-  	<g:Button ui:field="addButton" text="Nuevo" />
-  	<g:HTML>LISTCONTACT</g:HTML>
-  </g:VerticalPanel>
+  <g:HTMLPanel styleName="{style.content}">
+  	<g:HorizontalPanel styleName="{style.toolbar}">
+  		<g:Button ui:field="addButton" text="Nuevo" />
+  	</g:HorizontalPanel>
+  	
+  	<g:FlexTable ui:field="contactsTable" styleName="{style.contactsTable}" />
+  	
+  </g:HTMLPanel>
 
 </ui:UiBinder>

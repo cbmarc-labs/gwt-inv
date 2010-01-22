@@ -1,19 +1,52 @@
-<!-- MainView.ui.xml -->
+<!-- EditContactView.ui.xml -->
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
     xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
   <ui:style>
 	.content {
-		min-width:740px;
+	}
+	
+	.menuPanel {
+		margin: 10px 0;
+	}
+	
+	.toolbar {
+		background: #d9e7f8;
 		width: 100%;
-		background-color: #eee;
+		margin: 5px 0;
+		padding: 5px;
 	}
   </ui:style>
   
-  <g:VerticalPanel styleName="{style.content}">
-  	<g:Button ui:field="listButton" text="Lista" />
-  	<g:HTML>EDITCONTACT</g:HTML>
-  </g:VerticalPanel>
+  <g:HTMLPanel styleName="{style.content}">
+  
+  	<g:HorizontalPanel styleName="{style.toolbar}">
+  		<g:Button ui:field="listButton" text="Lista" />
+  	</g:HorizontalPanel>
+
+  	<g:DecoratedTabPanel ui:field="tabs" width="100%">
+  		<g:Tab text='General'>
+  			<g:VerticalPanel>
+				<g:HTMLPanel>
+	  			<table>
+	  				<tr><td>Firstname:</td><td>
+	  				<g:TextBox ui:field="firstName" /></td></tr> 
+	  				<tr><td>Lastname:</td><td>
+	  				<g:TextBox ui:field="lastName" /></td></tr>
+	  				<tr><td>Email Address:</td><td>
+	  				<g:TextBox ui:field="emailAddress" /></td></tr>
+	  			</table>
+	  			</g:HTMLPanel>
+	  		</g:VerticalPanel>
+  		</g:Tab>
+  	</g:DecoratedTabPanel>
+
+	<g:HorizontalPanel ui:field="menuPanel" styleName="{style.menuPanel}">
+		<g:Button ui:field="saveButton" text="Saves" />
+		<g:Button ui:field="cancelButton" text="Cancel" />
+	</g:HorizontalPanel>
+
+  </g:HTMLPanel>
 
 </ui:UiBinder>

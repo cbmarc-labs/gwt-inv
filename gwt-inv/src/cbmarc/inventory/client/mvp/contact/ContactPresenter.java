@@ -11,6 +11,7 @@ import cbmarc.inventory.client.mvp.contact.event.EditContactCancelledEvent;
 import cbmarc.inventory.client.mvp.contact.event.EditContactCancelledEventHandler;
 
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -37,7 +38,7 @@ public class ContactPresenter implements Presenter {
 	    
 		this.lcp = new ListContactPresenter(eventBus, new ListContactView());
 		this.ecp = new EditContactPresenter(eventBus, new EditContactView());
-	    
+		
 	    bind();
 	}
 	

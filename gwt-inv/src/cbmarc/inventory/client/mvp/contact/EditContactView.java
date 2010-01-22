@@ -11,6 +11,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -23,9 +24,12 @@ public class EditContactView extends Composite
 	private static uiBinder uiBinder = GWT.create(uiBinder.class);
 	
 	@UiField Button listButton;
+	@UiField TabPanel tabs;
 	
 	public EditContactView() {
 		initWidget(uiBinder.createAndBindUi(this));
+		
+		tabs.selectTab(0);
 	}
 	
 	@UiHandler("listButton")
