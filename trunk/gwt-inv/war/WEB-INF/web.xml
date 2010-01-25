@@ -6,6 +6,15 @@
 <web-app>
   
   <!-- Servlets -->
+  <servlet>
+    <servlet-name>contactsServiceServlet</servlet-name>
+    <servlet-class>cbmarc.inventory.server.ContactsServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>contactsServiceServlet</servlet-name>
+    <url-pattern>/gwt_inv/contactsService</url-pattern>
+  </servlet-mapping>
   
   <!-- Default page to serve -->
   <welcome-file-list>
