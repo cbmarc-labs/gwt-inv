@@ -6,6 +6,8 @@ package cbmarc.inventory.client.mvp.contact;
 import java.util.ArrayList;
 import java.util.List;
 
+import cbmarc.inventory.shared.entity.Contact;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -16,7 +18,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -50,13 +51,17 @@ public class ListContactView extends Composite
 	/**
 	 * @param data
 	 */
-	public void setData(List<String> data) {
+	@Override
+	public void setData(List<Contact> data) {
 		contactsTable.removeAllRows();
-		
-		for (int i = 0; i < data.size(); ++i) {
-			contactsTable.setWidget(i, 0, new CheckBox());
-			contactsTable.setText(i, 1, data.get(i));
-		}
+
+		if (data != null)
+			for (int i = 0; i < data.size(); ++i) {
+				contactsTable.setWidget(i, 0, new CheckBox());
+				contactsTable.setText(i, 1, data.get(i).getFirstName());
+				contactsTable.setText(i, 2, data.get(i).getLastName());
+				contactsTable.setText(i, 3, data.get(i).getEmailAddress());
+			}
 	}
 	
 	/**

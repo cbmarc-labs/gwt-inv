@@ -22,7 +22,9 @@
   <g:HTMLPanel styleName="{style.content}">
   
   	<g:HorizontalPanel styleName="{style.toolbar}">
-  		<g:Button ui:field="listButton" text="Lista" />
+  		<g:FlowPanel>
+  			<g:Button ui:field="listButton" text="Lista" />
+  		</g:FlowPanel>
   	</g:HorizontalPanel>
 	
   	<g:DecoratedTabPanel ui:field="tabs" width="100%">

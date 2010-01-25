@@ -10,8 +10,8 @@ import cbmarc.inventory.client.mvp.contact.event.AddContactEventHandler;
 import cbmarc.inventory.client.mvp.contact.event.EditContactCancelledEvent;
 import cbmarc.inventory.client.mvp.contact.event.EditContactCancelledEventHandler;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -26,6 +26,7 @@ public class ContactPresenter implements Presenter {
 		Widget asWidget();
 	}
 	
+	private final ContactsServiceAsync rpcService; 
 	private final HandlerManager eventBus;
 	private final Display display;
 	
@@ -35,8 +36,10 @@ public class ContactPresenter implements Presenter {
 	public ContactPresenter(HandlerManager eventBus, Display view) {
 	    this.eventBus = eventBus;
 	    this.display = view;
+	    this.rpcService = GWT.create(ContactsService.class);
 	    
-		this.lcp = new ListContactPresenter(eventBus, new ListContactView());
+		this.lcp = new ListContactPresenter(rpcService, eventBus, 
+				new ListContactView());
 		this.ecp = new EditContactPresenter(eventBus, new EditContactView());
 		
 	    bind();
