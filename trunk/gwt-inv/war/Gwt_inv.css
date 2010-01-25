@@ -1,5 +1,43 @@
 /** Add css rules here for your application. */
+#root {
+	margin: 5px;
+}
 
+#main {
+	font: normal 11px auto "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	width: 100%;
+	/* background: #E6EAE9; */
+}
+
+#header {
+	padding: .5em;
+	font-size: 24px;
+	color: #fff;
+	background: #4E7DD1;
+	font-family: "Trebuchet MS";
+	margin: 0 0 10px 0;
+}
+
+#navigation {
+	padding: 0.1em;
+	margin: 0;
+	width: 195px;
+	float: left;
+}
+
+#content {
+	padding: 0.1em;
+	margin-left: 200px;
+}
+
+#footer {
+	clear: both;
+	margin: 10px 0 0 0;
+	padding: .5em;
+	color: #333;
+	background-color: #ddd;
+	display: none;
+}
 
 /** Example rules used by the template application (remove for your app) */
 h1 {
