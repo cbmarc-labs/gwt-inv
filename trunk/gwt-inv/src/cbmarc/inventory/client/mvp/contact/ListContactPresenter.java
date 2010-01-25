@@ -15,6 +15,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -29,7 +30,7 @@ public class ListContactPresenter implements Presenter {
 		HasClickHandlers getDeleteButton();
 		HasClickHandlers getcontactsTable();
 
-		void setData(List<String> data);
+		void setData(List<Contact> data);
 		List<Integer> getSelectedRows();
 		
 		int getClickedRow(ClickEvent event);
@@ -37,16 +38,19 @@ public class ListContactPresenter implements Presenter {
 		Widget asWidget();
 	}
 
+	private final ContactsServiceAsync rpcService;
 	private final HandlerManager eventBus;
 	private final Display display;
 	
-	private List<Contact> contacts;
+	private ArrayList<Contact> contacts;
 
 	/**
 	 * @param eventBus
 	 * @param view
 	 */
-	public ListContactPresenter(HandlerManager eventBus, Display view) {
+	public ListContactPresenter(ContactsServiceAsync rpcService, 
+			HandlerManager eventBus, Display view) {
+		this.rpcService = rpcService;
 		this.eventBus = eventBus;
 		this.display = view;
 		
@@ -109,30 +113,23 @@ public class ListContactPresenter implements Presenter {
 		container.clear();
 		container.add(display.asWidget());
 
-		fetchContactDetails();
+		getContacts();
 	}
+	
+	private void getContacts() {
+		rpcService.getContacts(new AsyncCallback<ArrayList<Contact>>() {
 
-	/**
-	 * 
-	 */
-	private void fetchContactDetails() {
-		List<String> data = new ArrayList<String>();
-		
-		contacts.add(new Contact("9", "nueve", "b", "c"));
-		contacts.add(new Contact("8", "ocho", "b", "c"));
-		contacts.add(new Contact("7", "siete", "b", "c"));
-		contacts.add(new Contact("6", "seis", "b", "c"));
-		contacts.add(new Contact("5", "cinco", "b", "c"));
-		contacts.add(new Contact("4", "cuatro", "b", "c"));
-		contacts.add(new Contact("3", "tres", "b", "c"));
-		contacts.add(new Contact("2", "dos", "b", "c"));
-		contacts.add(new Contact("1", "uno", "b", "c"));
-		
-		for (int i = 0; i < contacts.size(); ++i) {
-			data.add("Este es " + contacts.get(i).getFirstName());
-		}
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Error fetching contacts: " + caught.toString());
+			}
 
-		display.setData(data);
+			@Override
+			public void onSuccess(ArrayList<Contact> result) {
+				contacts = result;
+				display.setData(contacts);
+			}
+			
+		});
 	}
-
 }
