@@ -4,6 +4,7 @@ http://code.google.com/p/gwt-inv/
 http://gwt.google.com/samples/Showcase/Showcase.html
 http://groups.google.com/group/google-web-toolkit
 http://code.google.com/events/io/2009/sessions/GoogleWebToolkitBestPractices.html
+http://googlewebtoolkit.blogspot.com/
 
 http://employeeadm.appspot.com/
 
