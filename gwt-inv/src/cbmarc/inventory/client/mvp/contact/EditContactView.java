@@ -6,9 +6,11 @@ package cbmarc.inventory.client.mvp.contact;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Focusable;
@@ -37,11 +39,24 @@ public class EditContactView extends Composite
 	@UiField TabPanel tabs;
 	
 	public EditContactView() {
+		sinkEvents(Event.ONKEYPRESS);
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		tabs.selectTab(0);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.google.gwt.user.client.ui.Composite#onBrowserEvent(com.google.gwt.user.client.Event)
+	 */
+	@Override
+	public void onBrowserEvent(Event event) {
+		if(event.getKeyCode() == KeyCodes.KEY_ENTER) {
+			this.submitButton.click();
+		}
+		
+		super.onBrowserEvent(event);
+	}
+
 	@UiHandler("listButton")
 	void onCancelButtonClick(ClickEvent e) {
 		//Window.alert("Hello!");

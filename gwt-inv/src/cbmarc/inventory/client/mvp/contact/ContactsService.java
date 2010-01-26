@@ -16,12 +16,11 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("contactsService")
 public interface ContactsService extends RemoteService {
-	Contact insert(Contact contact);
-	Boolean delete(String id);
-	Contact update(Contact contact);
+	Boolean delete(Long id);
 	Contact save(Contact contact);
 	
-	ArrayList<Contact> delete(ArrayList<String> ids);
-	ArrayList<Contact> getContacts();
-	Contact getContact(String id);
+	ArrayList<Contact> delete(ArrayList<Long> ids);
+	ArrayList<Contact> select();
+	
+	Contact select(Long id);
 }

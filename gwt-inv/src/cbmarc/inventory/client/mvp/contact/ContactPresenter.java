@@ -87,7 +87,8 @@ public class ContactPresenter implements Presenter {
 			
 		});
 		
-		eventBus.addHandler(EditContactEvent.TYPE, new EditContactEventHandler() {
+		eventBus.addHandler(EditContactEvent.TYPE, 
+				new EditContactEventHandler() {
 
 			@Override
 			public void onEditContact(EditContactEvent event) {
@@ -101,6 +102,7 @@ public class ContactPresenter implements Presenter {
 	 * 
 	 */
 	private void doAddNewContact() {
+		editContact.setContact(new Contact());
 		editContact.go(display.getContent());
 	}
 	
@@ -111,8 +113,11 @@ public class ContactPresenter implements Presenter {
 		listContact.go(display.getContent());
 	}
 	
-	private void doEditContact(String id) {
-		rpcService.getContact(id, new AsyncCallback<Contact>() {
+	/**
+	 * @param id
+	 */
+	private void doEditContact(Long id) {
+		rpcService.select(id, new AsyncCallback<Contact>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
