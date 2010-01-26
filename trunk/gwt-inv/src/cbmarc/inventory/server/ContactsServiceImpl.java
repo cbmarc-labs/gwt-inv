@@ -6,10 +6,15 @@ package cbmarc.inventory.server;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+
+import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 
 import cbmarc.inventory.client.mvp.contact.ContactsService;
 import cbmarc.inventory.shared.entity.Contact;
 
+import com.google.appengine.repackaged.com.google.common.collect.Lists;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
@@ -19,74 +24,139 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class ContactsServiceImpl extends RemoteServiceServlet 
 		implements ContactsService {
-	
-	private final HashMap<Long, Contact> contacts = 
-		new HashMap<Long, Contact>();
 
 	/**
 	 * 
 	 */
 	public ContactsServiceImpl() {
-		//contacts = new ArrayList<Contact>();
-		
-		contacts.put(Long.parseLong("0"), new Contact(Long.parseLong("0"), "este es el cero", "0", "0"));
-		contacts.put(Long.parseLong("1"), new Contact(Long.parseLong("1"), "este es el uno", "1", "1"));
-		contacts.put(Long.parseLong("2"), new Contact(Long.parseLong("2"), "este es el dos", "2", "2"));
-		contacts.put(Long.parseLong("3"), new Contact(Long.parseLong("3"), "este es el tres", "3", "3"));
-		contacts.put(Long.parseLong("4"), new Contact(Long.parseLong("4"), "este es el cuatro", "4", "4"));
-		contacts.put(Long.parseLong("5"), new Contact(Long.parseLong("5"), "este es el cinco", "5", "5"));
-		contacts.put(Long.parseLong("6"), new Contact(Long.parseLong("6"), "este es el seis", "6", "6"));
-		contacts.put(Long.parseLong("7"), new Contact(Long.parseLong("7"), "este es el siete", "7", "7"));
-		contacts.put(Long.parseLong("8"), new Contact(Long.parseLong("8"), "este es el ocho", "8", "8"));
-		contacts.put(Long.parseLong("9"), new Contact(Long.parseLong("9"), "este es el nueve", "9", "9"));
 	}
 
 	@Override
-	public Boolean delete(Long id) {
-		contacts.remove(id);
+	public Boolean delete(Long id) throws Exception {
+		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
-		return null;
+		try {
+			pm.currentTransaction().begin();
+			Contact contact = pm.getObjectById(Contact.class, id);
+			pm.deletePersistent(contact);
+			
+			pm.currentTransaction().commit();
+		} catch(Exception e) {
+			pm.currentTransaction().rollback();
+			throw new Exception(e);
+		} finally {
+			pm.close();
+		}
+		
+		return true;
 	}
 
 	@Override
 	public ArrayList<Contact> delete(ArrayList<Long> ids) {
-		for (int i = 0; i < ids.size(); ++i) {
+		/*for (int i = 0; i < ids.size(); ++i) {
 			delete(ids.get(i));
 		}
 		
-		return select();
+		return select();*/
+		return null;
 	}
 
 	@Override
 	public Contact select(Long id) {
-		return contacts.get(id);
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		String query = "select UNIQUE from " + Contact.class.getName()
+			+ " where id == :contactId";
+		Query q = pm.newQuery(query);
+		
+		Contact result = (Contact) q.execute(id);
+
+		return result;
 	}
 
 	@Override
-	public ArrayList<Contact> select() {
-		ArrayList<Contact> result = new ArrayList<Contact>();
+	public List<Contact> select() {
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		List<Contact> result;
 		
-		Iterator<Long> it = contacts.keySet().iterator();
-		while(it.hasNext()) { 
-			result.add(contacts.get(it.next()));
+		try {
+			Query query = pm.newQuery(Contact.class);
+			
+			//query.setOrdering("date desc");
+			//query.setRange(first, first + count);
+			
+			result = (List<Contact>) query.execute();
+			result = Lists.newArrayList(pm.detachCopyAll(result));
+		} finally {
+			pm.close();
 		}
 		
 		return result;
 	}
 
 	@Override
-	public Contact save(Contact contact) {
+	public Contact save(Contact contact) throws Exception {
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		
 		if(contact.getId() == null) {
 			// perform a insert
-			contact.setId((long) contacts.size());
-			contacts.put(contact.getId(), contact);
+			
+			Query query = pm.newQuery(Contact.class);
+			query.setResult("count(this)");
+			Integer count = (Integer)query.execute();
+			
+			if(count < 25) {
+				try {
+					pm.currentTransaction().begin();
+					pm.makePersistent(contact);
+					pm.currentTransaction().commit();
+				} catch(Exception e) {
+					pm.currentTransaction().rollback();
+					throw new Exception(e);
+				} finally {
+					pm.close();
+				}
+			} else {
+				throw new Exception("Limit exceeded.");
+			}
 		} else {
 			// perform a update
-			contacts.remove(contact.getId());
-			contacts.put(contact.getId(), contact);
+			
+			try {
+				pm.currentTransaction().begin();
+				
+				Contact c = pm.getObjectById(Contact.class, contact.getId());
+				c.setFirstName(contact.getFirstName());
+				c.setLastName(contact.getLastName());
+				c.setEmailAddress(contact.getEmailAddress());
+				
+				pm.makePersistent(contact);
+				pm.currentTransaction().commit();
+			} catch(Exception e) {
+				throw new Exception(e);
+			} finally {
+				pm.currentTransaction().rollback();
+				pm.close();
+			}
 		}
 		
 		return contact;
+	}
+
+	@Override
+	public Integer count() {
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		final Query query = pm.newQuery(Contact.class);
+		Integer res;
+
+		query.setResult("count(this)");
+		
+		try {
+			res = (Integer) query.execute();
+		} finally {
+			pm.close();
+		}
+		
+		return res;
 	}
 
 }

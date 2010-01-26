@@ -114,7 +114,7 @@ public class EditContactPresenter implements Presenter {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("save failed");
+				Window.alert("Save failed: " + caught.toString());
 			}
 
 			@Override
