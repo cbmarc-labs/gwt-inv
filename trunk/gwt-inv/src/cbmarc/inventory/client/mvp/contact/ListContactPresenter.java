@@ -81,7 +81,7 @@ public class ListContactPresenter implements Presenter {
 					Window.alert("No hay ningun elemento seleccionado");
 				} else { 
 					if(Window.confirm("Borrar los elementos seleccionados ?"))
-						onDeleteSelected();
+						onDeleteSelected(selectedRows);
 				}
 			}
 			
@@ -94,7 +94,7 @@ public class ListContactPresenter implements Presenter {
 				int selectedRow = display.getClickedRow(event);
 				
 				if(selectedRow >= 0) {
-					String id = contacts.get(selectedRow).getId();
+					Long id = contacts.get(selectedRow).getId();
 					eventBus.fireEvent(new EditContactEvent(id));
 				}
 			}
@@ -105,8 +105,27 @@ public class ListContactPresenter implements Presenter {
 	/**
 	 * 
 	 */
-	private void onDeleteSelected() {
-		Window.alert("SE HAN BORRAO LOS ELEMENTOS");
+	private void onDeleteSelected(List<Integer> selectedRows) {
+		ArrayList<Long> ids = new ArrayList<Long>();
+		
+		for (int i = 0; i < selectedRows.size(); ++i) {
+			ids.add(contacts.get(selectedRows.get(i)).getId());
+		}
+		
+		rpcService.delete(ids, new AsyncCallback<ArrayList<Contact>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("ERROR");
+			}
+
+			@Override
+			public void onSuccess(ArrayList<Contact> result) {
+				contacts = result;
+				display.setData(contacts);
+			}
+			
+		});
 	}
 
 	/* (non-Javadoc)
@@ -121,7 +140,7 @@ public class ListContactPresenter implements Presenter {
 	}
 	
 	private void getContacts() {
-		rpcService.getContacts(new AsyncCallback<ArrayList<Contact>>() {
+		rpcService.select(new AsyncCallback<ArrayList<Contact>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {

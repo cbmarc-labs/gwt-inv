@@ -7,10 +7,20 @@
 	.content {
 		width: 100%;
 	}
+	
+	.section {
+		border-top: 1px solid #aaa;
+		border-bottom: 1px solid #aaa;
+		background: #eee;
+		margin: 5px 0;
+		padding: 5px;
+		font-weight: bolder;
+		color: #aaa;
+	}
   </ui:style>
   
 	<g:HTMLPanel styleName="{style.content}">
-  		<g:HTML>DIARY</g:HTML>
+  		<g:HTML styleName="{style.section}">GWT-INV :: DIARY</g:HTML>
 	</g:HTMLPanel>
 
 </ui:UiBinder>

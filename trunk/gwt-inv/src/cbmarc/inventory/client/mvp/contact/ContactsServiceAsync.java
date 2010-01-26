@@ -14,12 +14,10 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  *
  */
 public interface ContactsServiceAsync {
-	public void insert(Contact contact, AsyncCallback<Contact> callback);
-	public void delete(String id, AsyncCallback<Boolean> callback);
-	public void update(Contact contact, AsyncCallback<Contact> callback);
+	public void delete(Long id, AsyncCallback<Boolean> callback);
 	public void save(Contact contact, AsyncCallback<Contact> callback);
 	
-	public void delete(ArrayList<String> ids, AsyncCallback<ArrayList<Contact>> callback);
-	public void getContacts(AsyncCallback<ArrayList<Contact>> callback);
-	public void getContact(String id, AsyncCallback<Contact> callback);
+	public void delete(ArrayList<Long> ids, AsyncCallback<ArrayList<Contact>> callback);
+	public void select(AsyncCallback<ArrayList<Contact>> callback);
+	public void select(Long id, AsyncCallback<Contact> callback);
 }

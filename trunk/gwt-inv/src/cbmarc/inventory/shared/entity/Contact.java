@@ -5,18 +5,41 @@ package cbmarc.inventory.shared.entity;
 
 import java.io.Serializable;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
 /**
  * @author MCOSTA
  *
  */
-@SuppressWarnings("serial")
+@PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Contact implements Serializable {
-	public String id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	public Long id;
+	
+	@Persistent
 	public String firstName;
+	
+	@Persistent
 	public String lastName;
+	
+	@Persistent
 	public String emailAddress;
 	
-	public Contact() {};
+	/**
+	 * 
+	 */
+	public Contact() {
+	};
 			
 	/**
 	 * @param id
@@ -24,7 +47,7 @@ public class Contact implements Serializable {
 	 * @param lastName
 	 * @param emailAddress
 	 */
-	public Contact(String id, String firstName, String lastName,
+	public Contact(Long id, String firstName, String lastName,
 			String emailAddress) {
 		this.id = id;
 		this.firstName = firstName;
@@ -35,14 +58,14 @@ public class Contact implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

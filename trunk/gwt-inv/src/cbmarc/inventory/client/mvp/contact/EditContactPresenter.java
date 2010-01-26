@@ -56,7 +56,6 @@ public class EditContactPresenter implements Presenter {
 	    this.display = view;
 	    
 	    contact = new Contact();
-	    
 	    bind();
 	}
 	
@@ -89,6 +88,13 @@ public class EditContactPresenter implements Presenter {
 		});
 	}
 	
+	/**
+	 * @return the contact
+	 */
+	public Contact getContact() {
+		return contact;
+	}
+
 	/**
 	 * @param contact the contact to set
 	 */
