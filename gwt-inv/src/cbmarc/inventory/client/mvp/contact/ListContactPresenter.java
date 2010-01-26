@@ -8,6 +8,7 @@ import java.util.List;
 
 import cbmarc.inventory.client.mvp.Presenter;
 import cbmarc.inventory.client.mvp.contact.event.AddContactEvent;
+import cbmarc.inventory.client.mvp.contact.event.EditContactEvent;
 import cbmarc.inventory.shared.entity.Contact;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -92,7 +93,10 @@ public class ListContactPresenter implements Presenter {
 			public void onClick(ClickEvent event) {
 				int selectedRow = display.getClickedRow(event);
 				
-				Window.alert("ROW => " + selectedRow);
+				if(selectedRow >= 0) {
+					String id = contacts.get(selectedRow).getId();
+					eventBus.fireEvent(new EditContactEvent(id));
+				}
 			}
 			
 		});
