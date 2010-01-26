@@ -19,6 +19,7 @@ public interface ContactsService extends RemoteService {
 	Contact insert(Contact contact);
 	Boolean delete(String id);
 	Contact update(Contact contact);
+	Contact save(Contact contact);
 	
 	ArrayList<Contact> delete(ArrayList<String> ids);
 	ArrayList<Contact> getContacts();

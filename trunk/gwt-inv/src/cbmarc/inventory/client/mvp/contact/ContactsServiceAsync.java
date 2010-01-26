@@ -17,6 +17,7 @@ public interface ContactsServiceAsync {
 	public void insert(Contact contact, AsyncCallback<Contact> callback);
 	public void delete(String id, AsyncCallback<Boolean> callback);
 	public void update(Contact contact, AsyncCallback<Contact> callback);
+	public void save(Contact contact, AsyncCallback<Contact> callback);
 	
 	public void delete(ArrayList<String> ids, AsyncCallback<ArrayList<Contact>> callback);
 	public void getContacts(AsyncCallback<ArrayList<Contact>> callback);

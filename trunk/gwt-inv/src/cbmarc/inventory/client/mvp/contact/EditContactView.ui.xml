@@ -45,7 +45,7 @@
   	</g:DecoratedTabPanel>
 
 	<g:HorizontalPanel ui:field="menuPanel" styleName="{style.menuPanel}">
-		<g:Button ui:field="saveButton" text="Saves" />
+		<g:Button ui:field="submitButton" text="Submit" />
 		<g:Button ui:field="cancelButton" text="Cancel" />
 	</g:HorizontalPanel>
 

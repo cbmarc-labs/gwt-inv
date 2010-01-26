@@ -7,11 +7,18 @@ package cbmarc.inventory.client.mvp.contact;
 import cbmarc.inventory.client.mvp.Presenter;
 import cbmarc.inventory.client.mvp.contact.event.AddContactEvent;
 import cbmarc.inventory.client.mvp.contact.event.AddContactEventHandler;
-import cbmarc.inventory.client.mvp.contact.event.EditContactCancelledEvent;
-import cbmarc.inventory.client.mvp.contact.event.EditContactCancelledEventHandler;
+import cbmarc.inventory.client.mvp.contact.event.EditCancelledContactEvent;
+import cbmarc.inventory.client.mvp.contact.event.EditCancelledContactEventHandler;
+import cbmarc.inventory.client.mvp.contact.event.EditContactEvent;
+import cbmarc.inventory.client.mvp.contact.event.EditContactEventHandler;
+import cbmarc.inventory.client.mvp.contact.event.SavedContactEvent;
+import cbmarc.inventory.client.mvp.contact.event.SavedContactEventHandler;
+import cbmarc.inventory.shared.entity.Contact;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -30,21 +37,29 @@ public class ContactPresenter implements Presenter {
 	private final HandlerManager eventBus;
 	private final Display display;
 	
-	private ListContactPresenter lcp;
-	private EditContactPresenter ecp;
+	private final ListContactPresenter listContact;
+	private final EditContactPresenter editContact;
 	
+	/**
+	 * @param eventBus
+	 * @param view
+	 */
 	public ContactPresenter(HandlerManager eventBus, Display view) {
 	    this.eventBus = eventBus;
 	    this.display = view;
 	    this.rpcService = GWT.create(ContactsService.class);
 	    
-		this.lcp = new ListContactPresenter(rpcService, eventBus, 
-				new ListContactView());
-		this.ecp = new EditContactPresenter(eventBus, new EditContactView());
+		this.listContact = new ListContactPresenter(
+				rpcService, eventBus, new ListContactView());
+		this.editContact = new EditContactPresenter(
+				rpcService, eventBus, new EditContactView());
 		
 	    bind();
 	}
 	
+	/**
+	 * 
+	 */
 	public void bind() {
 		eventBus.addHandler(AddContactEvent.TYPE,
 				new AddContactEventHandler() {
@@ -53,29 +68,78 @@ public class ContactPresenter implements Presenter {
 			}
 	    });
 		
-		eventBus.addHandler(EditContactCancelledEvent.TYPE,
-				new EditContactCancelledEventHandler() {
+		eventBus.addHandler(EditCancelledContactEvent.TYPE,
+				new EditCancelledContactEventHandler() {
 
 			@Override
-			public void onEditContactCancelled(EditContactCancelledEvent event) {
+			public void onEditContactCancelled(EditCancelledContactEvent event) {
 				doEditContactCancelled();
 			}
 	    });
+		
+		eventBus.addHandler(SavedContactEvent.TYPE, 
+				new SavedContactEventHandler() {
+
+			@Override
+			public void onSavedContact(SavedContactEvent event) {
+				doEditContactCancelled();
+			}
+			
+		});
+		
+		eventBus.addHandler(EditContactEvent.TYPE, new EditContactEventHandler() {
+
+			@Override
+			public void onEditContact(EditContactEvent event) {
+				doEditContact(event.getId());
+			}
+			
+		});
 	}
 	
+	/**
+	 * 
+	 */
 	private void doAddNewContact() {
-		ecp.go(display.getContent());
+		editContact.go(display.getContent());
 	}
 	
+	/**
+	 * 
+	 */
 	private void doEditContactCancelled() {
-		lcp.go(display.getContent());
+		listContact.go(display.getContent());
+	}
+	
+	private void doEditContact(String id) {
+		rpcService.getContact(id, new AsyncCallback<Contact>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("NO SE HA PODIDO");
+			}
+
+			@Override
+			public void onSuccess(Contact result) {
+				if(result != null) {
+					editContact.setContact(result);
+					editContact.go(display.getContent());
+				} else {
+					Window.alert("NO SE HA PODIDO");
+				}
+			}
+			
+		});
 	}
 
+	/* (non-Javadoc)
+	 * @see cbmarc.inventory.client.mvp.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+	 */
 	@Override
 	public void go(HasWidgets container) {
 		container.clear();
 		
-		lcp.go(display.getContent());
+		listContact.go(display.getContent());
 	    container.add(display.asWidget());
 	}
 

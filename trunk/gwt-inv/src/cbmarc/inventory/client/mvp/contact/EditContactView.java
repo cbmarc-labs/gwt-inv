@@ -11,7 +11,10 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Focusable;
+import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TabPanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -24,6 +27,13 @@ public class EditContactView extends Composite
 	private static uiBinder uiBinder = GWT.create(uiBinder.class);
 	
 	@UiField Button listButton;
+	
+	@UiField TextBox firstName;
+	@UiField TextBox lastName;
+	@UiField TextBox emailAddress;
+	
+	@UiField Button submitButton;
+	@UiField Button cancelButton;
 	@UiField TabPanel tabs;
 	
 	public EditContactView() {
@@ -42,7 +52,44 @@ public class EditContactView extends Composite
 	}
 
 	@Override
-	public HasClickHandlers getTestButton() {
+	public HasClickHandlers getListButton() {
 		return listButton;
+	}
+
+	@Override
+	public HasClickHandlers getCancelButton() {
+		return cancelButton;
+	}
+
+	@Override
+	public HasClickHandlers getSubmitButton() {
+		return submitButton;
+	}
+
+	@Override
+	public void reset() {
+		this.firstName.setText("");
+		this.lastName.setText("");
+		this.emailAddress.setText("");
+	}
+
+	@Override
+	public HasValue<String> getEmailAddress() {
+		return this.emailAddress;
+	}
+
+	@Override
+	public HasValue<String> getFirstName() {
+		return this.firstName;
+	}
+
+	@Override
+	public HasValue<String> getLastName() {
+		return this.lastName;
+	}
+
+	@Override
+	public Focusable getFirstNameFocus() {
+		return this.firstName;
 	}
 }

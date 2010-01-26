@@ -51,8 +51,7 @@ public class ContactsServiceImpl extends RemoteServiceServlet
 
 	@Override
 	public Contact getContact(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return contacts.get(Integer.parseInt(id));
 	}
 
 	@Override
@@ -68,6 +67,12 @@ public class ContactsServiceImpl extends RemoteServiceServlet
 
 	@Override
 	public Contact update(Contact contact) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Contact save(Contact contact) {
 		// TODO Auto-generated method stub
 		return null;
 	}
