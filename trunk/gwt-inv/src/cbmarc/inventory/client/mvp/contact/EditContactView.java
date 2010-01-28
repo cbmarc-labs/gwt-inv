@@ -11,6 +11,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Focusable;
@@ -39,7 +40,7 @@ public class EditContactView extends Composite
 	@UiField TabPanel tabs;
 	
 	public EditContactView() {
-		sinkEvents(Event.ONKEYPRESS);
+		sinkEvents(Event.ONKEYDOWN);
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		tabs.selectTab(0);
@@ -52,6 +53,8 @@ public class EditContactView extends Composite
 	public void onBrowserEvent(Event event) {
 		if(event.getKeyCode() == KeyCodes.KEY_ENTER) {
 			this.submitButton.click();
+		} else if(event.getKeyCode() == KeyCodes.KEY_ESCAPE) {
+			this.cancelButton.click();
 		}
 		
 		super.onBrowserEvent(event);

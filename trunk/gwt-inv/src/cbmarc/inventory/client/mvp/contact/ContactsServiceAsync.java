@@ -3,6 +3,7 @@
  */
 package cbmarc.inventory.client.mvp.contact;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cbmarc.inventory.shared.entity.Contact;
@@ -19,7 +20,7 @@ public interface ContactsServiceAsync {
 	
 	public void count(AsyncCallback<Integer> callback);
 	
-	public void delete(List<Long> ids, AsyncCallback<List<Contact>> callback);
+	public void delete(ArrayList<Long> ids, AsyncCallback<List<Contact>> callback);
 	public void select(AsyncCallback<List<Contact>> callback);
 	public void select(Long id, AsyncCallback<Contact> callback);
 }
