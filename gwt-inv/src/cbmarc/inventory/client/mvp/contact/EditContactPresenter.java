@@ -49,6 +49,11 @@ public class EditContactPresenter implements Presenter {
 	private final HandlerManager eventBus;
 	private final Display display;
 	
+	/**
+	 * @param rpcService
+	 * @param eventBus
+	 * @param view
+	 */
 	public EditContactPresenter(ContactsServiceAsync rpcService, 
 			HandlerManager eventBus, Display view) {
 		this.rpcService = rpcService;
@@ -59,6 +64,9 @@ public class EditContactPresenter implements Presenter {
 	    bind();
 	}
 	
+	/**
+	 * 
+	 */
 	public void bind() {
 		display.getListButton().addClickHandler(new ClickHandler() {
 
@@ -125,6 +133,9 @@ public class EditContactPresenter implements Presenter {
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see cbmarc.inventory.client.mvp.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+	 */
 	@Override
 	public void go(HasWidgets container) {
 		container.clear();

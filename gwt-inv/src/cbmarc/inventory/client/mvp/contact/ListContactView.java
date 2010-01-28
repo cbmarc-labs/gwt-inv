@@ -61,6 +61,7 @@ public class ListContactView extends Composite
 				contactsTable.setText(i, 1, data.get(i).getFirstName());
 				contactsTable.setText(i, 2, data.get(i).getLastName());
 				contactsTable.setText(i, 3, data.get(i).getEmailAddress());
+				contactsTable.setText(i, 4, data.get(i).getDate().toString());
 			}
 	}
 	

@@ -4,6 +4,7 @@
 package cbmarc.inventory.client.mvp.contact;
 
 
+import cbmarc.inventory.client.event.LoadingEvent;
 import cbmarc.inventory.client.mvp.Presenter;
 import cbmarc.inventory.client.mvp.contact.event.AddContactEvent;
 import cbmarc.inventory.client.mvp.contact.event.AddContactEventHandler;

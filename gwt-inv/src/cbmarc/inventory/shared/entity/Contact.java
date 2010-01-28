@@ -4,6 +4,7 @@
 package cbmarc.inventory.shared.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -34,6 +35,9 @@ public class Contact implements Serializable {
 	
 	@Persistent
 	public String emailAddress;
+	
+	@Persistent
+	private Date date;
 	
 	/**
 	 * 
@@ -109,5 +113,19 @@ public class Contact implements Serializable {
 	 */
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
+	}
+
+	/**
+	 * @return the date
+	 */
+	public Date getDate() {
+		return date;
+	}
+
+	/**
+	 * @param date the date to set
+	 */
+	public void setDate(Date date) {
+		this.date = date;
 	}
 }

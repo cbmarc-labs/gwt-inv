@@ -6,6 +6,7 @@ package cbmarc.inventory.client.mvp.contact;
 import java.util.ArrayList;
 import java.util.List;
 
+import cbmarc.inventory.client.event.LoadingEvent;
 import cbmarc.inventory.client.mvp.Presenter;
 import cbmarc.inventory.client.mvp.contact.event.AddContactEvent;
 import cbmarc.inventory.client.mvp.contact.event.EditContactEvent;
@@ -43,7 +44,7 @@ public class ListContactPresenter implements Presenter {
 	private final HandlerManager eventBus;
 	private final Display display;
 	
-	private ArrayList<Contact> contacts;
+	private List<Contact> contacts;
 
 	/**
 	 * @param eventBus
@@ -112,15 +113,18 @@ public class ListContactPresenter implements Presenter {
 			ids.add(contacts.get(selectedRows.get(i)).getId());
 		}
 		
-		rpcService.delete(ids, new AsyncCallback<ArrayList<Contact>>() {
+		eventBus.fireEvent(new LoadingEvent(true));
+		rpcService.delete(ids, new AsyncCallback<List<Contact>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("ERROR");
+				eventBus.fireEvent(new LoadingEvent(false));
+				Window.alert("ERROR: " + caught.toString());
 			}
 
 			@Override
-			public void onSuccess(ArrayList<Contact> result) {
+			public void onSuccess(List<Contact> result) {
+				eventBus.fireEvent(new LoadingEvent(false));
 				contacts = result;
 				display.setData(contacts);
 			}
@@ -140,15 +144,18 @@ public class ListContactPresenter implements Presenter {
 	}
 	
 	private void getContacts() {
-		rpcService.select(new AsyncCallback<ArrayList<Contact>>() {
+		eventBus.fireEvent(new LoadingEvent(true));
+		rpcService.select(new AsyncCallback<List<Contact>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
+				eventBus.fireEvent(new LoadingEvent(false));
 				Window.alert("Error fetching contacts: " + caught.toString());
 			}
 
 			@Override
-			public void onSuccess(ArrayList<Contact> result) {
+			public void onSuccess(List<Contact> result) {
+				eventBus.fireEvent(new LoadingEvent(false));
 				contacts = result;
 				display.setData(contacts);
 			}
