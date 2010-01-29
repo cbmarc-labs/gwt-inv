@@ -1,0 +1,35 @@
+<!-- ListPartesView.ui.xml -->
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+    xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:i="urn:import:cbmarc.inventory.client.ui">
+
+  <ui:style>
+	.content {
+		width: 100%;
+	}
+	
+	.toolbar {
+		background: #d9e7f8;
+		width: 100%;
+		margin: 5px 0;
+		padding: 5px;
+	}
+	
+	.table {
+		width: 100%;
+		background: #eee;
+		text-align: left;
+	}
+  </ui:style>
+  
+  <g:HTMLPanel styleName="{style.content}">
+  	<g:HorizontalPanel styleName="{style.toolbar}">
+  		<g:FlowPanel>
+  			<g:Button ui:field="addButton" text="Nuevo" />
+  			<g:Button ui:field="deleteButton" text="Borrar" />
+  		</g:FlowPanel>
+  	</g:HorizontalPanel>
+
+  	<i:CFlexTable ui:field="table" styleName="{style.table}" />
+  </g:HTMLPanel>
+</ui:UiBinder>

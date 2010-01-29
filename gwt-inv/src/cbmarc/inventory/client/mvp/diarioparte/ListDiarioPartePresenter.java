@@ -1,16 +1,16 @@
 /**
  * 
  */
-package cbmarc.inventory.client.mvp.contact;
+package cbmarc.inventory.client.mvp.diarioparte;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cbmarc.inventory.client.event.LoadingEvent;
 import cbmarc.inventory.client.mvp.Presenter;
-import cbmarc.inventory.client.mvp.contact.event.AddContactEvent;
-import cbmarc.inventory.client.mvp.contact.event.EditContactEvent;
-import cbmarc.inventory.shared.entity.Contact;
+import cbmarc.inventory.client.mvp.diarioparte.event.AddDiarioParteEvent;
+import cbmarc.inventory.client.mvp.diarioparte.event.EditDiarioParteEvent;
+import cbmarc.inventory.shared.entity.DiarioParte;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -25,14 +25,14 @@ import com.google.gwt.user.client.ui.Widget;
  * @author MCOSTA
  * 
  */
-public class ListContactPresenter implements Presenter {
+public class ListDiarioPartePresenter implements Presenter {
 
 	public interface Display {
 		HasClickHandlers getAddButton();
 		HasClickHandlers getDeleteButton();
-		HasClickHandlers getcontactsTable();
+		HasClickHandlers getTable();
 
-		void setData(List<Contact> data);
+		void setData(List<DiarioParte> data);
 		List<Integer> getSelectedRows();
 		
 		int getClickedRow(ClickEvent event);
@@ -40,17 +40,17 @@ public class ListContactPresenter implements Presenter {
 		Widget asWidget();
 	}
 
-	private final ContactServiceAsync rpcService;
+	private final DiarioParteServiceAsync rpcService;
 	private final HandlerManager eventBus;
 	private final Display display;
 	
-	private List<Contact> contacts;
+	private List<DiarioParte> lista;
 
 	/**
 	 * @param eventBus
 	 * @param view
 	 */
-	public ListContactPresenter(ContactServiceAsync rpcService, 
+	public ListDiarioPartePresenter(DiarioParteServiceAsync rpcService, 
 			HandlerManager eventBus, Display view) {
 		this.rpcService = rpcService;
 		this.eventBus = eventBus;
@@ -67,7 +67,7 @@ public class ListContactPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new AddContactEvent());
+				eventBus.fireEvent(new AddDiarioParteEvent());
 			}
 
 		});
@@ -88,15 +88,15 @@ public class ListContactPresenter implements Presenter {
 			
 		});
 		
-		display.getcontactsTable().addClickHandler(new ClickHandler() {
+		display.getTable().addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				int selectedRow = display.getClickedRow(event);
 				
 				if(selectedRow >= 0) {
-					Long id = contacts.get(selectedRow).getId();
-					eventBus.fireEvent(new EditContactEvent(id));
+					Long id = lista.get(selectedRow).getId();
+					eventBus.fireEvent(new EditDiarioParteEvent(id));
 				}
 			}
 			
@@ -110,11 +110,11 @@ public class ListContactPresenter implements Presenter {
 		ArrayList<Long> ids = new ArrayList<Long>();
 		
 		for (int i = 0; i < selectedRows.size(); ++i) {
-			ids.add(contacts.get(selectedRows.get(i)).getId());
+			ids.add(lista.get(selectedRows.get(i)).getId());
 		}
 		
 		eventBus.fireEvent(new LoadingEvent(true));
-		rpcService.delete(ids, new AsyncCallback<List<Contact>>() {
+		rpcService.delete(ids, new AsyncCallback<List<DiarioParte>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -123,13 +123,18 @@ public class ListContactPresenter implements Presenter {
 			}
 
 			@Override
-			public void onSuccess(List<Contact> result) {
-				eventBus.fireEvent(new LoadingEvent(false));
-				contacts = result;
-				display.setData(contacts);
+			public void onSuccess(List<DiarioParte> result) {
+				setData(result);
 			}
 			
 		});
+	}
+	
+	private void setData(List<DiarioParte> result) {
+		eventBus.fireEvent(new LoadingEvent(false));
+				
+		lista = result;
+		display.setData(lista);
 	}
 
 	/* (non-Javadoc)
@@ -140,24 +145,22 @@ public class ListContactPresenter implements Presenter {
 		container.clear();
 		container.add(display.asWidget());
 
-		getContacts();
+		getData();
 	}
 	
-	private void getContacts() {
+	private void getData() {
 		eventBus.fireEvent(new LoadingEvent(true));
-		rpcService.select(new AsyncCallback<List<Contact>>() {
+		rpcService.select(new AsyncCallback<List<DiarioParte>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
 				eventBus.fireEvent(new LoadingEvent(false));
-				Window.alert("Error fetching contacts: " + caught.toString());
+				Window.alert("Error fetching Partes: " + caught.toString());
 			}
 
 			@Override
-			public void onSuccess(List<Contact> result) {
-				eventBus.fireEvent(new LoadingEvent(false));
-				contacts = result;
-				display.setData(contacts);
+			public void onSuccess(List<DiarioParte> result) {
+				setData(result);
 			}
 			
 		});

@@ -1,0 +1,82 @@
+<!-- EditContactView.ui.xml -->
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+    xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+  <ui:style>
+	.content {
+	}
+	
+	.menuPanel {
+		margin: 10px 0;
+	}
+	
+	.toolbar {
+		background: #d9e7f8;
+		width: 100%;
+		margin: 5px 0;
+		padding: 5px;
+	}
+	
+	.diario {
+		width: 100%;
+		background: #efe;
+	}
+  </ui:style>
+  
+  <g:HTMLPanel styleName="{style.content}">
+  
+  	<g:HorizontalPanel styleName="{style.toolbar}">
+  		<g:FlowPanel>
+  			<g:Button ui:field="listButton" text="Lista" />
+  		</g:FlowPanel>
+  	</g:HorizontalPanel>
+	
+  	<g:DecoratedTabPanel ui:field="tabs" width="100%">
+  		<g:Tab text='Parte'>
+  			<g:VerticalPanel>
+				<g:HTMLPanel>
+	  			<table>
+	  				<tr><td>Nombre asistente :</td><td><g:TextBox ui:field="atu" /></td></tr> 
+	  				<tr><td>Fecha :</td><td><g:TextBox ui:field="fecha" /></td></tr>
+	  				<tr><td>Hora :</td><td><g:TextBox ui:field="hora" /></td></tr>
+	  				<tr><td>Número del parte :</td><td><g:TextBox ui:field="numparte" /></td></tr>
+	  			</table>
+	  			</g:HTMLPanel>
+	  		</g:VerticalPanel>
+  		</g:Tab>
+  		<g:Tab text='Dispositivo'>
+  			<g:VerticalPanel>
+				<g:HTMLPanel>
+	  			<table>
+	  				<tr><td>Identificador del dispositivo :</td><td><g:TextBox ui:field="dis_id" /></td></tr> 
+	  				<tr><td>Numero de serie :</td><td><g:TextBox ui:field="dis_sn" /></td></tr>
+	  				<tr><td>Nombre :</td><td><g:TextBox ui:field="dis_nombre" /></td></tr>
+	  				<tr><td>Marca :</td><td><g:TextBox ui:field="dis_marca" /></td></tr>
+	  				<tr><td>Modelo :</td><td><g:TextBox ui:field="dis_modelo" /></td></tr>
+	  				<tr><td>Tipo :</td><td><g:TextBox ui:field="dis_tipo" /></td></tr>
+	  				<tr><td>Centro :</td><td><g:TextBox ui:field="dis_centro" /></td></tr>
+	  				<tr><td>Departamento :</td><td><g:TextBox ui:field="dis_departamento" /></td></tr>
+	  				<tr><td>Ubicacion :</td><td><g:TextBox ui:field="dis_ubicacion" /></td></tr>
+	  				<tr><td>Fecha de compra :</td><td><g:TextBox ui:field="dis_fecha_compra" /></td></tr>
+	  				<tr><td>Fecha del fin de garantia :</td><td><g:TextBox ui:field="dis_fin_garantia" /></td></tr>
+	  				<tr><td>Proveedor :</td><td><g:TextBox ui:field="dis_proveedor" /></td></tr>
+	  				<tr><td>Mantenimiento :</td><td><g:TextBox ui:field="dis_mantenimiento" /></td></tr>
+	  				<tr><td>Observaciones :</td><td><g:TextArea ui:field="dis_observaciones" /></td></tr>
+	  			</table>
+	  			</g:HTMLPanel>
+	  		</g:VerticalPanel>
+  		</g:Tab>
+  		<g:Tab text='Diario'>
+  			<g:HorizontalPanel ui:field="diario" styleName="{style.diario}" />
+  		</g:Tab>
+  	</g:DecoratedTabPanel>
+
+	<g:HorizontalPanel ui:field="menuPanel" styleName="{style.menuPanel}">
+		<g:Button ui:field="submitButton" text="Submit" />
+		<g:Button ui:field="cancelButton" text="Cancel" />
+	</g:HorizontalPanel>
+
+  </g:HTMLPanel>
+
+</ui:UiBinder>

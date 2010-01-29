@@ -1,47 +1,57 @@
 /**
  * 
  */
-package cbmarc.inventory.client.mvp.contact;
+package cbmarc.inventory.client.mvp.diarioparte;
+
+import java.util.Date;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Focusable;
-import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TabPanel;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.datepicker.client.DateBox;
 
 /**
  * @author MCOSTA
  *
  */
-public class EditContactView extends Composite 
-		implements EditContactPresenter.Display {
-	interface uiBinder extends UiBinder<Widget, EditContactView> {}
+public class EditDiarioParteView extends Composite 
+		implements EditDiarioPartePresenter.Display {
+	interface uiBinder extends UiBinder<Widget, EditDiarioParteView> {}
 	private static uiBinder uiBinder = GWT.create(uiBinder.class);
 	
 	@UiField HasClickHandlers listButton;
 	
-	@UiField TextBox firstName;
-	@UiField HasValue<String> lastName;
-	@UiField HasValue<String> emailAddress;
+	@UiField DateBox fecha;
+	@UiField ListBox hora;
+	@UiField ListBox minuto;
+	@UiField TextArea accion;
 	
 	@UiField HasClickHandlers submitButton;
 	@UiField HasClickHandlers cancelButton;
+	
 	@UiField TabPanel tabs;
 	
-	public EditContactView() {
-		sinkEvents(Event.ONKEYDOWN);
+	public EditDiarioParteView() {
+		// Problem with Enter on TextArea
+		//sinkEvents(Event.ONKEYDOWN);
 		initWidget(uiBinder.createAndBindUi(this));
 		
+		for(int i = 0; i < 24; i ++) hora.addItem(String.valueOf(i));
+		for(int i = 0; i < 60; i ++) minuto.addItem(String.valueOf(i));
+		
 		tabs.selectTab(0);
+		// TODO fecha.setLayoutData(layoutData)
 	}
 	
 	/* (non-Javadoc)
@@ -85,28 +95,34 @@ public class EditContactView extends Composite
 
 	@Override
 	public void reset() {
-		this.firstName.setText("");
-		this.lastName.setValue("");
-		this.emailAddress.setValue("");
+		// TODO this.fecha.setText("");
+		//this.hora.setValue("");
+		this.accion.setValue("");
 	}
 
 	@Override
-	public HasValue<String> getEmailAddress() {
-		return this.emailAddress;
+	public TextArea getAccion() {
+		return this.accion;
 	}
 
 	@Override
-	public HasValue<String> getFirstName() {
-		return this.firstName;
+	public DateBox getFecha() {
+		return this.fecha;
 	}
 
 	@Override
-	public HasValue<String> getLastName() {
-		return this.lastName;
+	public Date getHora() {
+		String h = this.hora.getItemText(this.hora.getSelectedIndex()) + ":" + 
+			this.minuto.getItemText(this.minuto.getSelectedIndex());
+		
+		return DateTimeFormat.getFormat("H:mm").parse(h);
 	}
 
 	@Override
-	public Focusable getFirstNameFocus() {
-		return this.firstName;
+	public void setHora(Date date) {
+		this.hora.setItemSelected(Integer.parseInt(
+				DateTimeFormat.getFormat("H").format(date)), true);
+		this.minuto.setItemSelected(Integer.parseInt(
+				DateTimeFormat.getFormat("mm").format(date)), true);
 	}
 }

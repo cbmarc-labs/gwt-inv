@@ -3,8 +3,6 @@
  */
 package cbmarc.inventory.client.mvp.contact;
 
-
-import cbmarc.inventory.client.event.LoadingEvent;
 import cbmarc.inventory.client.mvp.Presenter;
 import cbmarc.inventory.client.mvp.contact.event.AddContactEvent;
 import cbmarc.inventory.client.mvp.contact.event.AddContactEventHandler;
@@ -34,7 +32,7 @@ public class ContactPresenter implements Presenter {
 		Widget asWidget();
 	}
 	
-	private final ContactsServiceAsync rpcService; 
+	private final ContactServiceAsync rpcService; 
 	private final HandlerManager eventBus;
 	private final Display display;
 	
@@ -48,7 +46,7 @@ public class ContactPresenter implements Presenter {
 	public ContactPresenter(HandlerManager eventBus, Display view) {
 	    this.eventBus = eventBus;
 	    this.display = view;
-	    this.rpcService = GWT.create(ContactsService.class);
+	    this.rpcService = GWT.create(ContactService.class);
 	    
 		this.listContact = new ListContactPresenter(
 				rpcService, eventBus, new ListContactView());
@@ -61,7 +59,7 @@ public class ContactPresenter implements Presenter {
 	/**
 	 * 
 	 */
-	public void bind() {
+	public void bind() {		
 		eventBus.addHandler(AddContactEvent.TYPE,
 				new AddContactEventHandler() {
 			public void onAddContact(AddContactEvent event) {

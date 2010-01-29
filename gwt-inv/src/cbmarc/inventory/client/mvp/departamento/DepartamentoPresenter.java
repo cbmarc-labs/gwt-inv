@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cbmarc.inventory.client.mvp.diary;
+package cbmarc.inventory.client.mvp.departamento;
 
 import cbmarc.inventory.client.mvp.Presenter;
 
@@ -13,26 +13,35 @@ import com.google.gwt.user.client.ui.Widget;
  * @author MCOSTA
  *
  */
-public class DiaryPresenter implements Presenter {
+public class DepartamentoPresenter implements Presenter {
 	
 	public interface Display {
 		Widget asWidget();
 	}
 	
-	@SuppressWarnings("unused")
 	private final HandlerManager eventBus;
 	private final Display display;
 	
-	public DiaryPresenter(HandlerManager eventBus, Display view) {
+	/**
+	 * @param eventBus
+	 * @param view
+	 */
+	public DepartamentoPresenter(HandlerManager eventBus, Display view) {
 	    this.eventBus = eventBus;
 	    this.display = view;
-	    
+		
 	    bind();
 	}
 	
+	/**
+	 * 
+	 */
 	public void bind() {
 	}
 
+	/* (non-Javadoc)
+	 * @see cbmarc.inventory.client.mvp.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+	 */
 	@Override
 	public void go(HasWidgets container) {
 		container.clear();
