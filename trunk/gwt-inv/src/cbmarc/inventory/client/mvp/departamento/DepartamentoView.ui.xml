@@ -1,9 +1,9 @@
-<!-- DiaryView.ui.xml -->
+<!-- MainView.ui.xml -->
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
     xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
-  <ui:style>
+	<ui:style>
 	.content {
 		width: 100%;
 	}
@@ -19,8 +19,9 @@
 	}
   </ui:style>
   
-	<g:HTMLPanel styleName="{style.content}">
-  		<g:HTML styleName="{style.section}">GWT-INV :: DIARY</g:HTML>
-	</g:HTMLPanel>
+  <g:HTMLPanel styleName="{style.content}">
+  	<g:HTML styleName="{style.section}">GWT-INV :: DEPARTAMENTOS</g:HTML>
+  	<g:SimplePanel ui:field="contentPanel" />
+  </g:HTMLPanel>
 
 </ui:UiBinder>

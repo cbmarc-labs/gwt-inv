@@ -1,12 +1,14 @@
 /**
  * 
  */
-package cbmarc.inventory.client.mvp.contact;
+package cbmarc.inventory.client.mvp.diarioparte;
+
+import java.util.Date;
 
 import cbmarc.inventory.client.mvp.Presenter;
-import cbmarc.inventory.client.mvp.contact.event.EditCancelledContactEvent;
-import cbmarc.inventory.client.mvp.contact.event.SavedContactEvent;
-import cbmarc.inventory.shared.entity.Contact;
+import cbmarc.inventory.client.mvp.diarioparte.event.EditCancelledDiarioParteEvent;
+import cbmarc.inventory.client.mvp.diarioparte.event.SavedDiarioParteEvent;
+import cbmarc.inventory.shared.entity.DiarioParte;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -14,25 +16,24 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Focusable;
-import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.datepicker.client.DateBox;
 
 /**
  * @author MCOSTA
  *
  */
-public class EditContactPresenter implements Presenter {
+public class EditDiarioPartePresenter implements Presenter {
 	
 	public interface Display {
 		HasClickHandlers getListButton();
 		
-	    HasValue<String> getFirstName();
-	    HasValue<String> getLastName();
-	    HasValue<String> getEmailAddress();
-	    
-	    Focusable getFirstNameFocus();
+		DateBox getFecha();
+	    Date getHora();
+	    void setHora(Date date);
+	    TextArea getAccion();
 		
 		HasClickHandlers getSubmitButton();
 		HasClickHandlers getCancelButton();
@@ -42,9 +43,9 @@ public class EditContactPresenter implements Presenter {
 		Widget asWidget();
 	}
 	
-	private Contact contact;
+	private DiarioParte diarioParte;
 	
-	private final ContactServiceAsync rpcService;
+	private final DiarioParteServiceAsync rpcService;
 	private final HandlerManager eventBus;
 	private final Display display;
 	
@@ -53,13 +54,14 @@ public class EditContactPresenter implements Presenter {
 	 * @param eventBus
 	 * @param view
 	 */
-	public EditContactPresenter(ContactServiceAsync rpcService, 
+	public EditDiarioPartePresenter(DiarioParteServiceAsync rpcService, 
 			HandlerManager eventBus, Display view) {
 		this.rpcService = rpcService;
 	    this.eventBus = eventBus;
 	    this.display = view;
 	    
-	    contact = new Contact();
+	    this.diarioParte = new DiarioParte();
+	    
 	    bind();
 	}
 	
@@ -71,7 +73,7 @@ public class EditContactPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new EditCancelledContactEvent());
+				eventBus.fireEvent(new EditCancelledDiarioParteEvent());
 			}
 	    	
 	    });
@@ -80,7 +82,7 @@ public class EditContactPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new EditCancelledContactEvent());
+				eventBus.fireEvent(new EditCancelledDiarioParteEvent());
 			}
 			
 		});
@@ -96,28 +98,16 @@ public class EditContactPresenter implements Presenter {
 	}
 	
 	/**
-	 * @return the contact
-	 */
-	public Contact getContact() {
-		return contact;
-	}
-
-	/**
-	 * @param contact the contact to set
-	 */
-	public void setContact(Contact contact) {
-		this.contact = contact;
-	}
-	
-	/**
 	 * 
 	 */
 	private void doSave() {
-		contact.setFirstName(display.getFirstName().getValue());
-		contact.setLastName(display.getLastName().getValue());
-		contact.setEmailAddress(display.getEmailAddress().getValue());
+		diarioParte.setFecha(display.getFecha().getValue());
+		diarioParte.setHora(display.getHora());
+		diarioParte.setAccion(display.getAccion().getValue());
 		
-		rpcService.save(contact, new AsyncCallback<Contact>() {
+		Window.alert(diarioParte.toString());
+		
+		rpcService.save(diarioParte, new AsyncCallback<DiarioParte>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -125,13 +115,27 @@ public class EditContactPresenter implements Presenter {
 			}
 
 			@Override
-			public void onSuccess(Contact result) {
-				eventBus.fireEvent(new SavedContactEvent());
+			public void onSuccess(DiarioParte result) {
+				eventBus.fireEvent(new SavedDiarioParteEvent());
 			}
 			
 		});
 	}
 
+	/**
+	 * @return the diarioParte
+	 */
+	public DiarioParte getDiarioParte() {
+		return diarioParte;
+	}
+
+	/**
+	 * @param diarioParte the diarioParte to set
+	 */
+	public void setDiarioParte(DiarioParte diarioParte) {
+		this.diarioParte = diarioParte;
+	}
+	
 	/* (non-Javadoc)
 	 * @see cbmarc.inventory.client.mvp.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
 	 */
@@ -140,12 +144,13 @@ public class EditContactPresenter implements Presenter {
 		container.clear();
 		
 		display.reset();
-		display.getFirstName().setValue(contact.getFirstName());
-		display.getLastName().setValue(contact.getLastName());
-		display.getEmailAddress().setValue(contact.getEmailAddress());
+		
+		//display.getFecha().setValue(this.diarioParte.getFecha());
+		//display.setHora(new Date());
+		display.getAccion().setValue(this.diarioParte.getAccion());
 		
 	    container.add(display.asWidget());
-	    display.getFirstNameFocus().setFocus(true);
+	    display.getAccion().setFocus(true);
 	}
 
 }

@@ -15,8 +15,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  * @author MCOSTA
  *
  */
-@RemoteServiceRelativePath("contactsService")
-public interface ContactsService extends RemoteService {
+@RemoteServiceRelativePath("contactService")
+public interface ContactService extends RemoteService {
 	Boolean delete(Long id) throws Exception;
 	Contact save(Contact contact) throws Exception;
 	

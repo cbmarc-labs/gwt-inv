@@ -10,7 +10,7 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import cbmarc.inventory.client.mvp.contact.ContactsService;
+import cbmarc.inventory.client.mvp.contact.ContactService;
 import cbmarc.inventory.shared.entity.Contact;
 
 import com.google.appengine.repackaged.com.google.common.collect.Lists;
@@ -21,13 +21,13 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  *
  */
 @SuppressWarnings("serial")
-public class ContactsServiceImpl extends RemoteServiceServlet 
-		implements ContactsService {
+public class ContactServiceImpl extends RemoteServiceServlet 
+		implements ContactService {
 
 	/**
 	 * 
 	 */
-	public ContactsServiceImpl() {
+	public ContactServiceImpl() {
 	}
 
 	/* (non-Javadoc)

@@ -14,7 +14,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * @author MCOSTA
  *
  */
-public interface ContactsServiceAsync {
+public interface ContactServiceAsync {
 	public void delete(Long id, AsyncCallback<Boolean> callback);
 	public void save(Contact contact, AsyncCallback<Contact> callback);
 	

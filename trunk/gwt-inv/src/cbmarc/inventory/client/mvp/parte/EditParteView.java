@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cbmarc.inventory.client.mvp.contact;
+package cbmarc.inventory.client.mvp.parte;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -12,8 +12,8 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Focusable;
-import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -22,22 +22,24 @@ import com.google.gwt.user.client.ui.Widget;
  * @author MCOSTA
  *
  */
-public class EditContactView extends Composite 
-		implements EditContactPresenter.Display {
-	interface uiBinder extends UiBinder<Widget, EditContactView> {}
+public class EditParteView extends Composite 
+		implements EditPartePresenter.Display {
+	interface uiBinder extends UiBinder<Widget, EditParteView> {}
 	private static uiBinder uiBinder = GWT.create(uiBinder.class);
 	
 	@UiField HasClickHandlers listButton;
 	
-	@UiField TextBox firstName;
-	@UiField HasValue<String> lastName;
-	@UiField HasValue<String> emailAddress;
+	@UiField TextBox atu;
+	@UiField TextBox fecha;
+	
+	@UiField Panel diario;
 	
 	@UiField HasClickHandlers submitButton;
 	@UiField HasClickHandlers cancelButton;
+	
 	@UiField TabPanel tabs;
 	
-	public EditContactView() {
+	public EditParteView() {
 		sinkEvents(Event.ONKEYDOWN);
 		initWidget(uiBinder.createAndBindUi(this));
 		
@@ -85,28 +87,22 @@ public class EditContactView extends Composite
 
 	@Override
 	public void reset() {
-		this.firstName.setText("");
-		this.lastName.setValue("");
-		this.emailAddress.setValue("");
+		this.atu.setText("");
+		this.fecha.setValue("");
 	}
 
 	@Override
-	public HasValue<String> getEmailAddress() {
-		return this.emailAddress;
+	public TextBox getAtu() {
+		return this.atu;
 	}
 
 	@Override
-	public HasValue<String> getFirstName() {
-		return this.firstName;
+	public TextBox getFecha() {
+		return this.fecha;
 	}
 
 	@Override
-	public HasValue<String> getLastName() {
-		return this.lastName;
-	}
-
-	@Override
-	public Focusable getFirstNameFocus() {
-		return this.firstName;
+	public HasWidgets getDiario() {
+		return this.diario;
 	}
 }

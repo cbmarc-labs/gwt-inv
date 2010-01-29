@@ -6,11 +6,14 @@ package cbmarc.inventory.client.mvp;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import cbmarc.inventory.client.mvp.contact.ContactPresenter;
 import cbmarc.inventory.client.mvp.contact.ContactView;
-import cbmarc.inventory.client.mvp.diary.DiaryPresenter;
-import cbmarc.inventory.client.mvp.diary.DiaryView;
+import cbmarc.inventory.client.mvp.departamento.DepartamentoPresenter;
+import cbmarc.inventory.client.mvp.departamento.DepartamentoView;
+import cbmarc.inventory.client.mvp.diarioparte.DiarioPartePresenter;
+import cbmarc.inventory.client.mvp.diarioparte.DiarioParteView;
+import cbmarc.inventory.client.mvp.parte.PartePresenter;
+import cbmarc.inventory.client.mvp.parte.ParteView;
 
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
@@ -71,20 +74,33 @@ public class MainPresenter implements Presenter {
 	    container.add(display.asWidget());
 	}
 	
+	/**
+	 * 
+	 */
 	private void setupMainMenu() {
 		Tree tree = display.getNavigation();
 		
-		TreeItem catFirst = tree.addItem("First");
-		setupMainMenuOption(catFirst, 
-			new ContactPresenter(eventBus, new ContactView()), "Contact");
-		setupMainMenuOption(catFirst, 
-			new DiaryPresenter(eventBus, new DiaryView()), "Diary");
+		TreeItem catFirst = tree.addItem("MENU");
+		
+		setupMainMenuOption(catFirst, new ContactPresenter(eventBus,
+				new ContactView()),	"Contact");
+		setupMainMenuOption(catFirst, new PartePresenter(eventBus, 
+				new ParteView()), "Partes");
+		setupMainMenuOption(catFirst, new DiarioPartePresenter(eventBus, 
+				new DiarioParteView()), "Diario Partes");
+		setupMainMenuOption(catFirst, new DepartamentoPresenter(eventBus,
+				new DepartamentoView()), "Departamento");
 		
 		display.getNavigation().getItem(0).setState(true);
 		display.getNavigation().setSelectedItem(
 			display.getNavigation().getItem(0).getChild(0));
 	}
 	
+	/**
+	 * @param parent
+	 * @param content
+	 * @param title
+	 */
 	private void setupMainMenuOption(TreeItem parent, Presenter content,
 			String title) {
 		TreeItem option = parent.addItem(title);
