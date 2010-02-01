@@ -67,14 +67,14 @@ public class DiarioParteServiceImpl extends RemoteServiceServlet
 			}
 		}
 		
-		return select();
+		return select(null);
 	}
 
 	/* (non-Javadoc)
 	 * @see cbmarc.inventory.client.mvp.diarioparte.DiarioParteService#select(java.lang.Long)
 	 */
 	@Override
-	public DiarioParte select(Long id) {
+	public DiarioParte selectById(Long id) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		String query = "select UNIQUE from " + DiarioParte.class.getName()
 			+ " where id == :registerId";
@@ -90,13 +90,14 @@ public class DiarioParteServiceImpl extends RemoteServiceServlet
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<DiarioParte> select() {
+	public List<DiarioParte> select(String filter) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		List<DiarioParte> result;
 		
 		try {
 			Query query = pm.newQuery(DiarioParte.class);
 			
+			query.setFilter(filter);
 			query.setOrdering("date desc");
 			//query.setRange(first, first + count);
 			

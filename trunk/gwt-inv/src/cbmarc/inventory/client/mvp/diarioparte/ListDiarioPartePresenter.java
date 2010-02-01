@@ -44,6 +44,7 @@ public class ListDiarioPartePresenter implements Presenter {
 	private final HandlerManager eventBus;
 	private final Display display;
 	
+	private Long numParte = null;
 	private List<DiarioParte> lista;
 
 	/**
@@ -148,9 +149,28 @@ public class ListDiarioPartePresenter implements Presenter {
 		getData();
 	}
 	
+	/**
+	 * @return the numParte
+	 */
+	public Long getNumParte() {
+		return numParte;
+	}
+
+	/**
+	 * @param numParte the numParte to set
+	 */
+	public void setNumParte(Long numParte) {
+		this.numParte = numParte;
+	}
+
 	private void getData() {
+		String filter = null;
+		
+		if(this.numParte != null)
+			filter = "par_id==" + this.numParte;
+		
 		eventBus.fireEvent(new LoadingEvent(true));
-		rpcService.select(new AsyncCallback<List<DiarioParte>>() {
+		rpcService.select(filter, new AsyncCallback<List<DiarioParte>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {

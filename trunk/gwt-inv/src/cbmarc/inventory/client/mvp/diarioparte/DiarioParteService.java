@@ -21,8 +21,8 @@ public interface DiarioParteService extends RemoteService {
 	DiarioParte save(DiarioParte parte) throws Exception;
 	
 	List<DiarioParte> delete(ArrayList<Long> ids);
-	List<DiarioParte> select();
+	List<DiarioParte> select(String filter);
 	
 	Integer count();
-	DiarioParte select(Long id);
+	DiarioParte selectById(Long id);
 }

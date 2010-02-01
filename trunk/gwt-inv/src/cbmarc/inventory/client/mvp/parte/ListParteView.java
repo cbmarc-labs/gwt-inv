@@ -59,7 +59,7 @@ public class ListParteView extends Composite
 		if (data != null)
 			for (int i = 0; i < data.size(); ++i) {
 				table.setWidget(i, 0, new CheckBox());
-				table.setText(i, 4, data.get(i).getDate().toString());
+				table.setText(i, 1, data.get(i).getAtu());
 			}
 	}
 	

@@ -9,7 +9,7 @@
 	}
 	
 	.toolbar {
-		background: #d9e7f8;
+		background: #ebeff9;
 		width: 100%;
 		margin: 5px 0;
 		padding: 5px;

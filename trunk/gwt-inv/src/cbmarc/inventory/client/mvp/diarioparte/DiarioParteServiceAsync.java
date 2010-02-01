@@ -21,6 +21,6 @@ public interface DiarioParteServiceAsync {
 	public void count(AsyncCallback<Integer> callback);
 	
 	public void delete(ArrayList<Long> ids, AsyncCallback<List<DiarioParte>> callback);
-	public void select(AsyncCallback<List<DiarioParte>> callback);
-	public void select(Long id, AsyncCallback<DiarioParte> callback);
+	public void select(String filter, AsyncCallback<List<DiarioParte>> callback);
+	public void selectById(Long id, AsyncCallback<DiarioParte> callback);
 }

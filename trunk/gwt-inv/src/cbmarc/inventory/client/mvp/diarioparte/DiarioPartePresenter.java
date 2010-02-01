@@ -36,6 +36,8 @@ public class DiarioPartePresenter implements Presenter {
 	private final HandlerManager eventBus;
 	private final Display display;
 	
+	private Long numParte = null;
+	
 	private final ListDiarioPartePresenter list;
 	private final EditDiarioPartePresenter edit;
 	
@@ -102,7 +104,10 @@ public class DiarioPartePresenter implements Presenter {
 	 * 
 	 */
 	private void doAdd() {
-		edit.setDiarioParte(new DiarioParte());
+		DiarioParte dp = new DiarioParte();
+		dp.setPar_id(this.getNumParte());
+		
+		edit.setDiarioParte(dp);
 		edit.go(display.getContent());
 	}
 	
@@ -117,7 +122,7 @@ public class DiarioPartePresenter implements Presenter {
 	 * @param id
 	 */
 	private void doEdit(Long id) {
-		rpcService.select(id, new AsyncCallback<DiarioParte>() {
+		rpcService.selectById(id, new AsyncCallback<DiarioParte>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -135,6 +140,22 @@ public class DiarioPartePresenter implements Presenter {
 			}
 			
 		});
+	}
+
+	/**
+	 * @return the numParte
+	 */
+	public Long getNumParte() {
+		return numParte;
+	}
+
+	/**
+	 * @param numParte the numParte to set
+	 */
+	public void setNumParte(Long numParte) {
+		this.numParte = numParte;
+		
+		this.list.setNumParte(numParte);
 	}
 
 	/* (non-Javadoc)

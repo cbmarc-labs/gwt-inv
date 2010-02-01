@@ -5,7 +5,7 @@
 
   <ui:style>
 	.content {
-		width: 100%;
+		padding: 10px;
 	}
 	
 	.toolbar {
