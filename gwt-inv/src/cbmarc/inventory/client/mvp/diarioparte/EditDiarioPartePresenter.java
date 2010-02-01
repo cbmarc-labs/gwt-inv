@@ -30,6 +30,7 @@ public class EditDiarioPartePresenter implements Presenter {
 	public interface Display {
 		HasClickHandlers getListButton();
 		
+		void setFecha(Date fecha);
 		DateBox getFecha();
 	    Date getHora();
 	    void setHora(Date date);
@@ -105,8 +106,6 @@ public class EditDiarioPartePresenter implements Presenter {
 		diarioParte.setHora(display.getHora());
 		diarioParte.setAccion(display.getAccion().getValue());
 		
-		Window.alert(diarioParte.toString());
-		
 		rpcService.save(diarioParte, new AsyncCallback<DiarioParte>() {
 
 			@Override
@@ -145,8 +144,8 @@ public class EditDiarioPartePresenter implements Presenter {
 		
 		display.reset();
 		
-		//display.getFecha().setValue(this.diarioParte.getFecha());
-		//display.setHora(new Date());
+		display.setFecha(this.diarioParte.getFecha());
+		display.setHora(this.diarioParte.getHora());
 		display.getAccion().setValue(this.diarioParte.getAccion());
 		
 	    container.add(display.asWidget());

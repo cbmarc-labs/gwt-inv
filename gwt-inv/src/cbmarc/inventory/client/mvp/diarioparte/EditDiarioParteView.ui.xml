@@ -6,6 +6,7 @@
 
   <ui:style>
 	.content {
+		padding: 10px;
 	}
 	
 	.menuPanel {
@@ -27,19 +28,15 @@
   		</g:FlowPanel>
   	</g:HorizontalPanel>
 	
-  	<g:DecoratedTabPanel ui:field="tabs" width="100%" animationEnabled="true">
-  		<g:Tab text='General'>
-  			<g:VerticalPanel>
-				<g:HTMLPanel>
-	  			<table>
-	  				<tr><td>Fecha :</td><td><d:DateBox ui:field="fecha" /></td></tr>
-	  				<tr><td>Hora :</td><td><g:ListBox ui:field="hora" width="4em" />&nbsp;:&nbsp;<g:ListBox ui:field="minuto" width="4em" /></td></tr>
-	  				<tr><td>Acción del técnico :</td><td><g:TextArea ui:field="accion" width="30em" height="6em" /></td></tr>
-	  			</table>
-	  			</g:HTMLPanel>
-	  		</g:VerticalPanel>
-  		</g:Tab>
-  	</g:DecoratedTabPanel>
+  	<g:HorizontalPanel>
+		<g:HTMLPanel>
+			<table>
+			<tr><td>Fecha :</td><td><d:DateBox ui:field="fecha" /></td></tr>
+			<tr><td>Hora :</td><td><g:ListBox ui:field="hora" width="4em" />&nbsp;:&nbsp;<g:ListBox ui:field="minuto" width="4em" /></td></tr>
+			<tr><td>Acción del técnico :</td><td><g:TextArea ui:field="accion" width="30em" height="6em" /></td></tr>
+			</table>
+		</g:HTMLPanel>
+  	</g:HorizontalPanel>
 
 	<g:HorizontalPanel ui:field="menuPanel" styleName="{style.menuPanel}">
 		<g:Button ui:field="submitButton" text="Submit" />

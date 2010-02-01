@@ -38,20 +38,29 @@ public class DiarioParte implements Serializable {
 	
 	// Fecha del diario del parte
 	@Persistent
-	public Date fecha;
+	public Date fecha = new Date();
 	
 	// Hora de la entrada en el diario
 	@Persistent
-	public Date hora;
+	public Date hora = new Date();
 	
 	// accion del tecnico
 	@Persistent
-	public String accion;
+	public String accion = "";
 		
 	/**
 	 * 
 	 */
 	public DiarioParte() {
+	}
+	
+	/**
+	 * 
+	 */
+	public DiarioParte(Date fecha, Date hora, String accion) {
+		this.fecha = fecha;
+		this.hora = hora;
+		this.accion = accion;
 	}
 
 	/**
@@ -142,9 +151,9 @@ public class DiarioParte implements Serializable {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("[DiarioParte");
-		sb.append("[id: " + this.id.toString() + "]");
-		sb.append("[fecha: " + this.fecha.toString() + "]");
-		sb.append("[hora: " + this.hora.toString() + "]");
+		//sb.append("[id: " + this.id.toString() + "]");
+		//sb.append("[fecha: " + this.fecha.toString() + "]");
+		//sb.append("[hora: " + this.hora.toString() + "]");
 		sb.append("[accion: " + this.accion + "]");
 		sb.append("]");
 		

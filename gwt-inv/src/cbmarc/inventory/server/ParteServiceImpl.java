@@ -100,48 +100,28 @@ public class ParteServiceImpl extends RemoteServiceServlet
 	@Override
 	public Parte save(Parte parte) throws Exception {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		System.out.println(parte.getAtu());
 		
+		// Is a insert statement?
 		if(parte.getId() == null) {
-			// Perform an insert
-			
 			Query query = pm.newQuery(Parte.class);
 			query.setResult("count(this)");
 			Integer count = (Integer)query.execute();
 			
-			if(count < 25) {
-				try {
-					pm.currentTransaction().begin();
-					
-					parte.setDate(new Date());
-					pm.makePersistent(parte);
-					
-					pm.currentTransaction().commit();
-				} catch(Exception e) {
-					pm.currentTransaction().rollback();
-					throw new Exception(e);
-				} finally {
-					pm.close();
-				}
-			} else {
+			if(count > 25) 
 				throw new Exception("Limit exceeded.");
-			}
-		} else {
-			// Perform an update
 			
-			try {
-				Parte object = pm.getObjectById(
-						Parte.class, parte.getId());
-				
-				pm.currentTransaction().begin();
-				pm.makePersistent(parte);
-				pm.currentTransaction().commit();
-			} catch(Exception e) {
-				pm.currentTransaction().rollback();
-				throw new Exception(e);
-			} finally {
-				pm.close();
-			}
+			parte.setDate(new Date());
+		}
+		
+		try {				
+			pm.currentTransaction().begin();
+			pm.makePersistent(parte);
+			pm.currentTransaction().commit();
+		} catch(Exception e) {
+			pm.currentTransaction().rollback();
+			throw new Exception(e);
+		} finally {
+			pm.close();
 		}
 		
 		return parte;

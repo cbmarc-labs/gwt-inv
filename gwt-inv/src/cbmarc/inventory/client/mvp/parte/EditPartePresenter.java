@@ -167,13 +167,12 @@ public class EditPartePresenter implements Presenter {
 		container.clear();
 		
 		display.reset();
-		//display.getFirstName().setValue(contact.getFirstName());
-		//display.getLastName().setValue(contact.getLastName());
-		//display.getEmailAddress().setValue(contact.getEmailAddress());
+		display.getAtu().setValue(this.parte.getAtu());
 		
+		diarioparte.setNumParte(this.parte.getId());
 		diarioparte.go(display.getDiario());
 	    container.add(display.asWidget());
-	    //display.getFirstNameFocus().setFocus(true);
+	    display.getAtu().setFocus(true);
 	}
 
 }

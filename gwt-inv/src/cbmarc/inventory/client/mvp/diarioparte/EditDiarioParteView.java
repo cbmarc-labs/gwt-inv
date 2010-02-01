@@ -16,7 +16,6 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
@@ -40,18 +39,16 @@ public class EditDiarioParteView extends Composite
 	@UiField HasClickHandlers submitButton;
 	@UiField HasClickHandlers cancelButton;
 	
-	@UiField TabPanel tabs;
-	
 	public EditDiarioParteView() {
 		// Problem with Enter on TextArea
 		//sinkEvents(Event.ONKEYDOWN);
 		initWidget(uiBinder.createAndBindUi(this));
 		
+		this.fecha.setFormat(new DateBox.DefaultFormat(
+				DateTimeFormat.getFormat("dd / MM / yyyy")));
+		
 		for(int i = 0; i < 24; i ++) hora.addItem(String.valueOf(i));
 		for(int i = 0; i < 60; i ++) minuto.addItem(String.valueOf(i));
-		
-		tabs.selectTab(0);
-		// TODO fecha.setLayoutData(layoutData)
 	}
 	
 	/* (non-Javadoc)
@@ -96,7 +93,7 @@ public class EditDiarioParteView extends Composite
 	@Override
 	public void reset() {
 		// TODO this.fecha.setText("");
-		//this.hora.setValue("");
+		this.setHora(new Date());
 		this.accion.setValue("");
 	}
 
@@ -108,6 +105,13 @@ public class EditDiarioParteView extends Composite
 	@Override
 	public DateBox getFecha() {
 		return this.fecha;
+	}
+
+	/**
+	 * @param fecha the fecha to set
+	 */
+	public void setFecha(Date fecha) {
+		this.fecha.setValue(fecha);
 	}
 
 	@Override
