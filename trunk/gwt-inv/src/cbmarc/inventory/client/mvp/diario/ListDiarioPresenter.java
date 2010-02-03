@@ -1,16 +1,17 @@
 /**
  * 
  */
-package cbmarc.inventory.client.mvp.diarioparte;
+package cbmarc.inventory.client.mvp.diario;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cbmarc.inventory.client.event.LoadingEvent;
 import cbmarc.inventory.client.mvp.Presenter;
-import cbmarc.inventory.client.mvp.diarioparte.event.AddDiarioParteEvent;
-import cbmarc.inventory.client.mvp.diarioparte.event.EditDiarioParteEvent;
-import cbmarc.inventory.shared.entity.DiarioParte;
+import cbmarc.inventory.client.mvp.diario.event.AddDiarioEvent;
+import cbmarc.inventory.client.mvp.diario.event.DeleteDiarioEvent;
+import cbmarc.inventory.client.mvp.diario.event.EditDiarioEvent;
+import cbmarc.inventory.shared.entity.Diario;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -25,14 +26,14 @@ import com.google.gwt.user.client.ui.Widget;
  * @author MCOSTA
  * 
  */
-public class ListDiarioPartePresenter implements Presenter {
+public class ListDiarioPresenter implements Presenter {
 
 	public interface Display {
 		HasClickHandlers getAddButton();
 		HasClickHandlers getDeleteButton();
 		HasClickHandlers getTable();
 
-		void setData(List<DiarioParte> data);
+		void setData(List<Diario> data);
 		List<Integer> getSelectedRows();
 		
 		int getClickedRow(ClickEvent event);
@@ -40,18 +41,18 @@ public class ListDiarioPartePresenter implements Presenter {
 		Widget asWidget();
 	}
 
-	private final DiarioParteServiceAsync rpcService;
+	private final DiarioServiceAsync rpcService;
 	private final HandlerManager eventBus;
 	private final Display display;
 	
-	private Long numParte = null;
-	private List<DiarioParte> lista;
+	private String filter = null;
+	private List<Diario> lista;
 
 	/**
 	 * @param eventBus
 	 * @param view
 	 */
-	public ListDiarioPartePresenter(DiarioParteServiceAsync rpcService, 
+	public ListDiarioPresenter(DiarioServiceAsync rpcService, 
 			HandlerManager eventBus, Display view) {
 		this.rpcService = rpcService;
 		this.eventBus = eventBus;
@@ -68,7 +69,7 @@ public class ListDiarioPartePresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new AddDiarioParteEvent());
+				eventBus.fireEvent(new AddDiarioEvent());
 			}
 
 		});
@@ -77,14 +78,7 @@ public class ListDiarioPartePresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				List<Integer> selectedRows = display.getSelectedRows();
-				
-				if(selectedRows.isEmpty()) {
-					Window.alert("No hay ningun elemento seleccionado");
-				} else { 
-					if(Window.confirm("Borrar los elementos seleccionados ?"))
-						onDeleteSelected(selectedRows);
-				}
+				eventBus.fireEvent(new DeleteDiarioEvent());
 			}
 			
 		});
@@ -97,7 +91,7 @@ public class ListDiarioPartePresenter implements Presenter {
 				
 				if(selectedRow >= 0) {
 					Long id = lista.get(selectedRow).getId();
-					eventBus.fireEvent(new EditDiarioParteEvent(id));
+					eventBus.fireEvent(new EditDiarioEvent(id));
 				}
 			}
 			
@@ -107,33 +101,41 @@ public class ListDiarioPartePresenter implements Presenter {
 	/**
 	 * 
 	 */
-	private void onDeleteSelected(List<Integer> selectedRows) {
+	public void deleteSelected() {
+		List<Integer> selectedRows = display.getSelectedRows();
 		ArrayList<Long> ids = new ArrayList<Long>();
-		
-		for (int i = 0; i < selectedRows.size(); ++i) {
-			ids.add(lista.get(selectedRows.get(i)).getId());
-		}
-		
-		eventBus.fireEvent(new LoadingEvent(true));
-		rpcService.delete(ids, new AsyncCallback<List<DiarioParte>>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				eventBus.fireEvent(new LoadingEvent(false));
-				Window.alert("ERROR: " + caught.toString());
-			}
+		if(selectedRows.isEmpty()) {
+			Window.alert("No hay ningun elemento seleccionado");
+		} else {
+			if(Window.confirm("Borrar los elementos seleccionados ?")) {
+				for (int i = 0; i < selectedRows.size(); ++i) {
+					ids.add(lista.get(selectedRows.get(i)).getId());
+				}
+		
+				rpcService.delete(ids, new AsyncCallback<Void>() {
 
-			@Override
-			public void onSuccess(List<DiarioParte> result) {
-				setData(result);
-			}
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("ERROR: " + caught.toString());
+					}
+
+					@Override
+					public void onSuccess(Void result) {
+						getData();
+					}
 			
-		});
+				});
+			}
+		}
 	}
 	
-	private void setData(List<DiarioParte> result) {
+	/**
+	 * @param result
+	 */
+	private void setData(List<Diario> result) {
 		eventBus.fireEvent(new LoadingEvent(false));
-				
+		
 		lista = result;
 		display.setData(lista);
 	}
@@ -152,25 +154,23 @@ public class ListDiarioPartePresenter implements Presenter {
 	/**
 	 * @return the numParte
 	 */
-	public Long getNumParte() {
-		return numParte;
+	public String getFilter() {
+		return filter;
 	}
 
 	/**
 	 * @param numParte the numParte to set
 	 */
-	public void setNumParte(Long numParte) {
-		this.numParte = numParte;
+	public void setFilter(String filter) {
+		this.filter = filter;
 	}
 
-	private void getData() {
-		String filter = null;
-		
-		if(this.numParte != null)
-			filter = "par_id==" + this.numParte;
-		
+	/**
+	 * 
+	 */
+	private void getData() {		
 		eventBus.fireEvent(new LoadingEvent(true));
-		rpcService.select(filter, new AsyncCallback<List<DiarioParte>>() {
+		rpcService.select(this.filter, new AsyncCallback<List<Diario>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -179,7 +179,7 @@ public class ListDiarioPartePresenter implements Presenter {
 			}
 
 			@Override
-			public void onSuccess(List<DiarioParte> result) {
+			public void onSuccess(List<Diario> result) {
 				setData(result);
 			}
 			

@@ -1,14 +1,15 @@
 /**
  * 
  */
-package cbmarc.inventory.client.mvp.diarioparte;
+package cbmarc.inventory.client.mvp.diario;
 
 import java.util.Date;
 
 import cbmarc.inventory.client.mvp.Presenter;
-import cbmarc.inventory.client.mvp.diarioparte.event.EditCancelledDiarioParteEvent;
-import cbmarc.inventory.client.mvp.diarioparte.event.SavedDiarioParteEvent;
-import cbmarc.inventory.shared.entity.DiarioParte;
+import cbmarc.inventory.client.mvp.diario.event.EditCancelledDiarioEvent;
+import cbmarc.inventory.client.mvp.diario.event.CreatedDiarioEvent;
+import cbmarc.inventory.client.mvp.diario.event.SaveDiarioEvent;
+import cbmarc.inventory.shared.entity.Diario;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -25,7 +26,7 @@ import com.google.gwt.user.datepicker.client.DateBox;
  * @author MCOSTA
  *
  */
-public class EditDiarioPartePresenter implements Presenter {
+public class EditDiarioPresenter implements Presenter {
 	
 	public interface Display {
 		HasClickHandlers getListButton();
@@ -44,24 +45,22 @@ public class EditDiarioPartePresenter implements Presenter {
 		Widget asWidget();
 	}
 	
-	private DiarioParte diarioParte;
-	
-	private final DiarioParteServiceAsync rpcService;
+	private final DiarioServiceAsync rpcService;
 	private final HandlerManager eventBus;
 	private final Display display;
+	
+	private Diario diario = null;
 	
 	/**
 	 * @param rpcService
 	 * @param eventBus
 	 * @param view
 	 */
-	public EditDiarioPartePresenter(DiarioParteServiceAsync rpcService, 
+	public EditDiarioPresenter(DiarioServiceAsync rpcService, 
 			HandlerManager eventBus, Display view) {
 		this.rpcService = rpcService;
 	    this.eventBus = eventBus;
 	    this.display = view;
-	    
-	    this.diarioParte = new DiarioParte();
 	    
 	    bind();
 	}
@@ -74,7 +73,7 @@ public class EditDiarioPartePresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new EditCancelledDiarioParteEvent());
+				eventBus.fireEvent(new EditCancelledDiarioEvent());
 			}
 	    	
 	    });
@@ -83,7 +82,7 @@ public class EditDiarioPartePresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new EditCancelledDiarioParteEvent());
+				eventBus.fireEvent(new EditCancelledDiarioEvent());
 			}
 			
 		});
@@ -92,21 +91,37 @@ public class EditDiarioPartePresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				doSave();
+				eventBus.fireEvent(new SaveDiarioEvent());
 			}
 			
 		});
 	}
 	
 	/**
+	 * @return the diario
+	 */
+	public Diario getDiario() {
+		return diario;
+	}
+
+	/**
+	 * @param diario the diario to set
+	 */
+	public void setDiario(Diario diario) {
+		this.diario = diario;
+	}
+
+	/**
 	 * 
 	 */
-	private void doSave() {
-		diarioParte.setFecha(display.getFecha().getValue());
-		diarioParte.setHora(display.getHora());
-		diarioParte.setAccion(display.getAccion().getValue());
+	public boolean doSave() {
+		if(diario == null) return false;
 		
-		rpcService.save(diarioParte, new AsyncCallback<DiarioParte>() {
+		diario.setFecha(display.getFecha().getValue());
+		diario.setHora(display.getHora());
+		diario.setAccion(display.getAccion().getValue());
+		
+		rpcService.save(diario, new AsyncCallback<Diario>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -114,25 +129,13 @@ public class EditDiarioPartePresenter implements Presenter {
 			}
 
 			@Override
-			public void onSuccess(DiarioParte result) {
-				eventBus.fireEvent(new SavedDiarioParteEvent());
+			public void onSuccess(Diario result) {
+				eventBus.fireEvent(new CreatedDiarioEvent());
 			}
 			
 		});
-	}
-
-	/**
-	 * @return the diarioParte
-	 */
-	public DiarioParte getDiarioParte() {
-		return diarioParte;
-	}
-
-	/**
-	 * @param diarioParte the diarioParte to set
-	 */
-	public void setDiarioParte(DiarioParte diarioParte) {
-		this.diarioParte = diarioParte;
+		
+		return true;
 	}
 	
 	/* (non-Javadoc)
@@ -141,12 +144,14 @@ public class EditDiarioPartePresenter implements Presenter {
 	@Override
 	public void go(HasWidgets container) {
 		container.clear();
-		
+
 		display.reset();
 		
-		display.setFecha(this.diarioParte.getFecha());
-		display.setHora(this.diarioParte.getHora());
-		display.getAccion().setValue(this.diarioParte.getAccion());
+		if(diario != null) {
+			display.setFecha(diario.getFecha());
+			display.setHora(diario.getHora());
+			display.getAccion().setValue(diario.getAccion());
+		}
 		
 	    container.add(display.asWidget());
 	    display.getAccion().setFocus(true);
