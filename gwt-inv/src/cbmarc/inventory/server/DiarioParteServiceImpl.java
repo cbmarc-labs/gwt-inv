@@ -10,8 +10,8 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import cbmarc.inventory.client.mvp.diarioparte.DiarioParteService;
-import cbmarc.inventory.shared.entity.DiarioParte;
+import cbmarc.inventory.client.mvp.diario.DiarioService;
+import cbmarc.inventory.shared.entity.Diario;
 
 import com.google.appengine.repackaged.com.google.common.collect.Lists;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -22,7 +22,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  */
 @SuppressWarnings("serial")
 public class DiarioParteServiceImpl extends RemoteServiceServlet 
-		implements DiarioParteService {
+		implements DiarioService {
 
 	/**
 	 * 
@@ -39,7 +39,7 @@ public class DiarioParteServiceImpl extends RemoteServiceServlet
 		
 		try {
 			pm.currentTransaction().begin();
-			DiarioParte diarioparte = pm.getObjectById(DiarioParte.class, id);
+			Diario diarioparte = pm.getObjectById(Diario.class, id);
 			pm.deletePersistent(diarioparte);
 			
 			pm.currentTransaction().commit();
@@ -57,30 +57,27 @@ public class DiarioParteServiceImpl extends RemoteServiceServlet
 	 * @see cbmarc.inventory.client.mvp.diarioparte.DiarioParteService#delete(java.util.ArrayList)
 	 */
 	@Override
-	public List<DiarioParte> delete(ArrayList<Long> ids) {
+	public void delete(ArrayList<Long> ids) {
 		for (int i = 0; i < ids.size(); ++i) {
 			try {
 				delete(ids.get(i));
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		return select(null);
 	}
 
 	/* (non-Javadoc)
 	 * @see cbmarc.inventory.client.mvp.diarioparte.DiarioParteService#select(java.lang.Long)
 	 */
 	@Override
-	public DiarioParte selectById(Long id) {
+	public Diario selectById(Long id) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		String query = "select UNIQUE from " + DiarioParte.class.getName()
+		String query = "select UNIQUE from " + Diario.class.getName()
 			+ " where id == :registerId";
 		Query q = pm.newQuery(query);
 		
-		DiarioParte result = (DiarioParte) q.execute(id);
+		Diario result = (Diario) q.execute(id);
 
 		return result;
 	}
@@ -90,18 +87,18 @@ public class DiarioParteServiceImpl extends RemoteServiceServlet
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<DiarioParte> select(String filter) {
+	public List<Diario> select(String filter) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		List<DiarioParte> result;
+		List<Diario> result;
 		
 		try {
-			Query query = pm.newQuery(DiarioParte.class);
+			Query query = pm.newQuery(Diario.class);
 			
 			query.setFilter(filter);
 			query.setOrdering("date desc");
 			//query.setRange(first, first + count);
 			
-			result = (List<DiarioParte>) query.execute();
+			result = (List<Diario>) query.execute();
 			result = Lists.newArrayList(pm.detachCopyAll(result));
 		} finally {
 			pm.close();
@@ -114,12 +111,12 @@ public class DiarioParteServiceImpl extends RemoteServiceServlet
 	 * @see cbmarc.inventory.client.mvp.diarioparte.DiarioParteService#save(cbmarc.inventory.shared.entity.DiarioParte)
 	 */
 	@Override
-	public DiarioParte save(DiarioParte diarioparte) throws Exception {
+	public Diario save(Diario diarioparte) throws Exception {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
 		// Is a insert statement?
 		if(diarioparte.getId() == null) {
-			Query query = pm.newQuery(DiarioParte.class);
+			Query query = pm.newQuery(Diario.class);
 			query.setResult("count(this)");
 			Integer count = (Integer)query.execute();
 			
@@ -150,7 +147,7 @@ public class DiarioParteServiceImpl extends RemoteServiceServlet
 	@Override
 	public Integer count() {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		final Query query = pm.newQuery(DiarioParte.class);
+		final Query query = pm.newQuery(Diario.class);
 		Integer res;
 
 		query.setResult("count(this)");
