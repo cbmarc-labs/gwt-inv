@@ -5,10 +5,9 @@ package cbmarc.inventory.client.mvp.parte;
 
 
 import cbmarc.inventory.client.mvp.Presenter;
-import cbmarc.inventory.client.mvp.diarioparte.DiarioPartePresenter;
-import cbmarc.inventory.client.mvp.diarioparte.DiarioParteService;
-import cbmarc.inventory.client.mvp.diarioparte.DiarioParteServiceAsync;
-import cbmarc.inventory.client.mvp.diarioparte.DiarioParteView;
+import cbmarc.inventory.client.mvp.diario.DiarioService;
+import cbmarc.inventory.client.mvp.diario.DiarioServiceAsync;
+import cbmarc.inventory.client.mvp.diario.DiarioView;
 import cbmarc.inventory.client.mvp.parte.event.EditCancelledPartesEvent;
 import cbmarc.inventory.client.mvp.parte.event.SavedPartesEvent;
 import cbmarc.inventory.shared.entity.Parte;
@@ -20,6 +19,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -63,13 +63,13 @@ public class EditPartePresenter implements Presenter {
 	}
 	
 	private Parte parte;
-	private final DiarioPartePresenter diarioparte;
+	private final DiarioPartePresenter diarioPresenter;
 	
 	private final ParteServiceAsync rpcService;
 	private final HandlerManager eventBus;
 	private final Display display;
 	
-	private final DiarioParteServiceAsync diarioParterpcService;
+	private final DiarioServiceAsync diarioParterpcService;
 	
 	/**
 	 * @param rpcService
@@ -82,11 +82,11 @@ public class EditPartePresenter implements Presenter {
 	    this.eventBus = eventBus;
 	    this.display = view;
 	    
-	    this.diarioParterpcService = GWT.create(DiarioParteService.class);
+	    this.diarioParterpcService = GWT.create(DiarioService.class);
 	    
 	    this.parte = new Parte();
-	    this.diarioparte = new DiarioPartePresenter(
-	    		eventBus, new DiarioParteView());
+	    this.diarioPresenter = new DiarioPartePresenter(
+	    		eventBus, new DiarioView());
 	    
 	    bind();
 	}
@@ -169,8 +169,14 @@ public class EditPartePresenter implements Presenter {
 		display.reset();
 		display.getAtu().setValue(this.parte.getAtu());
 		
-		diarioparte.setNumParte(this.parte.getId());
-		diarioparte.go(display.getDiario());
+		if(this.parte.getId() != null) {
+			diarioPresenter.getList().setFilter("par_id==" + this.parte.getId());
+			diarioPresenter.setNumParte(this.parte.getId());
+			diarioPresenter.go(display.getDiario());
+		} else {
+			display.getDiario().clear();
+		}
+		
 	    container.add(display.asWidget());
 	    display.getAtu().setFocus(true);
 	}

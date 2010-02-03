@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cbmarc.inventory.client.mvp.diarioparte;
+package cbmarc.inventory.client.mvp.diario;
 
 import java.util.Date;
 
@@ -24,9 +24,9 @@ import com.google.gwt.user.datepicker.client.DateBox;
  * @author MCOSTA
  *
  */
-public class EditDiarioParteView extends Composite 
-		implements EditDiarioPartePresenter.Display {
-	interface uiBinder extends UiBinder<Widget, EditDiarioParteView> {}
+public class EditDiarioView extends Composite 
+		implements EditDiarioPresenter.Display {
+	interface uiBinder extends UiBinder<Widget, EditDiarioView> {}
 	private static uiBinder uiBinder = GWT.create(uiBinder.class);
 	
 	@UiField HasClickHandlers listButton;
@@ -39,7 +39,7 @@ public class EditDiarioParteView extends Composite
 	@UiField HasClickHandlers submitButton;
 	@UiField HasClickHandlers cancelButton;
 	
-	public EditDiarioParteView() {
+	public EditDiarioView() {
 		// Problem with Enter on TextArea
 		//sinkEvents(Event.ONKEYDOWN);
 		initWidget(uiBinder.createAndBindUi(this));

@@ -10,8 +10,8 @@ import cbmarc.inventory.client.mvp.contact.ContactPresenter;
 import cbmarc.inventory.client.mvp.contact.ContactView;
 import cbmarc.inventory.client.mvp.departamento.DepartamentoPresenter;
 import cbmarc.inventory.client.mvp.departamento.DepartamentoView;
-import cbmarc.inventory.client.mvp.diarioparte.DiarioPartePresenter;
-import cbmarc.inventory.client.mvp.diarioparte.DiarioParteView;
+import cbmarc.inventory.client.mvp.diario.DiarioPresenter;
+import cbmarc.inventory.client.mvp.diario.DiarioView;
 import cbmarc.inventory.client.mvp.parte.PartePresenter;
 import cbmarc.inventory.client.mvp.parte.ParteView;
 
@@ -86,8 +86,8 @@ public class MainPresenter implements Presenter {
 				new ContactView()),	"Contact");
 		setupMainMenuOption(catFirst, new PartePresenter(eventBus, 
 				new ParteView()), "Partes");
-		setupMainMenuOption(catFirst, new DiarioPartePresenter(eventBus, 
-				new DiarioParteView()), "Diario Partes");
+		setupMainMenuOption(catFirst, new DiarioPresenter(eventBus, 
+				new DiarioView()), "Diario Partes");
 		setupMainMenuOption(catFirst, new DepartamentoPresenter(eventBus,
 				new DepartamentoView()), "Departamento");
 		

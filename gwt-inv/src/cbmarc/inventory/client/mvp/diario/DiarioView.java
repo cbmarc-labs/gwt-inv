@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cbmarc.inventory.client.mvp.diarioparte;
+package cbmarc.inventory.client.mvp.diario;
 
 
 import com.google.gwt.core.client.GWT;
@@ -16,13 +16,13 @@ import com.google.gwt.user.client.ui.Widget;
  * @author MCOSTA
  *
  */
-public class DiarioParteView extends Composite implements DiarioPartePresenter.Display {
-	interface uiBinder extends UiBinder<Widget, DiarioParteView> {}
+public class DiarioView extends Composite implements DiarioPresenter.Display {
+	interface uiBinder extends UiBinder<Widget, DiarioView> {}
 	private static uiBinder uiBinder = GWT.create(uiBinder.class);
 
 	@UiField Panel contentPanel;
 	
-	public DiarioParteView() {
+	public DiarioView() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 	

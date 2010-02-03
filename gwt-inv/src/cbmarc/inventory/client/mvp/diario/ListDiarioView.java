@@ -1,16 +1,17 @@
 /**
  * 
  */
-package cbmarc.inventory.client.mvp.diarioparte;
+package cbmarc.inventory.client.mvp.diario;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cbmarc.inventory.shared.entity.DiarioParte;
+import cbmarc.inventory.shared.entity.Diario;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -25,9 +26,9 @@ import com.google.gwt.user.client.ui.Widget;
  * @author MCOSTA
  *
  */
-public class ListDiarioParteView extends Composite 
-		implements ListDiarioPartePresenter.Display {
-	interface uiBinder extends UiBinder<Widget, ListDiarioParteView> {}
+public class ListDiarioView extends Composite 
+		implements ListDiarioPresenter.Display {
+	interface uiBinder extends UiBinder<Widget, ListDiarioView> {}
 	private static uiBinder uiBinder = GWT.create(uiBinder.class);
 	
 	@UiField Button addButton;
@@ -35,7 +36,7 @@ public class ListDiarioParteView extends Composite
 	
 	@UiField FlexTable table;
 	
-	public ListDiarioParteView() {
+	public ListDiarioView() {
 		initWidget(uiBinder.createAndBindUi(this));
 
 		table.getColumnFormatter().setWidth(0, "15px");
@@ -53,14 +54,16 @@ public class ListDiarioParteView extends Composite
 	 * @param data
 	 */
 	@Override
-	public void setData(List<DiarioParte> data) {
+	public void setData(List<Diario> data) {
 		table.removeAllRows();
 
 		if (data != null) {
 			for (int i = 0; i < data.size(); ++i) {
 				table.setWidget(i, 0, new CheckBox());
-				//table.setText(i, 1, data.get(i).getFecha().toString());
-				//table.setText(i, 2, data.get(i).getHora().toString());
+				table.setText(i, 1, DateTimeFormat.getFormat("d/M/y")
+						.format(data.get(i).getFecha()));
+				table.setText(i, 2, DateTimeFormat.getFormat("H:m")
+						.format(data.get(i).getHora()));
 				table.setText(i, 3, data.get(i).getAccion());
 			}
 		}

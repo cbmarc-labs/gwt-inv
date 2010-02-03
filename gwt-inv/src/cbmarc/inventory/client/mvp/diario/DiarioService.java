@@ -1,12 +1,12 @@
 /**
  * 
  */
-package cbmarc.inventory.client.mvp.diarioparte;
+package cbmarc.inventory.client.mvp.diario;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cbmarc.inventory.shared.entity.DiarioParte;
+import cbmarc.inventory.shared.entity.Diario;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -16,13 +16,13 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  *
  */
 @RemoteServiceRelativePath("diarioParteService")
-public interface DiarioParteService extends RemoteService {
+public interface DiarioService extends RemoteService {
 	Boolean delete(Long id) throws Exception;
-	DiarioParte save(DiarioParte parte) throws Exception;
+	Diario save(Diario parte) throws Exception;
 	
-	List<DiarioParte> delete(ArrayList<Long> ids);
-	List<DiarioParte> select(String filter);
+	void delete(ArrayList<Long> ids);
+	List<Diario> select(String filter);
 	
 	Integer count();
-	DiarioParte selectById(Long id);
+	Diario selectById(Long id);
 }
