@@ -10,6 +10,8 @@ import cbmarc.inventory.client.mvp.contact.ContactPresenter;
 import cbmarc.inventory.client.mvp.contact.ContactView;
 import cbmarc.inventory.client.mvp.departamento.DepartamentoPresenter;
 import cbmarc.inventory.client.mvp.departamento.DepartamentoView;
+import cbmarc.inventory.client.mvp.device.DevicePresenter;
+import cbmarc.inventory.client.mvp.device.DeviceView;
 import cbmarc.inventory.client.mvp.diario.DiarioPresenter;
 import cbmarc.inventory.client.mvp.diario.DiarioView;
 import cbmarc.inventory.client.mvp.parte.PartePresenter;
@@ -90,6 +92,8 @@ public class MainPresenter implements Presenter {
 				new DiarioView()), "Diario Partes");
 		setupMainMenuOption(catFirst, new DepartamentoPresenter(eventBus,
 				new DepartamentoView()), "Departamento");
+		setupMainMenuOption(catFirst, new DevicePresenter(eventBus,
+				new DeviceView()), "Device");
 		
 		display.getNavigation().getItem(0).setState(true);
 		display.getNavigation().setSelectedItem(

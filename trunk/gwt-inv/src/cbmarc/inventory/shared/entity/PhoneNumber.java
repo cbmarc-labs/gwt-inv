@@ -14,6 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+/*
 package com.kenai.wicketgae.domain;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -23,10 +24,11 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
-
+*/
 /**
  * Phone number entity.
  */
+/*
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class PhoneNumber {
 
@@ -86,3 +88,4 @@ public class PhoneNumber {
     }
 
 }
+*/
