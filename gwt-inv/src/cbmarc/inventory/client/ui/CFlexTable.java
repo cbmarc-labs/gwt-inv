@@ -16,6 +16,8 @@ public class CFlexTable extends FlexTable {
 
 	public CFlexTable() {
 		super();
+		
+		getRowFormatter().addStyleName(0, "flexTableHeader");
 
 		sinkEvents(Event.ONMOUSEOVER|Event.ONMOUSEOUT);
 	}
@@ -29,7 +31,10 @@ public class CFlexTable extends FlexTable {
 
 		Element td = getEventTargetCell(event);
 		if (td == null) return;
+		
 		Element tr = DOM.getParent(td);
+		int row = DOM.getChildIndex(DOM.getParent(tr), tr);
+		if(row == 0) return;
 		
 		switch (DOM.eventGetType(event)) {
 			case Event.ONMOUSEOVER:

@@ -14,6 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+/*
 package com.kenai.wicketgae.domain;
 
 import java.util.Date;
@@ -27,10 +28,11 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.repackaged.com.google.common.collect.Lists;
-
+*/
 /**
  * Person entity.
  */
+/*
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Person {
 
@@ -103,3 +105,4 @@ public class Person {
     }
 
 }
+*/
