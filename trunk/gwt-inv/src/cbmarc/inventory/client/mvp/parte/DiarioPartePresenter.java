@@ -16,7 +16,7 @@ import com.google.gwt.event.shared.HandlerManager;
  */
 public class DiarioPartePresenter extends DiarioPresenter {
 	
-	private Long numParte = null;
+	private Long parte = null;
 
 	public DiarioPartePresenter(HandlerManager eventBus, Display view) {
 		super(eventBus, view);
@@ -25,15 +25,15 @@ public class DiarioPartePresenter extends DiarioPresenter {
 	/**
 	 * @return the numParte
 	 */
-	public Long getNumParte() {
-		return numParte;
+	public Long getParte() {
+		return parte;
 	}
-
+	
 	/**
 	 * @param numParte the numParte to set
 	 */
-	public void setNumParte(Long numParte) {
-		this.numParte = numParte;
+	public void setParte(Long parte) {
+		this.parte = parte;
 	}
 
 	/* (non-Javadoc)
@@ -42,9 +42,9 @@ public class DiarioPartePresenter extends DiarioPresenter {
 	@Override
 	protected void doAdd() {
 		Diario diario = new Diario();
-		diario.setPar_id(this.numParte);
 		diario.setFecha(new Date());
 		diario.setHora(new Date());
+		diario.setParte(this.parte);
 		
 		this.edit.setDiario(diario);
 		edit.go(display.getContent());

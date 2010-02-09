@@ -19,7 +19,6 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -144,13 +143,13 @@ public class EditPartePresenter implements Presenter {
 		// TODO implement others elements
 		this.parte.setAtu(display.getAtu().getValue());
 		
-		rpcService.save(parte, new AsyncCallback<Parte>() {
-
+		rpcService.save(this.parte, new AsyncCallback<Parte>() {
+			
 			@Override
 			public void onFailure(Throwable caught) {
 				Window.alert("Save failed: " + caught.toString());
 			}
-
+			
 			@Override
 			public void onSuccess(Parte result) {
 				eventBus.fireEvent(new SavedPartesEvent());
@@ -169,9 +168,9 @@ public class EditPartePresenter implements Presenter {
 		display.reset();
 		display.getAtu().setValue(this.parte.getAtu());
 		
-		if(this.parte.getId() != null) {
-			diarioPresenter.getList().setFilter("par_id==" + this.parte.getId());
-			diarioPresenter.setNumParte(this.parte.getId());
+		if(parte.getId() != null) {
+			diarioPresenter.getList().setFilter("parte==" + parte.getId());
+			diarioPresenter.setParte(parte.getId());
 			diarioPresenter.go(display.getDiario());
 		} else {
 			display.getDiario().clear();

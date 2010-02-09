@@ -96,6 +96,7 @@ public class ListPartePresenter implements Presenter {
 				
 				if(selectedRow >= 0) {
 					Long id = partes.get(selectedRow).getId();
+					
 					eventBus.fireEvent(new EditPartesEvent(id));
 				}
 			}

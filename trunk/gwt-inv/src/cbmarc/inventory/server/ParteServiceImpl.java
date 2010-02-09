@@ -143,5 +143,4 @@ public class ParteServiceImpl extends RemoteServiceServlet
 		
 		return res;
 	}
-
 }
