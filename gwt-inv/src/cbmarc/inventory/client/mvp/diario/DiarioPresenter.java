@@ -8,14 +8,14 @@ import java.util.Date;
 import cbmarc.inventory.client.mvp.Presenter;
 import cbmarc.inventory.client.mvp.diario.event.AddDiarioEvent;
 import cbmarc.inventory.client.mvp.diario.event.AddDiarioEventHandler;
+import cbmarc.inventory.client.mvp.diario.event.CreatedDiarioEvent;
+import cbmarc.inventory.client.mvp.diario.event.CreatedDiarioEventHandler;
 import cbmarc.inventory.client.mvp.diario.event.DeleteDiarioEvent;
 import cbmarc.inventory.client.mvp.diario.event.DeleteDiarioEventHandler;
 import cbmarc.inventory.client.mvp.diario.event.EditCancelledDiarioEvent;
 import cbmarc.inventory.client.mvp.diario.event.EditCancelledDiarioEventHandler;
 import cbmarc.inventory.client.mvp.diario.event.EditDiarioEvent;
 import cbmarc.inventory.client.mvp.diario.event.EditDiarioEventHandler;
-import cbmarc.inventory.client.mvp.diario.event.CreatedDiarioEvent;
-import cbmarc.inventory.client.mvp.diario.event.CreatedDiarioEventHandler;
 import cbmarc.inventory.client.mvp.diario.event.SaveDiarioEvent;
 import cbmarc.inventory.client.mvp.diario.event.SaveDiarioEventHandler;
 import cbmarc.inventory.shared.entity.Diario;
@@ -120,7 +120,7 @@ public class DiarioPresenter implements Presenter {
 
 			@Override
 			public void onSave(SaveDiarioEvent event) {
-				edit.doSave();
+				doSave();
 			}
 			
 		});
@@ -136,6 +136,13 @@ public class DiarioPresenter implements Presenter {
 		
 		edit.setDiario(diario);
 		edit.go(display.getContent());
+	}
+	
+	/**
+	 * 
+	 */
+	protected void doSave() {
+		edit.doSave();
 	}
 	
 	/**

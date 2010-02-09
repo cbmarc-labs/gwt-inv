@@ -15,6 +15,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
@@ -65,6 +66,7 @@ public class ListDiarioView extends Composite
 				table.setText(i, 2, DateTimeFormat.getFormat("H:m")
 						.format(data.get(i).getHora()));
 				table.setText(i, 3, data.get(i).getAccion());
+				table.setText(i, 4, "<"+data.get(i).getParte()+">");
 			}
 		}
 	}

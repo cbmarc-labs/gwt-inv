@@ -26,27 +26,27 @@ public class Diario implements Serializable {
 	// Identificador automatico del registro
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	public Long id;
+	private Long id;
 	
 	// fecha de la creacion del registro en la DDBB
 	@Persistent
 	private Date date;
 	
-	// Identificador del parte
-	@Persistent
-	public Long par_id;
-	
 	// Fecha del diario del parte
 	@Persistent
-	public Date fecha = new Date();
+	private Date fecha;
 	
 	// Hora de la entrada en el diario
 	@Persistent
-	public Date hora = new Date();
+	private Date hora;
 	
 	// accion del tecnico
 	@Persistent
-	public String accion = "";
+	private String accion;
+	
+	// foreign key to parte
+	@Persistent
+	private Long parte;
 		
 	/**
 	 * 
@@ -57,7 +57,7 @@ public class Diario implements Serializable {
 	/**
 	 * 
 	 */
-	public Diario(Date fecha, Date hora, String accion) {
+	public Diario(final Date fecha, final Date hora, final String accion) {
 		this.fecha = fecha;
 		this.hora = hora;
 		this.accion = accion;
@@ -71,13 +71,6 @@ public class Diario implements Serializable {
 	}
 
 	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	/**
 	 * @return the date
 	 */
 	public Date getDate() {
@@ -87,22 +80,8 @@ public class Diario implements Serializable {
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(Date date) {
+	public void setDate(final Date date) {
 		this.date = date;
-	}
-
-	/**
-	 * @return the par_id
-	 */
-	public Long getPar_id() {
-		return par_id;
-	}
-
-	/**
-	 * @param parId the par_id to set
-	 */
-	public void setPar_id(Long parId) {
-		par_id = parId;
 	}
 
 	/**
@@ -115,7 +94,7 @@ public class Diario implements Serializable {
 	/**
 	 * @param fecha the fecha to set
 	 */
-	public void setFecha(Date fecha) {
+	public void setFecha(final Date fecha) {
 		this.fecha = fecha;
 	}
 
@@ -129,7 +108,7 @@ public class Diario implements Serializable {
 	/**
 	 * @param hora the hora to set
 	 */
-	public void setHora(Date hora) {
+	public void setHora(final Date hora) {
 		this.hora = hora;
 	}
 
@@ -143,8 +122,22 @@ public class Diario implements Serializable {
 	/**
 	 * @param accion the accion to set
 	 */
-	public void setAccion(String accion) {
+	public void setAccion(final String accion) {
 		this.accion = accion;
+	}
+
+	/**
+	 * @return the parte
+	 */
+	public Long getParte() {
+		return parte;
+	}
+
+	/**
+	 * @param parte the parte to set
+	 */
+	public void setParte(Long parte) {
+		this.parte = parte;
 	}
 
 	public String toString() {

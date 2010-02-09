@@ -26,7 +26,7 @@ public class Parte implements Serializable {
 	// Identificador automatico del registro
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	public Long id;
+	private Long id;
 	
 	// fecha de la creacion del registro en la DDBB
 	@Persistent
@@ -34,71 +34,71 @@ public class Parte implements Serializable {
 	
 	// Nombre del asistente
 	@Persistent
-	public String atu;
+	private String atu;
 	
 	// Fecha del parte
 	@Persistent
-	public Date fecha;
+	private Date fecha;
 	
 	// Numero asignado al parte
 	@Persistent
-	public String numparte;
+	private String numparte;
 	
 	// Identificador del dispositivo
 	@Persistent
-	public String dis_id;
+	private String dis_id;
 	
 	// Numero de serie del dispositivo
 	@Persistent
-	public String dis_sn;
+	private String dis_sn;
 	
 	// Nombre de dispositivo
 	@Persistent
-	public String dis_nombre;
+	private String dis_nombre;
 	
 	// Marca del dispositivo
 	@Persistent
-	public String dis_marca;
+	private String dis_marca;
 	
 	// Modelo del dispositivo
 	@Persistent
-	public String dis_modelo;
+	private String dis_modelo;
 	
 	// tipo de dispositivo
 	@Persistent
-	public String dis_tipo;
+	private String dis_tipo;
 	
 	// Centro del dispositivo
 	@Persistent
-	public String dis_centro;
+	private String dis_centro;
 	
 	// Departamento del dispositivo
 	@Persistent
-	public String dis_departamento;
+	private String dis_departamento;
 	
 	// Ubicacion del dispositivo
 	@Persistent
-	public String dis_ubicacion;
+	private String dis_ubicacion;
 	
 	// fecha de compra del dispositivo
 	@Persistent
-	public String dis_fecha_compra;
+	private String dis_fecha_compra;
 	
 	// Fin de la garantia
 	@Persistent
-	public String dis_fin_garantia;
+	private String dis_fin_garantia;
 	
 	// Proveedor
 	@Persistent
-	public String dis_proveedor;
+	private String dis_proveedor;
 	
 	// Mantenimiento
 	@Persistent
-	public String dis_mantenimiento;
+	private String dis_mantenimiento;
 	
 	// observaciones
 	@Persistent
-	public String dis_observaciones;
+	private String dis_observaciones;
 		
 	/**
 	 * 
@@ -114,13 +114,6 @@ public class Parte implements Serializable {
 	}
 
 	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	/**
 	 * @return the date
 	 */
 	public Date getDate() {
@@ -130,7 +123,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(Date date) {
+	public void setDate(final Date date) {
 		this.date = date;
 	}
 
@@ -144,7 +137,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param atu the atu to set
 	 */
-	public void setAtu(String atu) {
+	public void setAtu(final String atu) {
 		this.atu = atu;
 	}
 
@@ -158,7 +151,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param fecha the fecha to set
 	 */
-	public void setFecha(Date fecha) {
+	public void setFecha(final Date fecha) {
 		this.fecha = fecha;
 	}
 
@@ -172,7 +165,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param numparte the numparte to set
 	 */
-	public void setNumparte(String numparte) {
+	public void setNumparte(final String numparte) {
 		this.numparte = numparte;
 	}
 
@@ -186,7 +179,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param disId the dis_id to set
 	 */
-	public void setDis_id(String disId) {
+	public void setDis_id(final String disId) {
 		dis_id = disId;
 	}
 
@@ -200,7 +193,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param disSn the dis_sn to set
 	 */
-	public void setDis_sn(String disSn) {
+	public void setDis_sn(final String disSn) {
 		dis_sn = disSn;
 	}
 
@@ -214,7 +207,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param disNombre the dis_nombre to set
 	 */
-	public void setDis_nombre(String disNombre) {
+	public void setDis_nombre(final String disNombre) {
 		dis_nombre = disNombre;
 	}
 
@@ -228,7 +221,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param disMarca the dis_marca to set
 	 */
-	public void setDis_marca(String disMarca) {
+	public void setDis_marca(final String disMarca) {
 		dis_marca = disMarca;
 	}
 
@@ -242,7 +235,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param disModelo the dis_modelo to set
 	 */
-	public void setDis_modelo(String disModelo) {
+	public void setDis_modelo(final String disModelo) {
 		dis_modelo = disModelo;
 	}
 
@@ -256,7 +249,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param disTipo the dis_tipo to set
 	 */
-	public void setDis_tipo(String disTipo) {
+	public void setDis_tipo(final String disTipo) {
 		dis_tipo = disTipo;
 	}
 
@@ -270,7 +263,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param disCentro the dis_centro to set
 	 */
-	public void setDis_centro(String disCentro) {
+	public void setDis_centro(final String disCentro) {
 		dis_centro = disCentro;
 	}
 
@@ -284,7 +277,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param disDepartamento the dis_departamento to set
 	 */
-	public void setDis_departamento(String disDepartamento) {
+	public void setDis_departamento(final String disDepartamento) {
 		dis_departamento = disDepartamento;
 	}
 
@@ -298,7 +291,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param disUbicacion the dis_ubicacion to set
 	 */
-	public void setDis_ubicacion(String disUbicacion) {
+	public void setDis_ubicacion(final String disUbicacion) {
 		dis_ubicacion = disUbicacion;
 	}
 
@@ -312,7 +305,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param disFechaCompra the dis_fecha_compra to set
 	 */
-	public void setDis_fecha_compra(String disFechaCompra) {
+	public void setDis_fecha_compra(final String disFechaCompra) {
 		dis_fecha_compra = disFechaCompra;
 	}
 
@@ -326,7 +319,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param disFinGarantia the dis_fin_garantia to set
 	 */
-	public void setDis_fin_garantia(String disFinGarantia) {
+	public void setDis_fin_garantia(final String disFinGarantia) {
 		dis_fin_garantia = disFinGarantia;
 	}
 
@@ -340,7 +333,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param disProveedor the dis_proveedor to set
 	 */
-	public void setDis_proveedor(String disProveedor) {
+	public void setDis_proveedor(final String disProveedor) {
 		dis_proveedor = disProveedor;
 	}
 
@@ -354,7 +347,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param disMantenimiento the dis_mantenimiento to set
 	 */
-	public void setDis_mantenimiento(String disMantenimiento) {
+	public void setDis_mantenimiento(final String disMantenimiento) {
 		dis_mantenimiento = disMantenimiento;
 	}
 
@@ -368,7 +361,7 @@ public class Parte implements Serializable {
 	/**
 	 * @param disObservaciones the dis_observaciones to set
 	 */
-	public void setDis_observaciones(String disObservaciones) {
+	public void setDis_observaciones(final String disObservaciones) {
 		dis_observaciones = disObservaciones;
-	};
+	}
 }

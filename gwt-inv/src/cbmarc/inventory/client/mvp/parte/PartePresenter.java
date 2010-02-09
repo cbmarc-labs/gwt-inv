@@ -114,7 +114,7 @@ public class PartePresenter implements Presenter {
 	}
 	
 	/**
-	 * @param id
+	 * @param key
 	 */
 	private void doEditParte(Long id) {
 		rpcService.select(id, new AsyncCallback<Parte>() {
