@@ -12,6 +12,7 @@ import javax.jdo.Query;
 
 import cbmarc.inventory.client.mvp.contact.ContactService;
 import cbmarc.inventory.shared.entity.Contact;
+import cbmarc.inventory.shared.exception.ServerException;
 
 import com.google.appengine.repackaged.com.google.common.collect.Lists;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -34,7 +35,7 @@ public class ContactServiceImpl extends RemoteServiceServlet
 	 * @see cbmarc.inventory.client.mvp.contact.ContactsService#delete(java.lang.Long)
 	 */
 	@Override
-	public Boolean delete(Long id) throws Exception {
+	public Boolean delete(Long id) throws ServerException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
 		try {
@@ -45,7 +46,7 @@ public class ContactServiceImpl extends RemoteServiceServlet
 			pm.currentTransaction().commit();
 		} catch(Exception e) {
 			pm.currentTransaction().rollback();
-			throw new Exception(e);
+			throw new ServerException(e.toString());
 		} finally {
 			pm.close();
 		}
@@ -113,7 +114,7 @@ public class ContactServiceImpl extends RemoteServiceServlet
 	 * @see cbmarc.inventory.client.mvp.contact.ContactsService#save(cbmarc.inventory.shared.entity.Contact)
 	 */
 	@Override
-	public Contact save(Contact contact) throws Exception {
+	public Contact save(Contact contact) throws ServerException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
 		if(contact.getId() == null) {
@@ -133,12 +134,12 @@ public class ContactServiceImpl extends RemoteServiceServlet
 					pm.currentTransaction().commit();
 				} catch(Exception e) {
 					pm.currentTransaction().rollback();
-					throw new Exception(e);
+					throw new RuntimeException(e);
 				} finally {
 					pm.close();
 				}
 			} else {
-				throw new Exception("Limit exceeded.");
+				throw new ServerException("Limit exceeded.");
 			}
 		} else {
 			// Perform an update
@@ -154,7 +155,7 @@ public class ContactServiceImpl extends RemoteServiceServlet
 				pm.currentTransaction().commit();
 			} catch(Exception e) {
 				pm.currentTransaction().rollback();
-				throw new Exception(e);
+				throw new RuntimeException(e);
 			} finally {
 				pm.close();
 			}

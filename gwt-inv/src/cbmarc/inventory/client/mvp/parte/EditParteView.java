@@ -12,6 +12,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DisclosurePanel;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -31,6 +32,7 @@ public class EditParteView extends Composite
 	@UiField TextBox atu;
 	@UiField TextBox fecha;
 	
+	@UiField DisclosurePanel diarioDisclosurePanel;
 	@UiField Panel diario;
 	
 	@UiField HasClickHandlers submitButton;
@@ -99,5 +101,12 @@ public class EditParteView extends Composite
 	@Override
 	public HasWidgets getDiario() {
 		return this.diario;
+	}
+
+	/**
+	 * @return the diarioDisclosurePanel
+	 */
+	public final DisclosurePanel getDiarioDisclosurePanel() {
+		return diarioDisclosurePanel;
 	}
 }

@@ -70,7 +70,7 @@
 			</g:HTMLPanel>
 		</g:DisclosurePanel>
 		
-		<g:DisclosurePanel animationEnabled='false' width="100%">
+		<g:DisclosurePanel animationEnabled='false' width="100%" ui:field="diarioDisclosurePanel">
 			<g:header>
 				<ui:msg description="Label for Disclosure One">Diario</ui:msg>
 			</g:header>

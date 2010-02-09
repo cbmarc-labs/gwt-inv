@@ -12,6 +12,7 @@ import javax.jdo.Query;
 
 import cbmarc.inventory.client.mvp.device.DeviceService;
 import cbmarc.inventory.shared.entity.Device;
+import cbmarc.inventory.shared.exception.ServerException;
 
 import com.google.appengine.repackaged.com.google.common.collect.Lists;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -31,7 +32,7 @@ public class DeviceServiceImpl extends RemoteServiceServlet
 	}
 
 	@Override
-	public Boolean delete(Long id) throws Exception {
+	public Boolean delete(Long id) throws ServerException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
 		try {
@@ -42,7 +43,7 @@ public class DeviceServiceImpl extends RemoteServiceServlet
 			pm.currentTransaction().commit();
 		} catch(Exception e) {
 			pm.currentTransaction().rollback();
-			throw new Exception(e);
+			throw new ServerException(e.toString());
 		} finally {
 			pm.close();
 		}
@@ -96,7 +97,7 @@ public class DeviceServiceImpl extends RemoteServiceServlet
 	}
 	
 	@Override
-	public Device save(Device bean) throws Exception {
+	public Device save(Device bean) throws ServerException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
 		// Is a insert statement?
@@ -107,7 +108,7 @@ public class DeviceServiceImpl extends RemoteServiceServlet
 			
 			// Register limit
 			if(count > 25) 
-				throw new Exception("Limit exceeded.");
+				throw new ServerException("Limit exceeded.");
 			
 			bean.setDate(new Date());
 		}
@@ -118,7 +119,7 @@ public class DeviceServiceImpl extends RemoteServiceServlet
 			pm.currentTransaction().commit();
 		} catch(Exception e) {
 			pm.currentTransaction().rollback();
-			throw new Exception(e);
+			throw new ServerException(e.toString());
 		} finally {
 			pm.close();
 		}

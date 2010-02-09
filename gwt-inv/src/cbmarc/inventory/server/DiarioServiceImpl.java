@@ -12,6 +12,7 @@ import javax.jdo.Query;
 
 import cbmarc.inventory.client.mvp.diario.DiarioService;
 import cbmarc.inventory.shared.entity.Diario;
+import cbmarc.inventory.shared.exception.ServerException;
 
 import com.google.appengine.repackaged.com.google.common.collect.Lists;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -34,7 +35,7 @@ public class DiarioServiceImpl extends RemoteServiceServlet
 	 * @see cbmarc.inventory.client.mvp.diarioparte.DiarioParteService#delete(java.lang.Long)
 	 */
 	@Override
-	public Boolean delete(Long id) throws Exception {
+	public Boolean delete(Long id) throws ServerException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
 		try {
@@ -45,7 +46,7 @@ public class DiarioServiceImpl extends RemoteServiceServlet
 			pm.currentTransaction().commit();
 		} catch(Exception e) {
 			pm.currentTransaction().rollback();
-			throw new Exception(e);
+			throw new ServerException(e.toString());
 		} finally {
 			pm.close();
 		}
@@ -111,7 +112,7 @@ public class DiarioServiceImpl extends RemoteServiceServlet
 	 * @see cbmarc.inventory.client.mvp.diarioparte.DiarioParteService#save(cbmarc.inventory.shared.entity.DiarioParte)
 	 */
 	@Override
-	public Diario save(Diario bean) throws Exception {
+	public Diario save(Diario bean) throws ServerException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
 		// Is a insert statement?
@@ -122,7 +123,7 @@ public class DiarioServiceImpl extends RemoteServiceServlet
 			
 			// Register limit
 			if(count > 25) 
-				throw new Exception("Limit exceeded.");
+				throw new ServerException("Limit exceeded.");
 			
 			bean.setDate(new Date());
 		}
@@ -133,7 +134,7 @@ public class DiarioServiceImpl extends RemoteServiceServlet
 			pm.currentTransaction().commit();
 		} catch(Exception e) {
 			pm.currentTransaction().rollback();
-			throw new Exception(e);
+			throw new ServerException(e.toString());
 		} finally {
 			pm.close();
 		}

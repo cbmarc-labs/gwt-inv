@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cbmarc.inventory.shared.entity.Device;
+import cbmarc.inventory.shared.exception.ServerException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -17,8 +18,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("deviceService")
 public interface DeviceService extends RemoteService {
-	Boolean delete(Long id) throws Exception;
-	Device save(Device parte) throws Exception;
+	Boolean delete(Long id) throws ServerException;
+	Device save(Device parte) throws ServerException;
 	
 	void delete(ArrayList<Long> ids);
 	List<Device> select(String filter);

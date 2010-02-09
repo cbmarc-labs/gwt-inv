@@ -27,22 +27,18 @@
   		</g:FlowPanel>
   	</g:HorizontalPanel>
 	
-  	<g:DecoratedTabPanel ui:field="tabs" width="100%">
-  		<g:Tab text='General'>
-  			<g:VerticalPanel>
-				<g:HTMLPanel>
-	  			<table>
-	  				<tr><td>Firstname:</td><td>
-	  				<g:TextBox ui:field="firstName" /></td></tr> 
-	  				<tr><td>Lastname:</td><td>
-	  				<g:TextBox ui:field="lastName" /></td></tr>
-	  				<tr><td>Email Address:</td><td>
-	  				<g:TextBox ui:field="emailAddress" /></td></tr>
-	  			</table>
-	  			</g:HTMLPanel>
-	  		</g:VerticalPanel>
-  		</g:Tab>
-  	</g:DecoratedTabPanel>
+	<g:HorizontalPanel>
+		<g:HTMLPanel>
+		<table>
+			<tr><td>Firstname:</td><td>
+			<g:TextBox ui:field="firstName" /></td></tr> 
+			<tr><td>Lastname:</td><td>
+			<g:TextBox ui:field="lastName" /></td></tr>
+			<tr><td>Email Address:</td><td>
+			<g:TextBox ui:field="emailAddress" /></td></tr>
+		</table>
+		</g:HTMLPanel>
+	</g:HorizontalPanel>
 
 	<g:HorizontalPanel ui:field="menuPanel" styleName="{style.menuPanel}">
 		<g:Button ui:field="submitButton" text="Submit" />

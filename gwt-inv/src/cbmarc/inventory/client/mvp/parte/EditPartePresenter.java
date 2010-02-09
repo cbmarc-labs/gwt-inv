@@ -19,7 +19,9 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.DisclosurePanel;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -55,6 +57,7 @@ public class EditPartePresenter implements Presenter {
 		HasClickHandlers getCancelButton();
 		
 		HasWidgets getDiario();
+		DisclosurePanel getDiarioDisclosurePanel();
 		
 		void reset();
 		
@@ -168,12 +171,14 @@ public class EditPartePresenter implements Presenter {
 		display.reset();
 		display.getAtu().setValue(this.parte.getAtu());
 		
-		if(parte.getId() != null) {
+		if(parte.getId() == null) {
+			display.getDiario().clear();
+			display.getDiarioDisclosurePanel().setVisible(false);
+		} else {
 			diarioPresenter.getList().setFilter("parte==" + parte.getId());
 			diarioPresenter.setParte(parte.getId());
 			diarioPresenter.go(display.getDiario());
-		} else {
-			display.getDiario().clear();
+			display.getDiarioDisclosurePanel().setVisible(true);
 		}
 		
 	    container.add(display.asWidget());
