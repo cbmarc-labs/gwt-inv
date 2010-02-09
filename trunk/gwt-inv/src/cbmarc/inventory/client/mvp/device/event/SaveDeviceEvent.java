@@ -1,7 +1,5 @@
 package cbmarc.inventory.client.mvp.device.event;
 
-import cbmarc.inventory.shared.entity.Diario;
-
 import com.google.gwt.event.shared.GwtEvent;
 
 public class SaveDeviceEvent extends GwtEvent<SaveDeviceEventHandler> {

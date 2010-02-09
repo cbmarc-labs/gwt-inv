@@ -6,20 +6,28 @@
   <ui:style>
   </ui:style>
 
-  <g:HTMLPanel>
-    <div id="root">
-    	<div id="main">
-			<div id="header">GWT-INV Computer Inventory</div>
-			<div id="navigation">
-				<div>MENU PRINCIPAL</div>
-				<div><g:Tree ui:field="navigation" /></div>
-			</div>
-			<div id="content">
-				<div><g:HorizontalPanel ui:field="content" width="100%" /></div>
-			</div>
-			<div id="footer">Footer1</div>
+	<g:HTMLPanel>
+  
+	<div id="header">GWT-INV Computer Inventory</div>
+			
+	<div id="container">
+		<div id="center" class="column">
+			<g:HorizontalPanel ui:field="content" width="100%" />
+		</div>
+				
+		<div id="left" class="column">
+			<div id="navigationTitle">MENÚ PRINCIPAL</div>
+			<div><g:Tree ui:field="navigation" /></div>
+		</div>
+				
+		<div id="right" class="column">
 		</div>
 	</div>
+	
+	<div id="footer-wrapper">
+		<div id="footer">Footer1</div>
+	</div>
+
   </g:HTMLPanel>
   
 </ui:UiBinder>

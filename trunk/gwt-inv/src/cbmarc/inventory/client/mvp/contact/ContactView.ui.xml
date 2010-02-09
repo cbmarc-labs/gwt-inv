@@ -4,23 +4,10 @@
     xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
   <ui:style>
-	.content {
-		width: 100%;
-	}
-	
-	.section {
-		border-top: 1px solid #aaa;
-		border-bottom: 1px solid #aaa;
-		background: #eee;
-		margin: 5px 0;
-		padding: 5px;
-		font-weight: bolder;
-		color: #aaa;
-	}
   </ui:style>
   
-  <g:HTMLPanel styleName="{style.content}">
-  	<g:HTML styleName="{style.section}">GWT-INV :: CONTACT</g:HTML>
+  <g:HTMLPanel>
+  	<div class="section">GWT-INV :: CONTACT</div>
   	<g:SimplePanel ui:field="contentPanel" />
   </g:HTMLPanel>
 

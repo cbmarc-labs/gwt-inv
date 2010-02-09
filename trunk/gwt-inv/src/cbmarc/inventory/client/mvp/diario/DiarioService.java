@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cbmarc.inventory.shared.entity.Diario;
+import cbmarc.inventory.shared.exception.ServerException;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -17,8 +18,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("diarioService")
 public interface DiarioService extends RemoteService {
-	Boolean delete(Long id) throws Exception;
-	Diario save(Diario parte) throws Exception;
+	Boolean delete(Long id) throws ServerException;
+	Diario save(Diario parte) throws ServerException;
 	
 	void delete(ArrayList<Long> ids);
 	List<Diario> select(String filter);

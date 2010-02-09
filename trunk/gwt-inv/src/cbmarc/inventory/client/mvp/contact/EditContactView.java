@@ -14,7 +14,6 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -35,13 +34,10 @@ public class EditContactView extends Composite
 	
 	@UiField HasClickHandlers submitButton;
 	@UiField HasClickHandlers cancelButton;
-	@UiField TabPanel tabs;
 	
 	public EditContactView() {
 		sinkEvents(Event.ONKEYDOWN);
 		initWidget(uiBinder.createAndBindUi(this));
-		
-		tabs.selectTab(0);
 	}
 	
 	/* (non-Javadoc)
