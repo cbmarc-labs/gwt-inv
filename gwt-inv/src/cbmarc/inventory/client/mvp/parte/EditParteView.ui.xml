@@ -5,17 +5,12 @@
 
   <ui:style>
 	.content {
+		padding: 10px;
+		background: #eee;
 	}
 	
 	.menuPanel {
 		margin: 10px 0;
-	}
-	
-	.toolbar {
-		background: #ebeff9;
-		width: 100%;
-		margin: 5px 0;
-		padding: 5px;
 	}
 	
 	.diario {
@@ -25,11 +20,11 @@
   
   <g:HTMLPanel styleName="{style.content}">
   
-  	<g:HorizontalPanel styleName="{style.toolbar}">
+  	<div class="toolbar">
   		<g:FlowPanel>
   			<g:Button ui:field="listButton" text="Lista" />
   		</g:FlowPanel>
-  	</g:HorizontalPanel>
+  	</div>
 	
 	<g:VerticalPanel width="100%">
 		<g:DisclosurePanel animationEnabled='false' width="100%" open="true">

@@ -3,8 +3,6 @@
  */
 package cbmarc.inventory.client.mvp.device;
 
-import java.util.Date;
-
 import cbmarc.inventory.client.mvp.Presenter;
 import cbmarc.inventory.client.mvp.device.event.CreatedDeviceEvent;
 import cbmarc.inventory.client.mvp.device.event.EditCancelledDeviceEvent;
@@ -19,7 +17,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.datepicker.client.DateBox;
 
 /**
  * @author MCOSTA
@@ -30,8 +30,21 @@ public class EditDevicePresenter implements Presenter {
 	public interface Display {
 		HasClickHandlers getListButton();
 		
-		HasValue<String> getKey();
-		HasValue<Date> getDate();
+		TextBox getSn();
+		HasValue<String> getNombre();
+		HasValue<String> getMarca();
+		HasValue<String> getModelo();
+		HasValue<String> getTipo();
+		HasValue<String> getCentro();
+		HasValue<String> getSociedad();
+		HasValue<String> getDepartamento();
+		HasValue<String> getUbicacion();
+		DateBox getFechaCompra();
+		DateBox getFechaFinGarantia();
+		HasValue<String> getProveedor();
+		Boolean getMantenimiento();
+		void setMantenimiento(Boolean mantenimiento);
+		HasValue<String> getObservaciones();
 		
 		HasClickHandlers getSubmitButton();
 		HasClickHandlers getCancelButton();
@@ -106,9 +119,30 @@ public class EditDevicePresenter implements Presenter {
 	public void setBean(Device bean) {
 		this.bean = bean;
 	}
+	
+	/**
+	 * 
+	 */
+	private void fillBean() {
+		this.bean.setSn(display.getSn().getValue());
+		this.bean.setNombre(display.getNombre().getValue());
+		this.bean.setMarca(display.getMarca().getValue());
+		this.bean.setModelo(display.getModelo().getValue());
+		this.bean.setTipo(display.getTipo().getValue());
+		this.bean.setCentro(display.getCentro().getValue());
+		this.bean.setSociedad(display.getSociedad().getValue());
+		// TODO implements foreign departamento
+		this.bean.setDepartamento(display.getDepartamento().getValue());
+		this.bean.setUbicacion(display.getUbicacion().getValue());
+		this.bean.setFechaCompra(display.getFechaCompra().getValue());
+		this.bean.setFechaFinGarantia(display.getFechaFinGarantia().getValue());
+		this.bean.setProveedor(display.getProveedor().getValue());
+		this.bean.setMantenimiento(display.getMantenimiento());
+		this.bean.setObservaciones(display.getObservaciones().getValue());
+	}
 
 	public boolean doSave() {
-		// TODO fill bean from display
+		fillBean();
 		
 		rpcService.save(bean, new AsyncCallback<Device>() {
 
@@ -127,6 +161,26 @@ public class EditDevicePresenter implements Presenter {
 		return true;
 	}
 	
+	/**
+	 * 
+	 */
+	private void fillDisplay() {
+		display.getSn().setValue(bean.getSn());
+		display.getNombre().setValue(bean.getNombre());
+		display.getMarca().setValue(bean.getMarca());
+		display.getModelo().setValue(bean.getModelo());
+		display.getTipo().setValue(bean.getTipo());
+		display.getCentro().setValue(bean.getCentro());
+		display.getSociedad().setValue(bean.getSociedad());
+		display.getDepartamento().setValue(bean.getSociedad());
+		display.getUbicacion().setValue(bean.getUbicacion());
+		display.getFechaCompra().setValue(bean.getFechaCompra());
+		display.getFechaFinGarantia().setValue(bean.getFechaFinGarantia());
+		display.getProveedor().setValue(bean.getProveedor());
+		display.setMantenimiento(bean.getMantenimiento());
+		display.getObservaciones().setValue(bean.getObservaciones());
+	}
+	
 	/* (non-Javadoc)
 	 * @see cbmarc.inventory.client.mvp.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
 	 */
@@ -135,13 +189,11 @@ public class EditDevicePresenter implements Presenter {
 		container.clear();
 
 		display.reset();
-		if(bean.getKey() != null) {
-			display.getKey().setValue(bean.getKey());
-			display.getDate().setValue(bean.getDate());
-		}
+		if(bean.getKey() != null) 
+			fillDisplay();
 		
 	    container.add(display.asWidget());
-	    // TODO set focus on some field
+	    display.getSn().setFocus(true);
 	}
 
 }

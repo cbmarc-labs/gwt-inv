@@ -62,8 +62,9 @@ public class Device implements Serializable {
 	@Persistent
 	private String sociedad;
 	
+	// foreign key to Departamento
 	@Persistent
-	private Departamento departamento;
+	private String departamento;
 	
 	@Persistent
 	private String ubicacion;
@@ -211,14 +212,14 @@ public class Device implements Serializable {
 	/**
 	 * @return the departamento
 	 */
-	public final Departamento getDepartamento() {
+	public final String getDepartamento() {
 		return departamento;
 	}
 
 	/**
 	 * @param departamento the departamento to set
 	 */
-	public final void setDepartamento(Departamento departamento) {
+	public final void setDepartamento(String departamento) {
 		this.departamento = departamento;
 	}
 
