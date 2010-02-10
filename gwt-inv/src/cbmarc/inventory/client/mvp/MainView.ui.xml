@@ -25,7 +25,8 @@
 	</div>
 	
 	<div id="footer-wrapper">
-		<div id="footer">Footer1</div>
+		<br /><br /><br /><br />
+		<div id="footer">- gwt-inv -</div>
 	</div>
 
   </g:HTMLPanel>
