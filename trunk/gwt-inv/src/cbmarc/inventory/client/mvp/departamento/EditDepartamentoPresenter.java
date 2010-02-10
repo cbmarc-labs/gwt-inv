@@ -1,15 +1,13 @@
 /**
  * 
  */
-package cbmarc.inventory.client.mvp.device;
-
-import java.util.Date;
+package cbmarc.inventory.client.mvp.departamento;
 
 import cbmarc.inventory.client.mvp.Presenter;
-import cbmarc.inventory.client.mvp.device.event.CreatedDeviceEvent;
-import cbmarc.inventory.client.mvp.device.event.EditCancelledDeviceEvent;
-import cbmarc.inventory.client.mvp.device.event.SaveDeviceEvent;
-import cbmarc.inventory.shared.entity.Device;
+import cbmarc.inventory.client.mvp.departamento.event.CreatedDepartamentoEvent;
+import cbmarc.inventory.client.mvp.departamento.event.EditCancelledDepartamentoEvent;
+import cbmarc.inventory.client.mvp.departamento.event.SaveDepartamentoEvent;
+import cbmarc.inventory.shared.entity.Departamento;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -19,19 +17,20 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author MCOSTA
  *
  */
-public class EditDevicePresenter implements Presenter {
+public class EditDepartamentoPresenter implements Presenter {
 	
 	public interface Display {
 		HasClickHandlers getListButton();
 		
-		HasValue<String> getKey();
-		HasValue<Date> getDate();
+		TextBox getNombre();
+		HasValue<String> getObservaciones();
 		
 		HasClickHandlers getSubmitButton();
 		HasClickHandlers getCancelButton();
@@ -41,18 +40,18 @@ public class EditDevicePresenter implements Presenter {
 		Widget asWidget();
 	}
 	
-	private final DeviceServiceAsync rpcService;
+	private final DepartamentoServiceAsync rpcService;
 	private final HandlerManager eventBus;
 	private final Display display;
 	
-	private Device bean = new Device();
+	private Departamento bean = new Departamento();
 	
 	/**
 	 * @param rpcService
 	 * @param eventBus
 	 * @param view
 	 */
-	public EditDevicePresenter(DeviceServiceAsync rpcService, 
+	public EditDepartamentoPresenter(DepartamentoServiceAsync rpcService, 
 			HandlerManager eventBus, Display view) {
 		this.rpcService = rpcService;
 	    this.eventBus = eventBus;
@@ -69,7 +68,7 @@ public class EditDevicePresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new EditCancelledDeviceEvent());
+				eventBus.fireEvent(new EditCancelledDepartamentoEvent());
 			}
 	    	
 	    });
@@ -78,7 +77,7 @@ public class EditDevicePresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new EditCancelledDeviceEvent());
+				eventBus.fireEvent(new EditCancelledDepartamentoEvent());
 			}
 			
 		});
@@ -87,7 +86,7 @@ public class EditDevicePresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new SaveDeviceEvent());
+				eventBus.fireEvent(new SaveDepartamentoEvent());
 			}
 			
 		});
@@ -96,21 +95,22 @@ public class EditDevicePresenter implements Presenter {
 	/**
 	 * @return
 	 */
-	public Device getBean() {
+	public Departamento getBean() {
 		return bean;
 	}
 
 	/**
 	 * @param bean
 	 */
-	public void setBean(Device bean) {
+	public void setBean(Departamento bean) {
 		this.bean = bean;
 	}
 
 	public boolean doSave() {
-		// TODO fill bean from display
+		this.bean.setNombre(display.getNombre().getValue());
+		this.bean.setObservaciones(display.getObservaciones().getValue());
 		
-		rpcService.save(bean, new AsyncCallback<Device>() {
+		rpcService.save(bean, new AsyncCallback<Departamento>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -118,8 +118,8 @@ public class EditDevicePresenter implements Presenter {
 			}
 
 			@Override
-			public void onSuccess(Device result) {
-				eventBus.fireEvent(new CreatedDeviceEvent());
+			public void onSuccess(Departamento result) {
+				eventBus.fireEvent(new CreatedDepartamentoEvent());
 			}
 			
 		});
@@ -135,13 +135,13 @@ public class EditDevicePresenter implements Presenter {
 		container.clear();
 
 		display.reset();
-		if(bean.getKey() != null) {
-			display.getKey().setValue(bean.getKey());
-			display.getDate().setValue(bean.getDate());
+		if(bean.getEncodedKey() != null) {
+			display.getNombre().setValue(bean.getNombre());
+			display.getObservaciones().setValue(bean.getObservaciones());
 		}
 		
 	    container.add(display.asWidget());
-	    // TODO set focus on some field
+	    display.getNombre().setFocus(true);
 	}
 
 }

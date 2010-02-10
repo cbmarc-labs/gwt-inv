@@ -1,17 +1,17 @@
 /**
  * 
  */
-package cbmarc.inventory.client.mvp.device;
+package cbmarc.inventory.client.mvp.departamento;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cbmarc.inventory.client.event.LoadingEvent;
 import cbmarc.inventory.client.mvp.Presenter;
-import cbmarc.inventory.client.mvp.device.event.AddDeviceEvent;
-import cbmarc.inventory.client.mvp.device.event.DeleteDeviceEvent;
-import cbmarc.inventory.client.mvp.device.event.EditDeviceEvent;
-import cbmarc.inventory.shared.entity.Device;
+import cbmarc.inventory.client.mvp.departamento.event.AddDepartamentoEvent;
+import cbmarc.inventory.client.mvp.departamento.event.DeleteDepartamentoEvent;
+import cbmarc.inventory.client.mvp.departamento.event.EditDepartamentoEvent;
+import cbmarc.inventory.shared.entity.Departamento;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -26,14 +26,14 @@ import com.google.gwt.user.client.ui.Widget;
  * @author MCOSTA
  * 
  */
-public class ListDevicePresenter implements Presenter {
+public class ListDepartamentoPresenter implements Presenter {
 
 	public interface Display {
 		HasClickHandlers getAddButton();
 		HasClickHandlers getDeleteButton();
 		HasClickHandlers getTable();
 
-		void setData(List<Device> data);
+		void setData(List<Departamento> data);
 		List<Integer> getSelectedRows();
 		
 		int getClickedRow(ClickEvent event);
@@ -41,18 +41,18 @@ public class ListDevicePresenter implements Presenter {
 		Widget asWidget();
 	}
 
-	private final DeviceServiceAsync rpcService;
+	private final DepartamentoServiceAsync rpcService;
 	private final HandlerManager eventBus;
 	private final Display display;
 	
 	private String filter = null;
-	private List<Device> lista;
+	private List<Departamento> lista;
 
 	/**
 	 * @param eventBus
 	 * @param view
 	 */
-	public ListDevicePresenter(DeviceServiceAsync rpcService, 
+	public ListDepartamentoPresenter(DepartamentoServiceAsync rpcService, 
 			HandlerManager eventBus, Display view) {
 		this.rpcService = rpcService;
 		this.eventBus = eventBus;
@@ -69,7 +69,7 @@ public class ListDevicePresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new AddDeviceEvent());
+				eventBus.fireEvent(new AddDepartamentoEvent());
 			}
 
 		});
@@ -78,7 +78,7 @@ public class ListDevicePresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new DeleteDeviceEvent());
+				eventBus.fireEvent(new DeleteDepartamentoEvent());
 			}
 			
 		});
@@ -90,8 +90,8 @@ public class ListDevicePresenter implements Presenter {
 				int selectedRow = display.getClickedRow(event);
 				
 				if(selectedRow > 0) {
-					String key = lista.get(selectedRow - 1).getKey();
-					eventBus.fireEvent(new EditDeviceEvent(key));
+					String key = lista.get(selectedRow - 1).getEncodedKey();
+					eventBus.fireEvent(new EditDepartamentoEvent(key));
 				}
 			}
 			
@@ -103,7 +103,7 @@ public class ListDevicePresenter implements Presenter {
 	 */
 	public void deleteSelected() {
 		List<Integer> selectedRows = display.getSelectedRows();
-		ArrayList<String> ids = new ArrayList<String>();
+		ArrayList<String> keys = new ArrayList<String>();
 
 		if(selectedRows.isEmpty()) {
 			Window.alert("No hay ningun elemento seleccionado");
@@ -111,10 +111,10 @@ public class ListDevicePresenter implements Presenter {
 			if(Window.confirm("Borrar los elementos seleccionados ?")) {
 				for (int i = 0; i < selectedRows.size(); ++i) {
 					if(selectedRows.get(i) > 0)
-						ids.add(lista.get(selectedRows.get(i) - 1).getKey());
+						keys.add(lista.get(selectedRows.get(i) - 1).getEncodedKey());
 				}
 		
-				rpcService.delete(ids, new AsyncCallback<Void>() {
+				rpcService.delete(keys, new AsyncCallback<Void>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -134,7 +134,7 @@ public class ListDevicePresenter implements Presenter {
 	/**
 	 * @param result
 	 */
-	private void setData(List<Device> result) {
+	private void setData(List<Departamento> result) {
 		eventBus.fireEvent(new LoadingEvent(false));
 		
 		lista = result;
@@ -171,7 +171,7 @@ public class ListDevicePresenter implements Presenter {
 	 */
 	private void getData() {		
 		eventBus.fireEvent(new LoadingEvent(true));
-		rpcService.select(this.filter, new AsyncCallback<List<Device>>() {
+		rpcService.select(this.filter, new AsyncCallback<List<Departamento>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -180,7 +180,7 @@ public class ListDevicePresenter implements Presenter {
 			}
 
 			@Override
-			public void onSuccess(List<Device> result) {
+			public void onSuccess(List<Departamento> result) {
 				setData(result);
 			}
 			
