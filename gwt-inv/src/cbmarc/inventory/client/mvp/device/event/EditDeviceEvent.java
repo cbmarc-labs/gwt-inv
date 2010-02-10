@@ -5,13 +5,13 @@ import com.google.gwt.event.shared.GwtEvent;
 public class EditDeviceEvent extends GwtEvent<EditDeviceEventHandler> {
   public static Type<EditDeviceEventHandler> TYPE = 
 	  new Type<EditDeviceEventHandler>();
-  private final Long id;
+  private final String key;
   
-  public EditDeviceEvent(Long id) {
-	  this.id = id;
+  public EditDeviceEvent(String key) {
+	  this.key = key;
   }
   
-  public Long getId() { return id; }
+  public String getKey() { return key; }
   
   @Override
   public Type<EditDeviceEventHandler> getAssociatedType() {

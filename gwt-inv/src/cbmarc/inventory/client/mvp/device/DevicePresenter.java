@@ -96,7 +96,7 @@ public class DevicePresenter implements Presenter {
 
 			@Override
 			public void onEdit(EditDeviceEvent event) {
-				doEdit(event.getId());
+				doEdit(event.getKey());
 			}
 			
 		});
@@ -133,8 +133,8 @@ public class DevicePresenter implements Presenter {
 	/**
 	 * @param id
 	 */
-	private void doEdit(Long id) {
-		rpcService.selectById(id, new AsyncCallback<Device>() {
+	private void doEdit(String key) {
+		rpcService.selectByKey(key, new AsyncCallback<Device>() {
 
 			@Override
 			public void onFailure(Throwable caught) {

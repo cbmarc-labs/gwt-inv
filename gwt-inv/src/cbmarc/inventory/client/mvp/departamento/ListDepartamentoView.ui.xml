@@ -38,12 +38,12 @@
   </ui:style>
   
   <g:HTMLPanel styleName="{style.content}">
-  	<div class="toolbar">
+  	<g:HorizontalPanel styleName="{style.toolbar}">
   		<g:FlowPanel>
   			<g:Button ui:field="addButton" text="Nuevo" />
   			<g:Button ui:field="deleteButton" text="Borrar" />
   		</g:FlowPanel>
-  	</div>
+  	</g:HorizontalPanel>
 	
 	<g:VerticalPanel width="100%">
 		<g:HorizontalPanel styleName="{style.listHeader}">
