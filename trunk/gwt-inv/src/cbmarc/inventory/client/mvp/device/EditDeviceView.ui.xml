@@ -25,8 +25,20 @@
   	<g:HorizontalPanel>
 		<g:HTMLPanel>
 			<table>
-			<tr><td>Key :</td><td><g:TextBox ui:field="key" /></td></tr>
-			<tr><td>Date :</td><td><d:DateBox ui:field="date" /></td></tr>
+			<tr><td>Número de serie :</td><td><g:TextBox ui:field="sn" /></td></tr>
+			<tr><td>Nombre :</td><td><g:TextBox ui:field="nombre" /></td></tr>
+			<tr><td>Marca :</td><td><g:TextBox ui:field="marca" /></td></tr>
+			<tr><td>Modelo :</td><td><g:TextBox ui:field="modelo" /></td></tr>
+			<tr><td>Tipo :</td><td><g:TextBox ui:field="tipo" /></td></tr>
+			<tr><td>Centro :</td><td><g:TextBox ui:field="centro" /></td></tr>
+			<tr><td>Sociedad :</td><td><g:TextBox ui:field="sociedad" /></td></tr>
+			<tr><td>Departamento :</td><td><g:TextBox ui:field="departamento" /></td></tr>
+			<tr><td>Ubicación :</td><td><g:TextBox ui:field="ubicacion" /></td></tr>
+			<tr><td>Fecha de la compra :</td><td><d:DateBox ui:field="fechaCompra" /></td></tr>
+			<tr><td>Fin de la garantia :</td><td><d:DateBox ui:field="fechaFinGarantia" /></td></tr>
+			<tr><td>Proveedor :</td><td><g:TextBox ui:field="proveedor" /></td></tr>
+			<tr><td>Mantenimiento :</td><td><g:RadioButton name="mantenimiento" text="SI" ui:field="mantenimiento_0" /><g:RadioButton name="mantenimiento" text="NO" ui:field="mantenimiento_1" /></td></tr>
+			<tr><td>Observaciones :</td><td><g:TextArea ui:field="observaciones" width="30em" height="6em" /></td></tr>
 			</table>
 		</g:HTMLPanel>
   	</g:HorizontalPanel>

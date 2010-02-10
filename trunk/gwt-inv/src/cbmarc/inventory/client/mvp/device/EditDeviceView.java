@@ -12,6 +12,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
@@ -27,8 +28,21 @@ public class EditDeviceView extends Composite
 	
 	@UiField HasClickHandlers listButton;
 	
-	@UiField TextBox key;
-	@UiField DateBox date;
+	@UiField TextBox sn;
+	@UiField HasValue<String> nombre;
+	@UiField HasValue<String> marca;
+	@UiField HasValue<String> modelo;
+	@UiField HasValue<String> tipo;
+	@UiField HasValue<String> centro;
+	@UiField HasValue<String> sociedad;
+	@UiField HasValue<String> departamento;
+	@UiField HasValue<String> ubicacion;
+	@UiField DateBox fechaCompra;
+	@UiField DateBox fechaFinGarantia;
+	@UiField HasValue<String> proveedor;
+	@UiField RadioButton mantenimiento_0;
+	@UiField RadioButton mantenimiento_1;
+	@UiField HasValue<String> observaciones;
 	
 	@UiField HasClickHandlers submitButton;
 	@UiField HasClickHandlers cancelButton;
@@ -36,10 +50,10 @@ public class EditDeviceView extends Composite
 	public EditDeviceView() {
 		initWidget(uiBinder.createAndBindUi(this));
 		
-		this.key.setEnabled(false);
-		this.date.setEnabled(false);
-		this.date.setFormat(new DateBox.DefaultFormat(
-				DateTimeFormat.getFormat("dd/MM/yyyy HH:mm:ss")));
+		this.fechaCompra.setFormat(new DateBox.DefaultFormat(
+				DateTimeFormat.getFormat("dd/MM/yyyy")));
+		this.fechaFinGarantia.setFormat(new DateBox.DefaultFormat(
+				DateTimeFormat.getFormat("dd/MM/yyyy")));
 	}
 	
 	public Widget asWidget() {
@@ -49,16 +63,6 @@ public class EditDeviceView extends Composite
 	@Override
 	public HasClickHandlers getCancelButton() {
 		return this.cancelButton;
-	}
-
-	@Override
-	public HasValue<Date> getDate() {
-		return this.date;
-	}
-
-	@Override
-	public HasValue<String> getKey() {
-		return this.key;
 	}
 
 	@Override
@@ -73,7 +77,125 @@ public class EditDeviceView extends Composite
 
 	@Override
 	public void reset() {
-		this.key.setValue("");
-		this.date.setValue(null);
+		this.sn.setValue("");
+		this.nombre.setValue("");
+		this.marca.setValue("");
+		this.modelo.setValue("");
+		this.tipo.setValue("");
+		this.centro.setValue("");
+		this.sociedad.setValue("");
+		this.departamento.setValue("");
+		this.ubicacion.setValue("");
+		this.fechaCompra.setValue(new Date());
+		this.fechaFinGarantia.setValue(new Date());
+		this.proveedor.setValue("");
+		this.mantenimiento_0.setValue(true);
+		this.observaciones.setValue("");
+	}
+
+	@Override
+	public TextBox getSn() {
+		return this.sn;
+	}
+
+	/**
+	 * @return the nombre
+	 */
+	public final HasValue<String> getNombre() {
+		return nombre;
+	}
+
+	/**
+	 * @return the marca
+	 */
+	public final HasValue<String> getMarca() {
+		return marca;
+	}
+
+	/**
+	 * @return the modelo
+	 */
+	public final HasValue<String> getModelo() {
+		return modelo;
+	}
+
+	/**
+	 * @return the tipo
+	 */
+	public final HasValue<String> getTipo() {
+		return tipo;
+	}
+
+	/**
+	 * @return the centro
+	 */
+	public final HasValue<String> getCentro() {
+		return centro;
+	}
+
+	/**
+	 * @return the sociedad
+	 */
+	public final HasValue<String> getSociedad() {
+		return sociedad;
+	}
+
+	/**
+	 * @return the departamento
+	 */
+	public final HasValue<String> getDepartamento() {
+		return departamento;
+	}
+
+	/**
+	 * @return the ubicacion
+	 */
+	public final HasValue<String> getUbicacion() {
+		return ubicacion;
+	}
+
+	/**
+	 * @return the fechaCompra
+	 */
+	public final DateBox getFechaCompra() {
+		return fechaCompra;
+	}
+
+	/**
+	 * @return the fechaFinGarantia
+	 */
+	public final DateBox getFechaFinGarantia() {
+		return fechaFinGarantia;
+	}
+
+	/**
+	 * @return the proveedor
+	 */
+	public final HasValue<String> getProveedor() {
+		return proveedor;
+	}
+
+	/**
+	 * @return the mantenimiento_0
+	 */
+	public final Boolean getMantenimiento() {
+		return mantenimiento_0.getValue();
+	}
+
+	/**
+	 * @param mantenimiento_0 the mantenimiento_0 to set
+	 */
+	public final void setMantenimiento(Boolean mantenimiento) {
+		this.mantenimiento_0.setValue(mantenimiento);
+		
+		if(!mantenimiento)
+			this.mantenimiento_1.setValue(true);
+	}
+
+	/**
+	 * @return the observaciones
+	 */
+	public final HasValue<String> getObservaciones() {
+		return observaciones;
 	}
 }

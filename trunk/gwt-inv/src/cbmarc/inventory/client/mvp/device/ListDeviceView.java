@@ -62,17 +62,21 @@ public class ListDeviceView extends Composite
 		table.removeAllRows();
 		
 		table.setWidget(0, 0, new CheckBox());
-		table.setText(0, 1, "KEY");
-		table.setText(0, 2, "DATE");
+		table.setText(0, 1, "S/N");
+		table.setText(0, 2, "Nombre");
+		table.setText(0, 3, "Marca");
+		table.setText(0, 4, "Modelo");
+		table.setText(0, 5, "Tipo");
 		table.getRowFormatter().addStyleName(0, "flexTableHeader");
 
 		if (data != null) {
 			for (int i = 0; i < size; ++i) {
 				table.setWidget(i+1, 0, new CheckBox());
-				table.setText(i+1, 1, data.get(i).getKey());
-				table.setText(i+1, 2, DateTimeFormat.
-						getFormat("dd/MM/yyyy HH:mm:ss").
-						format(data.get(i).getDate()));
+				table.setText(i+1, 1, data.get(i).getSn());
+				table.setText(i+1, 2, data.get(i).getNombre());
+				table.setText(i+1, 3, data.get(i).getMarca());
+				table.setText(i+1, 4, data.get(i).getModelo());
+				table.setText(i+1, 5, data.get(i).getTipo());
 			}
 		}
 		
