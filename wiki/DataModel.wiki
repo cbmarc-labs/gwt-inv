@@ -1,6 +1,6 @@
-#summary datamodel
+#summary datamodel (deprecated)
 
-= DATAMODEL =
+= DATAMODEL (deprecated) =
 || *programas||||||||
 ||prg_id||long||PK, FK software||identificador unico del programa||
 ||prg_nombre||varchar(32)||*||nombre del programa instalado||
@@ -117,4 +117,3 @@
 ||dep_id||long||PK, FK dispositivos||Identificador||
 ||dep_nombre||varchar(32)||*||Nombre descriptivo||
 ||dep_observaciones||varchar(256)||*||Observaciones generales del departamento||
-
