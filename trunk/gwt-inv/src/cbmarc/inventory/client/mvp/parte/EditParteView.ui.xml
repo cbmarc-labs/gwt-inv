@@ -41,9 +41,9 @@
   			</g:HTMLPanel>
 		</g:DisclosurePanel>
 		
-		<g:DisclosurePanel animationEnabled='false'>
+		<g:DisclosurePanel animationEnabled='false' width="100%">
 			<g:header>
-				<ui:msg description="Label for Disclosure One">Dispositivo</ui:msg>
+				<ui:msg description="Dispositivo">Dispositivo</ui:msg>
 			</g:header>
 			<g:HTMLPanel>
 	  			<table>

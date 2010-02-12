@@ -38,7 +38,7 @@
   </ui:style>
   
   <g:HTMLPanel styleName="{style.content}">
-  	<g:HorizontalPanel styleName="{style.toolbar}">
+  	<g:HorizontalPanel styleName="{style.toolbar}" ui:field="toolbar">
   		<g:FlowPanel>
   			<g:Button ui:field="addButton" text="Nuevo" />
   			<g:Button ui:field="deleteButton" text="Borrar" />
