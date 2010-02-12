@@ -6,14 +6,59 @@
 <web-app>
   
   <!-- Servlets -->
+  <!-- Servlet contactServiceServlet -->
   <servlet>
-    <servlet-name>contactsServiceServlet</servlet-name>
-    <servlet-class>cbmarc.inventory.server.ContactsServiceImpl</servlet-class>
+    <servlet-name>contactServiceServlet</servlet-name>
+    <servlet-class>cbmarc.inventory.server.ContactServiceImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>contactsServiceServlet</servlet-name>
-    <url-pattern>/gwt_inv/contactsService</url-pattern>
+    <servlet-name>contactServiceServlet</servlet-name>
+    <url-pattern>/gwt_inv/contactService</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Servlet ParteServiceServlet -->
+  <servlet>
+    <servlet-name>parteServiceServlet</servlet-name>
+    <servlet-class>cbmarc.inventory.server.ParteServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>parteServiceServlet</servlet-name>
+    <url-pattern>/gwt_inv/parteService</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Servlet DiarioServiceServlet -->
+  <servlet>
+    <servlet-name>diarioServiceServlet</servlet-name>
+    <servlet-class>cbmarc.inventory.server.DiarioServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>diarioServiceServlet</servlet-name>
+    <url-pattern>/gwt_inv/diarioService</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Servlet deviceServiceServlet -->
+  <servlet>
+    <servlet-name>deviceServiceServlet</servlet-name>
+    <servlet-class>cbmarc.inventory.server.DeviceServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>deviceServiceServlet</servlet-name>
+    <url-pattern>/gwt_inv/deviceService</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Servlet departamentoServiceServlet -->
+  <servlet>
+    <servlet-name>departamentoServiceServlet</servlet-name>
+    <servlet-class>cbmarc.inventory.server.DepartamentoServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>departamentoServiceServlet</servlet-name>
+    <url-pattern>/gwt_inv/departamentoService</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->
