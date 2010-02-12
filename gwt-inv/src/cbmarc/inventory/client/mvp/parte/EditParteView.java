@@ -13,6 +13,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DisclosurePanel;
+import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -32,7 +33,13 @@ public class EditParteView extends Composite
 	@UiField TextBox atu;
 	@UiField TextBox fecha;
 	
+	@UiField TextBox dis_id;
+	
+	@UiField HasClickHandlers selectDispositivoButton;
+	
 	@UiField DisclosurePanel diarioDisclosurePanel;
+	@UiField Panel dispositivoFields;
+	@UiField Panel dispositivo;
 	@UiField Panel diario;
 	
 	@UiField HasClickHandlers submitButton;
@@ -101,6 +108,34 @@ public class EditParteView extends Composite
 	@Override
 	public HasWidgets getDiario() {
 		return this.diario;
+	}
+
+	/**
+	 * @return the dispositivo
+	 */
+	public final Panel getDispositivo() {
+		return dispositivo;
+	}
+
+	/**
+	 * @return the selectDispositivoButton
+	 */
+	public final HasClickHandlers getSelectDispositivoButton() {
+		return selectDispositivoButton;
+	}
+
+	/**
+	 * @return the dis_id
+	 */
+	public final HasValue<String> getDis_id() {
+		return dis_id;
+	}
+
+	/**
+	 * @return the dispositivoFields
+	 */
+	public final Panel getDispositivoFields() {
+		return dispositivoFields;
 	}
 
 	/**

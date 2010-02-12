@@ -13,7 +13,7 @@
 		margin: 10px 0;
 	}
 	
-	.diario {
+	.table {
 		width: 100%;
 	}
   </ui:style>
@@ -46,6 +46,13 @@
 				<ui:msg description="Dispositivo">Dispositivo</ui:msg>
 			</g:header>
 			<g:HTMLPanel>
+				<g:HTMLPanel width="100%" ui:field="dispositivoFields">
+				<div class="toolbar">
+  					<g:FlowPanel>
+  						<g:Button ui:field="selectDispositivoButton" text="Seleccionar dispositivo" />
+  					</g:FlowPanel>
+  				</div>
+			
 	  			<table>
 	  				<tr><td>Identificador del dispositivo :</td><td><g:TextBox ui:field="dis_id" /></td></tr> 
 	  				<tr><td>Numero de serie :</td><td><g:TextBox ui:field="dis_sn" /></td></tr>
@@ -62,6 +69,10 @@
 	  				<tr><td>Mantenimiento :</td><td><g:TextBox ui:field="dis_mantenimiento" /></td></tr>
 	  				<tr><td>Observaciones :</td><td><g:TextArea ui:field="dis_observaciones" /></td></tr>
 	  			</table>
+	  			</g:HTMLPanel>
+	  			
+	  			<g:HorizontalPanel width="100%" ui:field="dispositivo" styleName="{style.table}" />
+	  			
 			</g:HTMLPanel>
 		</g:DisclosurePanel>
 		
@@ -69,7 +80,7 @@
 			<g:header>
 				<ui:msg description="Label for Disclosure One">Diario</ui:msg>
 			</g:header>
-			<g:HorizontalPanel width="100%" ui:field="diario" styleName="{style.diario}" />
+			<g:HorizontalPanel width="100%" ui:field="diario" styleName="{style.table}" />
 		</g:DisclosurePanel>
 	</g:VerticalPanel>
 
