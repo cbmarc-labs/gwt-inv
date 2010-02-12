@@ -1,43 +1,160 @@
 /** Add css rules here for your application. */
-#root {
-	margin: 5px;
-}
 
-#main {
-	font: normal 11px auto "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-	width: 100%;
-	/* background: #E6EAE9; */
-}
+	/* SOURCE: http://www.alistapart.com/articles/holygrail/ */
+	/*** The Essential Code ***/
+	
+	body {
+		font: normal 1.0em auto "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+		min-width: 630px;         /* 2 x (LC fullwidth + CC padding) + RC fullwidth */
+	}
+	
+	#container {
+		padding-left: 200px;      /* LC fullwidth */
+		padding-right: 40px;     /* RC fullwidth + CC padding */
+	}
+	
+	#container .column {
+		position: relative;
+		float: left;
+	}
+	
+	#center {
+		padding: 0 20px;       /* CC padding */
+		width: 100%;
+	}
+	
+	#left {
+		width: 180px;             /* LC width */
+		padding: 0 10px;          /* LC padding */
+		right: 240px;             /* LC fullwidth + CC padding */
+		margin-left: -100%;
+	}
+	
+	#right {
+		width: 0px;             /* RC width */
+		padding: 0 0px;          /* RC padding */
+		margin-right: -100%;
+	}
+	
+	#footer {
+		clear: both;
+	}
+	
+	/*** IE Fix ***/
+	* html #left {
+		left: 150px;              /* RC fullwidth */
+	}
+	
+	/*** Equal-height Columns ***/
+	
+	#container {
+		overflow: hidden;
+	}
+	
+	#container .column {
+	}
+	
+	/*** Footer Fix ***/
+	
+	* html body {
+		overflow: hidden;
+	}
+	
+	* html #footer-wrapper {
+		float: left;
+		position: relative;
+		width: 100%;
+		background: #FFF;         /*** Same as body background ***/
+	}
+	
+	/*** Just for Looks ***/
+	/*
+	body {
+		margin: 0;
+		padding: 0;
+		background: #FFF;
+	}
+	
+	#header, #footer {
+		font-size: large;
+		text-align: center;
+		padding: 0.3em 0;
+		background: #999;
+	}
+	
+	#left {
+		background: #66F;
+	}
+	
+	#center {
+		background: #DDD;
+	}
+	
+	#right {
+		background: #F66;
+	}
+	
+	#container .column {
+		padding-top: 1em;
+		text-align: justify;
+	}
+	*/
+
+		
+
 
 #header {
 	padding: .5em;
 	font-size: 24px;
 	color: #fff;
 	background: #4E7DD1;
-	font-family: "Trebuchet MS";
 	margin: 0 0 10px 0;
 }
 
-#navigation {
-	padding: 0.1em;
-	margin: 0;
-	width: 195px;
-	float: left;
+#navigationTitle {
+	border-top: 1px solid #aaa;
+	background: #eee;
+	margin: 5px 0;
+	padding: 5px;
+	font-weight: bolder;
+	color: #aaa;
 }
 
-#content {
-	padding: 0.1em;
-	margin-left: 200px;
+p label {  
+	width:150px;  
+	float:left;  
+	margin-right:10px;  
+	text-align:right;  
+}
+
+.section {
+	border-top: 1px solid #aaa;
+	background: #eee;
+	margin: 5px 0;
+	padding: 5px;
+	font-weight: bolder;
+	color: #aaa;
+}
+
+.toolbar {
+	background: #d9e7f8;
+	width: 100%;
+	margin: 5px 0;
+	padding: 5px;
+}
+
+.flexTableHeader {
+	background: #ddd;
 }
 
 #footer {
-	clear: both;
-	margin: 10px 0 0 0;
-	padding: .5em;
-	color: #333;
-	background-color: #ddd;
-	display: none;
+	padding: 1.3em 0;
+	text-align: center;
+	border-top: 1px solid #eee;
 }
+
+
+
 
 /** Example rules used by the template application (remove for your app) */
 h1 {
