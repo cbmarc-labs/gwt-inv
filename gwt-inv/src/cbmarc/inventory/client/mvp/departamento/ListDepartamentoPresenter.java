@@ -20,6 +20,7 @@ import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -29,6 +30,8 @@ import com.google.gwt.user.client.ui.Widget;
 public class ListDepartamentoPresenter implements Presenter {
 
 	public interface Display {
+		Panel getToolbar();
+		
 		HasClickHandlers getAddButton();
 		HasClickHandlers getDeleteButton();
 		HasClickHandlers getTable();
@@ -164,6 +167,10 @@ public class ListDepartamentoPresenter implements Presenter {
 	 */
 	public void setFilter(String filter) {
 		this.filter = filter;
+	}
+	
+	public void setToolbarVisible(boolean visible) {
+		display.getToolbar().setVisible(visible);
 	}
 
 	/**

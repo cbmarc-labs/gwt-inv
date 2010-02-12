@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -31,6 +32,7 @@ public class ListDepartamentoView extends Composite
 	interface uiBinder extends UiBinder<Widget, ListDepartamentoView> {}
 	private static uiBinder uiBinder = GWT.create(uiBinder.class);
 	
+	@UiField Panel toolbar;
 	@UiField Button addButton;
 	@UiField Button deleteButton;
 	
@@ -143,6 +145,13 @@ public class ListDepartamentoView extends Composite
 		return table;
 	}
 	
+	/**
+	 * @return the toolbar
+	 */
+	public final Panel getToolbar() {
+		return toolbar;
+	}
+
 	/* (non-Javadoc)
 	 * @see cbmarc.inventory.client.mvp.contact.ListContactPresenter.Display#asWidget()
 	 */

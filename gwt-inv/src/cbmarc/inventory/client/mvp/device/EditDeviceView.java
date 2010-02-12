@@ -11,7 +11,9 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -35,7 +37,8 @@ public class EditDeviceView extends Composite
 	@UiField HasValue<String> tipo;
 	@UiField HasValue<String> centro;
 	@UiField HasValue<String> sociedad;
-	@UiField HasValue<String> departamento;
+	@UiField TextBox departamento;
+	@UiField Panel table;
 	@UiField HasValue<String> ubicacion;
 	@UiField DateBox fechaCompra;
 	@UiField DateBox fechaFinGarantia;
@@ -84,7 +87,8 @@ public class EditDeviceView extends Composite
 		this.tipo.setValue("");
 		this.centro.setValue("");
 		this.sociedad.setValue("");
-		this.departamento.setValue("");
+		this.departamento.setValue("Seleccionar");
+		this.table.setVisible(false);
 		this.ubicacion.setValue("");
 		this.fechaCompra.setValue(new Date());
 		this.fechaFinGarantia.setValue(new Date());
@@ -143,7 +147,7 @@ public class EditDeviceView extends Composite
 	/**
 	 * @return the departamento
 	 */
-	public final HasValue<String> getDepartamento() {
+	public final TextBox getDepartamento() {
 		return departamento;
 	}
 
@@ -197,5 +201,10 @@ public class EditDeviceView extends Composite
 	 */
 	public final HasValue<String> getObservaciones() {
 		return observaciones;
+	}
+
+	@Override
+	public Panel getTable() {
+		return this.table;
 	}
 }

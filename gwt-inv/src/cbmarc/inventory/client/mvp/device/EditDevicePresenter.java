@@ -4,11 +4,19 @@
 package cbmarc.inventory.client.mvp.device;
 
 import cbmarc.inventory.client.mvp.Presenter;
+import cbmarc.inventory.client.mvp.departamento.DepartamentoService;
+import cbmarc.inventory.client.mvp.departamento.DepartamentoServiceAsync;
+import cbmarc.inventory.client.mvp.departamento.ListDepartamentoPresenter;
+import cbmarc.inventory.client.mvp.departamento.ListDepartamentoView;
+import cbmarc.inventory.client.mvp.departamento.event.EditDepartamentoEvent;
+import cbmarc.inventory.client.mvp.departamento.event.EditDepartamentoEventHandler;
 import cbmarc.inventory.client.mvp.device.event.CreatedDeviceEvent;
 import cbmarc.inventory.client.mvp.device.event.EditCancelledDeviceEvent;
 import cbmarc.inventory.client.mvp.device.event.SaveDeviceEvent;
+import cbmarc.inventory.shared.entity.Departamento;
 import cbmarc.inventory.shared.entity.Device;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -17,6 +25,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
@@ -37,7 +46,8 @@ public class EditDevicePresenter implements Presenter {
 		HasValue<String> getTipo();
 		HasValue<String> getCentro();
 		HasValue<String> getSociedad();
-		HasValue<String> getDepartamento();
+		TextBox getDepartamento();
+		Panel getTable();
 		HasValue<String> getUbicacion();
 		DateBox getFechaCompra();
 		DateBox getFechaFinGarantia();
@@ -58,7 +68,12 @@ public class EditDevicePresenter implements Presenter {
 	private final HandlerManager eventBus;
 	private final Display display;
 	
-	private Device bean = new Device();
+	private Device bean;
+	
+	private final HandlerManager localEventBus;
+	private final DepartamentoServiceAsync departamentoServiceAsync;
+	private final ListDepartamentoView listDepartamentoView;
+	private final ListDepartamentoPresenter listDepartamentoPresenter;
 	
 	/**
 	 * @param rpcService
@@ -70,6 +85,16 @@ public class EditDevicePresenter implements Presenter {
 		this.rpcService = rpcService;
 	    this.eventBus = eventBus;
 	    this.display = view;
+	    
+	    this.bean = new Device();
+	    
+	    this.localEventBus = new HandlerManager(null);
+	    this.departamentoServiceAsync = GWT.create(DepartamentoService.class);
+	    this.listDepartamentoView = new ListDepartamentoView();
+	    this.listDepartamentoPresenter = new ListDepartamentoPresenter(
+	    		departamentoServiceAsync, this.localEventBus, 
+	    		this.listDepartamentoView);
+	    this.listDepartamentoPresenter.setToolbarVisible(false);
 	    
 	    bind();
 	}
@@ -104,6 +129,54 @@ public class EditDevicePresenter implements Presenter {
 			}
 			
 		});
+		
+		display.getDepartamento().addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				onDepartamentoClick();
+			}
+			
+		});
+		
+		localEventBus.addHandler(EditDepartamentoEvent.TYPE, 
+				new EditDepartamentoEventHandler() {
+
+			@Override
+			public void onEdit(EditDepartamentoEvent event) {
+				onDepartamentoClick();
+				onListDepartamentoClick(event.getEncodedKey());
+			}
+			
+		});
+	}
+	
+	private void onListDepartamentoClick(String key) {
+		departamentoServiceAsync.selectByKey(
+				key, new AsyncCallback<Departamento>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("NO SE HA PODIDO");
+			}
+
+			@Override
+			public void onSuccess(Departamento bean) {
+				if(bean != null) {
+					display.getDepartamento().setValue(bean.getNombre());
+				} else {
+					Window.alert("NO SE HA PODIDO");
+				}
+			}
+			
+		});
+	}
+	
+	private void onDepartamentoClick() {
+		boolean visible;
+		
+		visible = display.getTable().isVisible();		
+		display.getTable().setVisible(visible?false:true);
 	}
 	
 	/**
@@ -189,6 +262,7 @@ public class EditDevicePresenter implements Presenter {
 		container.clear();
 
 		display.reset();
+		listDepartamentoPresenter.go(display.getTable());
 		if(bean.getKey() != null) 
 			fillDisplay();
 		
